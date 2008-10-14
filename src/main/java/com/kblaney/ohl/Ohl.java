@@ -44,59 +44,8 @@ public final class Ohl
 
    private static final int TEAM_NUM_GROUP_NUM = 1;
    private static final int TEAM_NAME_GROUP_NUM = 2;
-   private static final Pattern TEAM_ROW_PATTERN = Pattern
-         .compile( "OPTION value.*?subType=(\\d+).*?>(.*?)<", Pattern.DOTALL );
-
-   private static final String REGULAR_TD = "<td class='content'>(.*?)</td>";
-   private static final String NAME_TD =
-         "<td class='content'><a href='player.php\\?(.*?)' " +
-         "class='content'>(.*?)</a></td>";
-
-   private static final int GOALIE_IS_ROOKIE_GROUP_NUM = 1;
-   private static final int GOALIE_SWEATER_NUM_GROUP_NUM = 2;
-   private static final int GOALIE_HREF_GROUP_NUM = 3;
-   private static final int GOALIE_NAME_GROUP_NUM = 4;
-   private static final int GOALIE_GAMES_PLAYED_GROUP_NUM = 5;
-   private static final int GOALIE_MINUTES_PLAYED_GROUP_NUM = 6;
-   private static final int GOALIE_GOALS_AGAINST_GROUP_NUM = 7;
-   private static final int GOALIE_SHUTOUTS_GROUP_NUM = 8;
-   private static final int GOALIE_GOALS_AGAINST_AVERAGE_GROUP_NUM = 9;
-   private static final int GOALIE_WINS_GROUP_NUM = 10;
-   private static final int GOALIE_LOSSES_GROUP_NUM = 11;
-   private static final int GOALIE_TIES_GROUP_NUM = 12;
-   private static final int GOALIE_SHOTS_AGAINST_GROUP_NUM = 13;
-   private static final int GOALIE_SAVES_GROUP_NUM = 14;
-   private static final int GOALIE_SAVE_PERCENTAGE_GROUP_NUM = 15;
-   private static final Pattern GOALIE_STATS_ROW_PATTERN = Pattern.compile(
-         REGULAR_TD + // isRookie
-         REGULAR_TD + // sweaterNum
-         NAME_TD +
-         REGULAR_TD + // gamesPlayed
-         REGULAR_TD + // minutes
-         REGULAR_TD + // goalsAgainst
-         REGULAR_TD + // shutouts
-         REGULAR_TD + // goalsAgainstAverage
-         REGULAR_TD + // wins
-         REGULAR_TD + // losses
-         REGULAR_TD + // ties
-         REGULAR_TD + // shotsAgainst
-         REGULAR_TD + // saves
-         REGULAR_TD,  // savePercentage
-         Pattern.MULTILINE | Pattern.CASE_INSENSITIVE );
-
-   private static final int PLAYER_BIO_VALUE_GROUP_NUM = 1;
-   private static final String PLAYER_BIO_AFTER_TEXT =
-         ":</td><td class='content-k'>(.*?)</td>";
-   private static final Pattern PLAYER_POSITION_PATTERN = Pattern.compile(
-         "Pos\\." + PLAYER_BIO_AFTER_TEXT, Pattern.CASE_INSENSITIVE );
-   private static final Pattern PLAYER_HEIGHT_PATTERN = Pattern.compile(
-         "Height" + PLAYER_BIO_AFTER_TEXT, Pattern.CASE_INSENSITIVE );
-   private static final Pattern PLAYER_WEIGHT_PATTERN = Pattern.compile(
-         "Weight" + PLAYER_BIO_AFTER_TEXT, Pattern.CASE_INSENSITIVE );
-   private static final Pattern PLAYER_BIRTH_DATE_PATTERN = Pattern.compile(
-         "Birthdate" + PLAYER_BIO_AFTER_TEXT, Pattern.CASE_INSENSITIVE );
-   private static final Pattern PLAYER_BIRTHPLACE_PATTERN = Pattern.compile(
-         "Birthplace" + PLAYER_BIO_AFTER_TEXT, Pattern.CASE_INSENSITIVE );
+   private static final Pattern TEAM_ROW_PATTERN = Pattern.compile(
+         "OPTION value.*?subType=(\\d+).*?>(.*?)<", Pattern.DOTALL );
 
    private static final String PROTOCOL = "http";
    private static final String HOST = "www.ontariohockeyleague.com";
@@ -106,12 +55,10 @@ public final class Ohl
    private static final String PLAYER_STATS_PHP = STATS + "player.php";
    private static final String PLAYER_GAME_BY_GAME_PHP =
          STATS + "gamebygame.php";
-   private static final String SEASON_ID = "32";
    private static final String SCORING_TYPE = "skaters";
    private static final String GOALIES_TYPE = "goalies";
    private static final String TYPE = "type";
    private static final String TEAM_NUM = "subType";
-   private static final String HOST_FILE_SEPARATOR = "/";
    private static final String PHP_PAIRS_SEPARATOR = "?";
    private static final String KEY_VALUE_SEPARATOR = "=";
    private static final String PAIR_SEPARATOR = "&";
@@ -125,9 +72,9 @@ public final class Ohl
       {
          playerStatsUrl = new URL( PROTOCOL, HOST, PLAYER_STATS_FILE );
       }
-      catch (MalformedURLException malformedURLException)
+      catch (final MalformedURLException e)
       {
-         System.err.println( malformedURLException.getMessage() );
+         System.err.println( e.getMessage() );
          System.exit( 0 );
       }
    }
@@ -135,7 +82,7 @@ public final class Ohl
    /**
     * Constructor declared private to restrict instantiation.
     */
-   private Ohl() throws MalformedURLException
+   private Ohl()
    {
    }
 
@@ -150,23 +97,22 @@ public final class Ohl
    {
       if (teamNums == null)
       {
-         final String playerStatsContent = HttpUtil
-               .getContent( playerStatsUrl );
-         final Matcher teamStatsTableMatcher = STATS_TABLE_PATTERN
-               .matcher( playerStatsContent );
+         final String playerStatsContent = HttpUtil.getContent(
+               playerStatsUrl );
+         final Matcher teamStatsTableMatcher = STATS_TABLE_PATTERN.
+               matcher( playerStatsContent );
          if (teamStatsTableMatcher.find())
          {
             teamNums = new HashMap<String, String>();
             
-            final Matcher teamRowMatcher = TEAM_ROW_PATTERN
-                  .matcher( teamStatsTableMatcher
-                  .group( STATS_TABLE_GROUP_NUM ) );
+            final Matcher teamRowMatcher = TEAM_ROW_PATTERN.matcher(
+                  teamStatsTableMatcher.group( STATS_TABLE_GROUP_NUM ) );
             while (teamRowMatcher.find())
             {
-               final String teamNum = teamRowMatcher
-                     .group( TEAM_NUM_GROUP_NUM );
-               final String teamName = teamRowMatcher
-                     .group( TEAM_NAME_GROUP_NUM ).trim();
+               final String teamNum = teamRowMatcher.group(
+                     TEAM_NUM_GROUP_NUM );
+               final String teamName = teamRowMatcher.group(
+                     TEAM_NAME_GROUP_NUM ).trim();
                teamNums.put( teamName, teamNum );
             }
          }
@@ -223,9 +169,9 @@ public final class Ohl
             {
                return new URL( PROTOCOL, HOST, file );
             }
-            catch (MalformedURLException malformedURLException)
+            catch (final MalformedURLException e)
             {
-               throw new InternalError();
+               throw new IllegalStateException();
             }
          }
          else
@@ -261,8 +207,8 @@ public final class Ohl
       {
          final URL playerScoringUrl = getPlayerScoringUrl( teamName,
                SCORING_TYPE );
-         final Document playerScoringDocument = XmlUtil
-               .getXmlDocument( playerScoringUrl );
+         final Document playerScoringDocument = XmlUtil.getXmlDocument(
+               playerScoringUrl );
          final Node playerScoringTableNode = XPathAPI.selectSingleNode(
                playerScoringDocument.getDocumentElement(),
                "//table[tr[th='PIMPG']]" );
@@ -292,10 +238,10 @@ public final class Ohl
             throw new IOException( "Can not find player scoring table" );
          }
       }
-      catch (TransformerException t)
+      catch (final TransformerException e)
       {
          throw new IOException( "Transformer exception when getting " +
-                 "player scoring table");
+                 "player scoring table", e );
       }
    }
 
@@ -303,13 +249,11 @@ public final class Ohl
     * Gets the goalies on the specified team.
     *
     * @param teamName the team name
-    * @param createGamesheetsFrame the create gamesheets frame
     *
     * @return the goalies on the specified team
     * @throws IOException if an I/O problem occurs
     */
-   private static List<Goalie> getGoalies( final String teamName,
-         final CreateGamesheetsFrame createGamesheetsFrame )
+   private static List<Goalie> getGoalies( final String teamName )
          throws IOException
    {
       ArgChecker.checkIfNull( teamName, "teamName" );
@@ -318,8 +262,8 @@ public final class Ohl
       {
          final URL teamGoaliesUrl = getPlayerScoringUrl( teamName,
                GOALIES_TYPE );
-         final Document goalieDocument = XmlUtil
-               .getXmlDocument( teamGoaliesUrl );
+         final Document goalieDocument = XmlUtil.getXmlDocument(
+               teamGoaliesUrl );
          final Node goalieTableNode = XPathAPI.selectSingleNode(
                goalieDocument.getDocumentElement(), "//table[tr[th='SVS']]" );
 
@@ -332,8 +276,7 @@ public final class Ohl
             for (int i = 0; i < goalieRowNodeList.getLength(); i++)
             {
                final Node goalieRowNode = goalieRowNodeList.item( i );
-               final Goalie goalie = getGoalie( goalieRowNode,
-                     createGamesheetsFrame );
+               final Goalie goalie = getGoalie( goalieRowNode );
                goalies.add( goalie );
             }
 
@@ -400,12 +343,10 @@ public final class Ohl
    /**
     * Gets a goalie from a specified goalie row node.
     * @param goalieRowNode the goalie row node
-    * @param createGamesheetsFrame the frame used to provide progress
     * @return the goalie
     * @throws IOException if an I/O problem occurs
     */
-   private static Goalie getGoalie( Node goalieRowNode,
-         final CreateGamesheetsFrame createGamesheetsFrame )
+   private static Goalie getGoalie( Node goalieRowNode )
          throws IOException
    {
       ArgChecker.checkIfNull( goalieRowNode, "goalieRowNode" );
@@ -939,8 +880,7 @@ public final class Ohl
       final List<Player> players = getPlayers( teamName, isHomeTeam,
             createGamesheetsFrame );
       Collections.sort( players, new Player.PointsComparator() );
-      final List<Goalie> goalies = getGoalies( teamName,
-            createGamesheetsFrame );
+      final List<Goalie> goalies = getGoalies( teamName );
 
       final StringBuffer gamesheet = new StringBuffer(
             getTeamHeading( teamName ) );

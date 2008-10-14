@@ -4,7 +4,7 @@
     <groupId>com.kblaney</groupId>
     <artifactId>OhlGamesheets</artifactId>
     <packaging>jar</packaging>
-    <version>1.01</version>
+    <version>1.03</version>
     <name>OhlGamesheets</name>
     <url>http://maven.apache.org</url>
     <build>
