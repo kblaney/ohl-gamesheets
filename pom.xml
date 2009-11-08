@@ -4,8 +4,8 @@
     <groupId>com.kblaney</groupId>
     <artifactId>OhlGamesheets</artifactId>
     <packaging>jar</packaging>
-    <version>1.03</version>
-    <name>OhlGamesheets</name>
+    <version>1.03-SNAPSHOT</version>
+    <name>OHL Gamesheets</name>
     <url>http://maven.apache.org</url>
     <build>
         <plugins>
@@ -34,15 +34,19 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
+            <groupId>com.kblaney.commons</groupId>
+            <artifactId>kblaney-commons-lang</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.kblaney</groupId>
-            <artifactId>KblaneyCommons</artifactId>
-            <version>1.03</version>
+            <groupId>com.kblaney.commons</groupId>
+            <artifactId>kblaney-commons-io</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.kblaney.commons</groupId>
+            <artifactId>kblaney-commons-xml</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>mdateselector</groupId>
@@ -55,14 +59,19 @@
             <version>2.4</version>
         </dependency>
         <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
             <groupId>xalan</groupId>
             <artifactId>xalan</artifactId>
             <version>2.7.1</version>
         </dependency>
         <dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.0.b2</version>
         </dependency>
     </dependencies>
     <repositories>

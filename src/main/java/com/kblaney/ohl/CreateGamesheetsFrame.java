@@ -1,6 +1,5 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.io.IOUtil;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -25,6 +24,7 @@ import javax.swing.SwingUtilities;
 import mseries.Calendar.MDefaultPullDownConstraints;
 import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
+import org.apache.commons.io.FileUtils;
 
 public final class CreateGamesheetsFrame extends JFrame
         implements ActionListener, ProgressIndicator
@@ -143,9 +143,9 @@ public final class CreateGamesheetsFrame extends JFrame
                            directory, "home.html" );
                      final File roadTeamGamesheetFile = new File(
                            directory, "road.html" );
-                     IOUtil.setContents( homeTeamGamesheetFile,
+                     FileUtils.writeStringToFile( homeTeamGamesheetFile,
                            htmlGamesheets.getHomeTeamGamesheet() );
-                     IOUtil.setContents( roadTeamGamesheetFile,
+                     FileUtils.writeStringToFile( roadTeamGamesheetFile,
                            htmlGamesheets.getRoadTeamGamesheet() );
                      CreateGamesheetsFrame.this.fileLocationLabel.setText(
                            "<html>Gamesheets written to <i>" +
