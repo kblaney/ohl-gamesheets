@@ -42,7 +42,7 @@
         <dependency>
             <groupId>com.kblaney</groupId>
             <artifactId>KblaneyCommons</artifactId>
-            <version>1.00</version>
+            <version>1.03</version>
         </dependency>
         <dependency>
             <groupId>mdateselector</groupId>

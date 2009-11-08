@@ -1,272 +1,105 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.ArgChecker;
-import com.kblaney.commons.lang.SystemUtil;
-import java.util.Comparator;
-import java.util.List;
 
-public class Player
+/**
+ * A player.
+ */
+public final class Player
 {
-   private String name;
-   private PlayerType playerType = PlayerType.VETERAN;
-   private int sweaterNum = 0;
-   private PlayerStats stats;
-   private PlayerBio bio;
-   private PlayerStreaks streaks;
+   private final String name;
+   private final PlayerType playerType;
+   private final int sweaterNum;
+   private final PlayerStats stats;
+   private final PlayerBio bio;
+   private final PlayerStreaks streaks;
 
-   public static class PointsComparator implements Comparator
-   {
-      public int compare( Object obj1, Object obj2 )
-      {
-         Player player1 = (Player) obj1;
-         Player player2 = (Player) obj2;
-
-         if (player1.getStats().getNumPoints() == player2.getStats()
-               .getNumPoints())
-         {
-            if (player1.getStats().getNumGoals() == player2.getStats()
-                  .getNumGoals())
-            {
-               if (player1.getStats().getNumGamesPlayed() == player2
-                     .getStats().getNumGamesPlayed())
-               {
-                  return 0;
-               }
-               else if (player1.getStats().getNumGamesPlayed() < player2
-                     .getStats().getNumGamesPlayed())
-               {
-                  return -1;
-               }
-               else
-               {
-                  return 1;
-               }
-            }
-            else if (player1.getStats().getNumGoals() < player2.getStats()
-                  .getNumGoals())
-            {
-               return 1;
-            }
-            else
-            {
-               return -1;
-            }
-         }
-         else if (player1.getStats().getNumPoints() < player2.getStats()
-               .getNumPoints())
-         {
-            return 1;
-         }
-         else
-         {
-            return -1;
-         }
-      }
-   }
-
+   /**
+    * Constructs a new instance of Player.
+    *
+    * @param name the player's name, which can't be null
+    * @param playerType the player's type, which can't be null
+    * @param sweaterNum, the player's sweater number, which can't be negative
+    * @param stats, the player's statistics, which can't be null
+    * @param bio the player's biographical information, which can't be null
+    * @param streaks the player's streaks, which can't be null
+    */
    public Player( final String name, final PlayerType playerType,
          final int sweaterNum, final PlayerStats stats, final PlayerBio bio,
          final PlayerStreaks streaks )
    {
-      setName( name );
-      setPlayerType( playerType );
-      setSweaterNum( sweaterNum );
-      setStats( stats );
-      setBio( bio );
-      setStreaks( streaks );
+      ArgChecker.checkIfNull( name, "name" );
+      ArgChecker.checkIfNull( playerType, "playerType" );
+      ArgChecker.checkIfNegative( sweaterNum, "sweaterNum" );
+      ArgChecker.checkIfNull( stats, "stats" );
+      ArgChecker.checkIfNull( bio, "bio" );
+      ArgChecker.checkIfNull( streaks, "streaks" );
+
+      this.name = name;
+      this.playerType = playerType;
+      this.sweaterNum = sweaterNum;
+      this.stats = stats;
+      this.bio = bio;
+      this.streaks = streaks;
    }
 
+   /**
+    * Gets the player's name.
+    *
+    * @return the player's name
+    */
    public String getName()
    {
       return this.name;
    }
 
-   public void setName( final String name )
-   {
-      this.name = name;
-   }
-
+   /**
+    * Gets the player's type.
+    *
+    * @return the player's type
+    */
    public PlayerType getPlayerType()
    {
       return this.playerType;
    }
 
-   public void setPlayerType( final PlayerType playerType )
-   {
-      this.playerType = playerType;
-   }
-
+   /**
+    * Gets the player's sweater number.
+    *
+    * @return the player's sweater number
+    */
    public int getSweaterNum()
    {
       return this.sweaterNum;
    }
 
-   public void setSweaterNum( final int sweaterNum )
-   {
-      // On the OHL site, some players have a sweater number of 0, so we
-      // check for non-negativity rather than positivity.
-      //
-      ArgChecker.checkIfNegative( sweaterNum, "sweaterNum" );
-      
-      this.sweaterNum = sweaterNum;
-   }
-
+   /**
+    * Gets the player's statistics.
+    *
+    * @return the player's statistics
+    */
    public PlayerStats getStats()
    {
-      // Return a defensive copy.
-      //
-      return new PlayerStats( this.stats );
+      return this.stats;
    }
 
-   public void setStats( final PlayerStats stats )
-   {
-      ArgChecker.checkIfNull( stats, "stats" );
-      
-      // Make a defensive copy.
-      //
-      this.stats = new PlayerStats( stats );
-   }
-
+   /**
+    * Gets the player's biographical information.
+    *
+    * @return the player's biographical information
+    */
    public PlayerBio getBio()
    {
-      // Return a defensive copy.
-      //
-      return new PlayerBio( this.bio );
+      return this.bio;
    }
 
-   public void setBio( final PlayerBio bio )
-   {
-      ArgChecker.checkIfNull( bio, "bio" );
-
-      // Make a defensive copy.
-      //
-      this.bio = new PlayerBio( bio );
-   }
-
+   /**
+    * Gets the player's streaks.
+    *
+    * @return the player's streaks
+    */
    public PlayerStreaks getStreaks()
    {
-      // Return a defensive copy.
-      //
-      return new PlayerStreaks( this.streaks );
-   }
-
-   public void setStreaks( final PlayerStreaks streaks )
-   {
-      ArgChecker.checkIfNull( streaks, "streaks" );
-      
-      // Make a defensive copy.
-      //
-      this.streaks = new PlayerStreaks( streaks );
-   }
-
-   public static String getHtmlTable( final List<Player> players )
-   {
-      ArgChecker.checkIfNull( players, "players" );
-
-      StringBuffer htmlTable = new StringBuffer(
-            HtmlUtil.TABLE_START );
-      htmlTable.append( SystemUtil.LINE_SEPARATOR );
-      htmlTable.append( getHtmlTableHeader() );
-      htmlTable.append( SystemUtil.LINE_SEPARATOR );
-      for (Player player : players)
-      {
-         htmlTable.append( getHtmlTableRow( player ) );
-         htmlTable.append( SystemUtil.LINE_SEPARATOR );
-      }
-      htmlTable.append( HtmlUtil.TABLE_END );
-
-      return htmlTable.toString();
-   }
-
-   private static String getHtmlTableHeader()
-   {
-      StringBuffer htmlTableHeader = new StringBuffer();
-      htmlTableHeader.append( HtmlUtil.TABLE_ROW_START );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "R", false ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "#", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "Name", false ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "GP", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "G", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "A", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "PT", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "+/-", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "PIM", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "PP", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "SH", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "G", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "A", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "P", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "Birth", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "P", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "H", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "W", true ) );
-      htmlTableHeader.append( HtmlUtil.getTableElement( "Home Town", false ) );
-      htmlTableHeader.append( HtmlUtil.TABLE_ROW_END );
-      
-      return htmlTableHeader.toString();
-   }
-
-   private static String getHtmlTableRow( final Player player )
-   {
-      ArgChecker.checkIfNull( player, "player" );
-
-      StringBuffer htmlTableRow = new StringBuffer( HtmlUtil.TABLE_ROW_START );
-      htmlTableRow.append( HtmlUtil.getTableElement( getRookieString( player
-            .getPlayerType() ), false ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getSweaterNum() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( player.getName(), false ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumGamesPlayed() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumGoals() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumAssists() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumPoints() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getPlusMinus() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumPenaltyMinutes() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumPowerPlayGoals() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStats().getNumShorthandedGoals() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStreaks().getGoalStreak() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStreaks().getAssistStreak() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( Integer.toString( player
-            .getStreaks().getPointStreak() ), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( player.getBio()
-            .getBirthYear(), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( player.getBio()
-            .getPosition(), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( player.getBio()
-            .getHeight(), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( player.getBio()
-            .getWeight(), true ) );
-      htmlTableRow.append( HtmlUtil.getTableElement( player.getBio()
-            .getHomeTown(), false ) );
-
-      htmlTableRow.append( HtmlUtil.TABLE_ROW_END );
-      return htmlTableRow.toString();
-   }
-
-   private static String getRookieString( final PlayerType playerType )
-   {
-      String rookieString = null;
-      
-      if (playerType == PlayerType.ROOKIE)
-      {
-         rookieString = "*";
-      }
-      else
-      {
-         rookieString = "&nbsp;";
-      }
-      
-      return rookieString;
+      return this.streaks;
    }
 }

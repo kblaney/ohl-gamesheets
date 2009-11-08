@@ -1,7 +1,7 @@
 package com.kblaney.ohl;
 
 /**
- * Defines a player's status.
+ * Defines a player's type.
  */
 public enum PlayerType
 {

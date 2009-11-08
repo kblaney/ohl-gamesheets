@@ -2,201 +2,386 @@ package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgChecker;
 
+/**
+ * A goalie's statistics.
+ */
 public class GoalieStats
 {
+   public static class Builder
+   {
+      private int numGamesPlayed;
+      private int numMinutesPlayed;
+      private int numGoalsAgainst;
+      private int numShutouts;
+      private double goalsAgainstAverage;
+      private int numWins;
+      private int numRegulationLosses;
+      private int numOvertimeLosses;
+      private int numShootoutLosses;
+      private int numShotsAgainst;
+      private int numSaves;
+      private double savePercentage;
+
+      /**
+       * Constructs a new instance of Builder.
+       */
+      public Builder()
+      {
+      }
+
+      /**
+       * Builds a GoalieStats instance.
+       *
+       * @return the instance
+       */
+      public GoalieStats build()
+      {
+         final GoalieStats goalieStats = new GoalieStats();
+         goalieStats.numGamesPlayed = this.numGamesPlayed;
+         goalieStats.numMinutesPlayed = this.numMinutesPlayed;
+         goalieStats.numGoalsAgainst = this.numGoalsAgainst;
+         goalieStats.numShutouts = this.numShutouts;
+         goalieStats.goalsAgainstAverage = this.goalsAgainstAverage;
+         goalieStats.numWins = this.numWins;
+         goalieStats.numRegulationLosses = this.numRegulationLosses;
+         goalieStats.numOvertimeLosses = this.numOvertimeLosses;
+         goalieStats.numShootoutLosses = this.numShootoutLosses;
+         goalieStats.numShotsAgainst = this.numShotsAgainst;
+         goalieStats.numSaves = this.numSaves;
+         goalieStats.savePercentage = this.savePercentage;
+         return goalieStats;
+      }
+
+      /**
+       * Sets the goals against average.
+       *
+       * @param goalsAgainstAverage the goals against average, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setGoalsAgainstAverage( final double goalsAgainstAverage )
+      {
+         ArgChecker.checkIfNegative( goalsAgainstAverage,
+               "goalsAgainstAverage" );
+
+         this.goalsAgainstAverage = goalsAgainstAverage;
+         return this;
+      }
+
+      /**
+       * Sets the number of games played.
+       *
+       * @param numGamesPlayed the number of games played, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumGamesPlayed( final int numGamesPlayed )
+      {
+         ArgChecker.checkIfNegative( numGamesPlayed, "numGamesPlayed" );
+
+         this.numGamesPlayed = numGamesPlayed;
+         return this;
+      }
+
+      /**
+       * Sets the number of goals against.
+       *
+       * @param numGoalsAgainst the number of goals against, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumGoalsAgainst( final int numGoalsAgainst )
+      {
+         ArgChecker.checkIfNegative( numGoalsAgainst, "numGoalsAgainst" );
+
+         this.numGoalsAgainst = numGoalsAgainst;
+         return this;
+      }
+
+      /**
+       * Sets the number of regulation losses.
+       *
+       * @param numLosses the number of regulation losses, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumRegulationLosses( final int numRegulationLosses )
+      {
+         ArgChecker.checkIfNegative( numRegulationLosses,
+                 "numRegulationLosses" );
+
+         this.numRegulationLosses = numRegulationLosses;
+         return this;
+      }
+
+      /**
+       * Sets the number of minutes played.
+       *
+       * @param numMinutesPlayed the number of minutes played, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumMinutesPlayed( final int numMinutesPlayed )
+      {
+         ArgChecker.checkIfNegative( numMinutesPlayed, "numMinutesPlayed" );
+
+         this.numMinutesPlayed = numMinutesPlayed;
+         return this;
+      }
+
+      /**
+       * Sets the number of saves.
+       *
+       * @param numSaves the number of saves, which can't be negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumSaves( final int numSaves )
+      {
+         ArgChecker.checkIfNegative( numSaves, "numSaves" );
+
+         this.numSaves = numSaves;
+         return this;
+      }
+
+      /**
+       * Sets the number of shots against.
+       *
+       * @param numShotsAgainst the number of shots against, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumShotsAgainst( final int numShotsAgainst )
+      {
+         ArgChecker.checkIfNegative( numShotsAgainst, "numShotsAgainst" );
+
+         this.numShotsAgainst = numShotsAgainst;
+         return this;
+      }
+
+      /**
+       * Sets the number of shutouts.
+       *
+       * @param numShutouts the number of shutouts, which can't be negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumShutouts( final int numShutouts )
+      {
+         ArgChecker.checkIfNegative( numShutouts, "numShutouts" );
+
+         this.numShutouts = numShutouts;
+         return this;
+      }
+
+      /**
+       * Sets the number of overtime losses.
+       *
+       * @param numOvertimeLosses the number of overtime losses, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumOvertimeLosses( final int numOvertimeLosses )
+      {
+         ArgChecker.checkIfNegative( numOvertimeLosses, "numOvertimeLosses" );
+
+         this.numOvertimeLosses = numOvertimeLosses;
+         return this;
+      }
+
+      /**
+       * Sets the number of shootout losses.
+       *
+       * @param numShootoutLosses the number of shootout losses, which can't be
+       * negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumShootoutLosses( final int numShootoutLosses )
+      {
+         ArgChecker.checkIfNegative( numShootoutLosses, "numShootoutLosses" );
+
+         this.numShootoutLosses = numShootoutLosses;
+         return this;
+      }
+
+      /**
+       * Sets the number of wins.
+       *
+       * @param numWins the number of wins, which can't be negative
+       *
+       * @return the builder instance
+       */
+      public Builder setNumWins( final int numWins )
+      {
+         ArgChecker.checkIfNegative( numWins, "numWins" );
+
+         this.numWins = numWins;
+         return this;
+      }
+
+      /**
+       * Sets the save percentage.
+       *
+       * @param savePercentage the save percentage, which must be between 0 and
+       * 1 inclusive
+       *
+       * @return the builder instance
+       */
+      public Builder setSavePercentage( final double savePercentage )
+      {
+         ArgChecker.checkIfNegative( savePercentage, "savePercentage" );
+         ArgChecker.checkIfTooLarge( savePercentage, 1, "savePercentage" );
+
+         this.savePercentage = savePercentage;
+         return this;
+      }
+   }
+
    private int numGamesPlayed;
    private int numMinutesPlayed;
    private int numGoalsAgainst;
    private int numShutouts;
    private double goalsAgainstAverage;
    private int numWins;
-   private int numLosses;
+   private int numRegulationLosses;
    private int numOvertimeLosses;
    private int numShootoutLosses;
    private int numShotsAgainst;
    private int numSaves;
    private double savePercentage;
-   
-   public GoalieStats( final int numGamesPlayed, final int numMinutesPlayed,
-           final int numGoalsAgainst, final int numShutouts,
-           final double goalsAgainstAverage, final int numWins,
-           final int numLosses, final int numOvertimeLosses,
-           final int numShootoutLosses, final int numShotsAgainst,
-           final int numSaves, final double savePercentage )
+
+   /**
+    * Constructs a new instance of GoalieStats.
+    */
+   private GoalieStats()
    {
-      setNumGamesPlayed( numGamesPlayed );
-      setNumMinutesPlayed( numMinutesPlayed );
-      setNumGoalsAgainst( numGoalsAgainst );
-      setNumShutouts( numShutouts );
-      setGoalsAgainstAverage( goalsAgainstAverage );
-      setNumWins( numWins );
-      setNumLosses( numLosses );
-      setNumOvertimeLosses( numOvertimeLosses );
-      setNumShootoutLosses( numShootoutLosses );
-      setNumShotsAgainst( numShotsAgainst );
-      setNumSaves( numSaves );
-      setSavePercentage( savePercentage );
    }
 
-   public GoalieStats( final GoalieStats goalieStats )
-   {
-      setNumGamesPlayed( goalieStats.numGamesPlayed );
-      setNumMinutesPlayed( goalieStats.numMinutesPlayed );
-      setNumGoalsAgainst( goalieStats.numGoalsAgainst );
-      setNumShutouts( goalieStats.numShutouts );
-      setGoalsAgainstAverage( goalieStats.goalsAgainstAverage );
-      setNumWins( goalieStats.numWins );
-      setNumLosses( goalieStats.numLosses );
-      setNumOvertimeLosses( goalieStats.numOvertimeLosses );
-      setNumShootoutLosses( goalieStats.numShootoutLosses );
-      setNumShotsAgainst( goalieStats.numShotsAgainst );
-      setNumSaves( goalieStats.numSaves );
-      setSavePercentage( goalieStats.savePercentage );
-   }
-
+   /**
+    * Gets the goals against average.
+    *
+    * @return the goals against average
+    */
    public double getGoalsAgainstAverage()
    {
       return this.goalsAgainstAverage;
    }
 
-   public void setGoalsAgainstAverage( final double goalsAgainstAverage )
-   {
-      ArgChecker.checkIfNegative( goalsAgainstAverage,
-            "goalsAgainstAverage" );
-
-      this.goalsAgainstAverage = goalsAgainstAverage;
-   }
-
+   /**
+    * Gets the number of games played.
+    *
+    * @return the number of games played
+    */
    public int getNumGamesPlayed()
    {
       return this.numGamesPlayed;
    }
 
-   public void setNumGamesPlayed( final int numGamesPlayed )
-   {
-      ArgChecker.checkIfNegative( numGamesPlayed, "numGamesPlayed" );
-
-      this.numGamesPlayed = numGamesPlayed;
-   }
-
+   /**
+    * Gets the number of goals against.
+    *
+    * @return the number of goals against
+    */
    public int getNumGoalsAgainst()
    {
       return this.numGoalsAgainst;
    }
 
-   public void setNumGoalsAgainst( final int numGoalsAgainst )
+   /**
+    * Gets the number of regulation losses.
+    *
+    * @return the number of regulation losses
+    */
+   public int getNumRegulationLosses()
    {
-      ArgChecker.checkIfNegative( numGoalsAgainst, "numGoalsAgainst" );
-
-      this.numGoalsAgainst = numGoalsAgainst;
+      return this.numRegulationLosses;
    }
 
-   public int getNumLosses()
-   {
-      return this.numLosses;
-   }
-
-   public void setNumLosses( final int numLosses )
-   {
-      ArgChecker.checkIfNegative( numLosses, "numLosses" );
-
-      this.numLosses = numLosses;
-   }
-
+   /**
+    * Gets the number of minutes played.
+    *
+    * @return the number of minutes played
+    */
    public int getNumMinutesPlayed()
    {
       return this.numMinutesPlayed;
    }
 
-   public void setNumMinutesPlayed( final int numMinutesPlayed )
-   {
-      ArgChecker.checkIfNegative( numMinutesPlayed, "numMinutesPlayed" );
-
-      this.numMinutesPlayed = numMinutesPlayed;
-   }
-
+   /**
+    * Gets the number of saves.
+    *
+    * @return the number of saves
+    */
    public int getNumSaves()
    {
       return this.numSaves;
    }
 
-   public void setNumSaves( final int numSaves )
-   {
-      ArgChecker.checkIfNegative( numSaves, "numSaves" );
-
-      this.numSaves = numSaves;
-   }
-
+   /**
+    * Gets the number of shots against.
+    *
+    * @return the number of shots against
+    */
    public int getNumShotsAgainst()
    {
       return this.numShotsAgainst;
    }
 
-   public void setNumShotsAgainst( final int numShotsAgainst )
-   {
-      ArgChecker.checkIfNegative( numShotsAgainst, "numShotsAgainst" );
-
-      this.numShotsAgainst = numShotsAgainst;
-   }
-
+   /**
+    * Gets the number of shutouts.
+    *
+    * @return the number of shutouts
+    */
    public int getNumShutouts()
    {
       return this.numShutouts;
    }
 
-   public void setNumShutouts( final int numShutouts )
-   {
-      ArgChecker.checkIfNegative( numShutouts, "numShutouts" );
-
-      this.numShutouts = numShutouts;
-   }
-
+   /**
+    * Gets the number of overtime losses.
+    *
+    * @return the number of overtime losses
+    */
    public int getNumOvertimeLosses()
    {
       return this.numOvertimeLosses;
    }
 
-   public void setNumOvertimeLosses( final int numOvertimeLosses )
-   {
-      ArgChecker.checkIfNegative( numOvertimeLosses, "numOvertimeLosses" );
-
-      this.numOvertimeLosses = numOvertimeLosses;
-   }
-
+   /**
+    * Gets the number of shootout losses.
+    *
+    * @return the number of shootout losses
+    */
    public int getNumShootoutLosses()
    {
       return this.numShootoutLosses;
    }
 
-   public void setNumShootoutLosses( final int numShootoutLosses )
-   {
-      ArgChecker.checkIfNegative( numShootoutLosses, "numShootoutLosses" );
-
-      this.numShootoutLosses = numShootoutLosses;
-   }
-
+   /**
+    * Gets the number of wins.
+    *
+    * @return the number of wins
+    */
    public int getNumWins()
    {
       return this.numWins;
    }
 
-   public void setNumWins( final int numWins )
-   {
-      ArgChecker.checkIfNegative( numWins, "numWins" );
-
-      this.numWins = numWins;
-   }
-
+   /**
+    * Gets the save percentage.
+    *
+    * @return the save percentage
+    */
    public double getSavePercentage()
    {
       return this.savePercentage;
-   }
-
-   public void setSavePercentage( final double savePercentage )
-   {
-      ArgChecker.checkIfNegative( savePercentage, "savePercentage" );
-      ArgChecker.checkIfTooLarge( savePercentage, 1, "savePercentage" );
-
-      this.savePercentage = savePercentage;
    }
 }

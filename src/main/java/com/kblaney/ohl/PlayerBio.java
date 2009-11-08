@@ -1,16 +1,117 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import org.apache.commons.lang.StringUtils;
 
 /**
- * Stores the biographical information for one player.
+ * The biographical information of one player.
+ *
  * <p>
- * Note that any strings passed to methods in this class can not be null.
- * Any time a null string is passed into any method, an
- * <code>IllegalArgumentException</code> is thrown.
+ * Note that this class does not have a public constructor.  Rather, instances
+ * are created using the PlayerBio.Builder class.
+ * </p>
  */
-public class PlayerBio
+public final class PlayerBio
 {
+   /**
+    * Builds PlayerBio instances.
+    */
+   public static final class Builder
+   {
+      private String birthDate;
+      private String position;
+      private String height;
+      private String weight;
+      private String homeTown;
+
+      /**
+       * Constructs a new instance of Builder.
+       */
+      public Builder()
+      {
+      }
+
+      /**
+       * Builds a PlayerBio instance.
+       *
+       * @return the PlayerBio instance
+       */
+      public PlayerBio build()
+      {
+         final PlayerBio playerBio = new PlayerBio();
+         playerBio.birthDate = birthDate;
+         playerBio.position = position;
+         playerBio.height = height;
+         playerBio.weight = weight;
+         playerBio.homeTown = homeTown;
+         return playerBio;
+      }
+
+      /**
+       * Sets the player's birth date.
+       *
+       * @param birthDate the birth date
+       *
+       * @return the builder instance
+       */
+      public Builder setBirthDate( final String birthDate )
+      {
+         this.birthDate = birthDate;
+         return this;
+      }
+
+      /**
+       * Sets the player's position.
+       *
+       * @param position the position
+       *
+       * @return the builder instance
+       */
+      public Builder setPosition( final String position )
+      {
+         this.position = position;
+         return this;
+      }
+
+      /**
+       * Sets the player's height.
+       *
+       * @param height the height
+       *
+       * @return the builder instance
+       */
+      public Builder setHeight( final String height )
+      {
+         this.height = height;
+         return this;
+      }
+
+      /**
+       * Sets the player's weight.
+       *
+       * @param weight the weight
+       *
+       * @return the builder instance
+       */
+      public Builder setWeight( final String weight )
+      {
+         this.weight = weight;
+         return this;
+      }
+
+      /**
+       * Sets the player's home town.
+       *
+       * @param homeTown the homeTown
+       *
+       * @return the builder instance
+       */
+      public Builder setHomeTown( final String homeTown )
+      {
+         this.homeTown = homeTown;
+         return this;
+      }
+   }
+
    private String birthDate;
    private String position;
    private String height;
@@ -18,62 +119,36 @@ public class PlayerBio
    private String homeTown;
 
    /**
-    * Constructs a <code>PlayerBio</code> object based on specified
-    * values.
-    * @param birthDate the player's birthdate (in the form YYYY-MM-DD)
-    * @param position the player's position
-    * @param height the player's height
-    * @param weight the player's weight
-    * @param homeTown the player's home town
+    * Constructs a new instance of PlayerBio.
     */
-   public PlayerBio( final String birthDate,
-         final String position, final String height,
-         final String weight, final String homeTown )
+   private PlayerBio()
    {
-      this.setBirthDate( birthDate );
-      this.setPosition( position );
-      this.setHeight( height );
-      this.setWeight( weight );
-      this.setHomeTown( homeTown );
-   }
-
-   /**
-    * Constructs a <code>PlayerBio</code> based on another
-    * <code>PlayerBio</code>.
-    *
-    * @param playerBio the other <code>PlayerBio</code>, which can't be null
-    */
-   public PlayerBio( final PlayerBio playerBio )
-   {
-      this( playerBio.birthDate, playerBio.position, playerBio.height,
-              playerBio.weight, playerBio.homeTown );
    }
 
    /**
     * Gets the player's birth year.
-    * @return the player's birth year
+    *
+    * @return the player's birth year, or an empty string if the birth year is
+    * unknown
     */
    public String getBirthYear()
    {
-      String birthYear = null;
-      
       final int birthYearStartIndex = 0;
       final int birthYearEndIndex = 4;
       if (this.birthDate.length() >= birthYearEndIndex)
       {
-         birthYear = this.birthDate.substring( birthYearStartIndex,
-               birthYearEndIndex );
+         return this.birthDate.substring( birthYearStartIndex,
+                 birthYearEndIndex );
       }
       else
       {
-         birthYear = "";
+         return StringUtils.EMPTY;
       }
-      
-      return birthYear;
    }
 
    /**
-    * Gets the player's birth date (in the form YYYY-MM-DD)
+    * Gets the player's birth date (in the form YYYY-MM-DD).
+    *
     * @return the player's birth date
     */
    public String getBirthDate()
@@ -82,18 +157,8 @@ public class PlayerBio
    }
 
    /**
-    * Sets the player's birth date.
-    * @param birthDate the player's birth date
-    */
-   public void setBirthDate( final String birthDate )
-   {
-      ArgChecker.checkIfNull( birthDate, "birthDate" );
-      
-      this.birthDate = birthDate;
-   }
-
-   /**
-    * Gets the player's position
+    * Gets the player's position.
+    *
     * @return the player's position
     */
    public String getPosition()
@@ -102,18 +167,8 @@ public class PlayerBio
    }
 
    /**
-    * Sets the player's position.
-    * @param position the player's position
-    */
-   public void setPosition( final String position )
-   {
-      ArgChecker.checkIfNull( position, "position" );
-      
-      this.position = position;
-   }
-
-   /**
-    * Gets the player's height
+    * Gets the player's height.
+    *
     * @return the player's height
     */
    public String getHeight()
@@ -122,18 +177,8 @@ public class PlayerBio
    }
 
    /**
-    * Sets the player's height.
-    * @param height the player's height
-    */
-   public void setHeight( final String height )
-   {
-      ArgChecker.checkIfNull( height, "height" );
-      
-      this.height = height;
-   }
-
-   /**
-    * Gets the player's home town
+    * Gets the player's home town.
+    *
     * @return the player's home town
     */
    public String getHomeTown()
@@ -142,33 +187,12 @@ public class PlayerBio
    }
 
    /**
-    * Sets the player's home town.
-    * @param homeTown the player's home town
-    */
-   public void setHomeTown( final String homeTown )
-   {
-      ArgChecker.checkIfNull( homeTown, "homeTown" );
-      
-      this.homeTown = homeTown;
-   }
-
-   /**
-    * Gets the player's weight
+    * Gets the player's weight.
+    *
     * @return the player's weight
     */
    public String getWeight()
    {
       return this.weight;
-   }
-
-   /**
-    * Sets the player's weight.
-    * @param weight the player's weight
-    */
-   public void setWeight( final String weight )
-   {
-      ArgChecker.checkIfNull( weight, "weight" );
-      
-      this.weight = weight;
    }
 }

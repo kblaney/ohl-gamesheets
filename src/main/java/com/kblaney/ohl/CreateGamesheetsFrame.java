@@ -3,7 +3,6 @@ package com.kblaney.ohl;
 import com.kblaney.commons.io.IOUtil;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -28,13 +26,10 @@ import mseries.Calendar.MDefaultPullDownConstraints;
 import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
 
-public class CreateGamesheetsFrame extends JFrame implements ActionListener
+public final class CreateGamesheetsFrame extends JFrame
+        implements ActionListener, ProgressIndicator
 {
-   private final GridLayout gridLayout;
-   private final JLabel homeTeamStatusLabel;
-   private final JLabel homeTeamPlayerLabel;
-   private final JLabel roadTeamStatusLabel;
-   private final JLabel roadTeamPlayerLabel;
+   private final JLabel playerLabel;
    private final JComboBox roadTeamComboBox;
    private final JComboBox homeTeamComboBox;
    private final MDateEntryField dateEntryField;
@@ -42,87 +37,68 @@ public class CreateGamesheetsFrame extends JFrame implements ActionListener
 
    private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
+   public static void main( final String[] args ) throws Exception
+   {
+      final CreateGamesheetsFrame frame = new CreateGamesheetsFrame();
+      frame.setVisible( true );
+   }
+
    public CreateGamesheetsFrame() throws IOException
    {
       super( "OHL Gamesheets" );
 
       setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 
-      final SortedSet<String> teamNames =
-            new TreeSet<String>( Ohl.getTeamNames() );
+      final SortedSet<String> sortedTeamNames =
+            new TreeSet<String>( new Website().getTeamNames() );
 
-      this.homeTeamComboBox = new JComboBox( teamNames.toArray() );
-      this.roadTeamComboBox = new JComboBox( teamNames.toArray() );
+      this.homeTeamComboBox = new JComboBox( sortedTeamNames.toArray() );
+      this.homeTeamComboBox.setMaximumRowCount( sortedTeamNames.size() );
+
+      this.roadTeamComboBox = new JComboBox( sortedTeamNames.toArray() );
+      this.roadTeamComboBox.setMaximumRowCount( sortedTeamNames.size() );
+
       final SimpleDateFormat simpleDateFormat = new MSimpleDateFormat(
             "EEEE, MMMM d, yyyy" );
       this.dateEntryField = new MDateEntryField( simpleDateFormat );
-      this.homeTeamComboBox.setMaximumRowCount( teamNames.size() );
-      this.roadTeamComboBox.setMaximumRowCount( teamNames.size() );
-      final JLabel atLabel = new JLabel( "AT", JLabel.CENTER );
-      final JLabel onLabel = new JLabel( "ON", JLabel.CENTER );
-      final JLabel roadTeamLabel = new JLabel( "Road team:  " );
-      final JLabel homeTeamLabel = new JLabel( "Home team:  " );
-      this.roadTeamStatusLabel = new JLabel( "Sault Ste. Marie Greyhounds" );
-      this.homeTeamStatusLabel = new JLabel();
-      this.roadTeamPlayerLabel = new JLabel();
-      this.homeTeamPlayerLabel = new JLabel();
-      final Dimension d = this.roadTeamStatusLabel.getPreferredSize();
-      this.roadTeamStatusLabel.setText( "" );
-      this.roadTeamStatusLabel.setSize( d );
-      this.roadTeamStatusLabel.setMinimumSize( d );
-      this.roadTeamStatusLabel.setPreferredSize( d );
-      this.homeTeamStatusLabel.setSize( d );
-      this.homeTeamStatusLabel.setMinimumSize( d );
-      this.homeTeamStatusLabel.setPreferredSize( d );
-      this.roadTeamPlayerLabel.setSize( d );
-      this.roadTeamPlayerLabel.setMinimumSize( d );
-      this.roadTeamPlayerLabel.setPreferredSize( d );
-      this.homeTeamPlayerLabel.setSize( d );
-      this.homeTeamPlayerLabel.setMinimumSize( d );
-      this.homeTeamPlayerLabel.setPreferredSize( d );
-
-      final JButton createGamesheetsButton = new JButton(
-            "Create gamesheets!" );
-      createGamesheetsButton.setActionCommand( CREATE_GAMESHEETS );
-      createGamesheetsButton.addActionListener( this );
-
       final MDefaultPullDownConstraints defaultPullDownConstraints =
             new MDefaultPullDownConstraints();
       defaultPullDownConstraints.firstDay = Calendar.SUNDAY;
       defaultPullDownConstraints.todayBackground = Color.RED;
       this.dateEntryField.setConstraints( defaultPullDownConstraints );
 
-      final int numRows = 9;
+      final JLabel atLabel = new JLabel( "AT", JLabel.CENTER );
+      final JLabel onLabel = new JLabel( "ON", JLabel.CENTER );
+      final JLabel roadTeamLabel = new JLabel( "Road team:  " );
+      final JLabel homeTeamLabel = new JLabel( "Home team:  " );
+      this.playerLabel = new JLabel();
+      this.playerLabel.setHorizontalAlignment( JLabel.CENTER );
+
+      final JButton createGamesheetsButton = new JButton(
+            "Create gamesheets!" );
+      createGamesheetsButton.setActionCommand( CREATE_GAMESHEETS );
+      createGamesheetsButton.addActionListener( this );
+
+      final int numRows = 8;
       final int numColumns = 1;
       final int horizontalGap = 0;
       final int verticalGap = 0;
-      this.gridLayout = new GridLayout( numRows, numColumns, horizontalGap,
-            verticalGap );
-
+      final GridLayout gridLayout = new GridLayout( numRows, numColumns,
+            horizontalGap, verticalGap );
       final Container contentPane = this.getContentPane();
-      contentPane.setLayout( this.gridLayout );
+      contentPane.setLayout( gridLayout );
 
       final JPanel roadTeamPanel = new JPanel();
-      roadTeamLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-      roadTeamPanel.setLayout( new GridLayout(1, 2) );
+      roadTeamLabel.setHorizontalAlignment( SwingConstants.RIGHT );
+      roadTeamPanel.setLayout( new GridLayout( 1, 2 ) );
       roadTeamPanel.add( roadTeamLabel );
       roadTeamPanel.add( this.roadTeamComboBox );
 
       final JPanel homeTeamPanel = new JPanel();
-      homeTeamLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-      homeTeamPanel.setLayout( new GridLayout(1, 2) );
+      homeTeamLabel.setHorizontalAlignment( SwingConstants.RIGHT );
+      homeTeamPanel.setLayout( new GridLayout( 1, 2 ) );
       homeTeamPanel.add( homeTeamLabel );
       homeTeamPanel.add( this.homeTeamComboBox );
-
-      final JPanel teamStatusPanel = new JPanel();
-      teamStatusPanel.setLayout( new GridLayout(1, 2) );
-      teamStatusPanel.add( this.roadTeamStatusLabel );
-      teamStatusPanel.add( this.homeTeamStatusLabel );
-
-      final JPanel playerStatusPanel = new JPanel();
-      playerStatusPanel.setLayout( new GridLayout(1, 2) );
-      playerStatusPanel.add( this.roadTeamPlayerLabel );
-      playerStatusPanel.add( this.homeTeamPlayerLabel );
 
       this.fileLocationLabel = new JLabel();
 
@@ -132,8 +108,7 @@ public class CreateGamesheetsFrame extends JFrame implements ActionListener
       contentPane.add( onLabel );
       contentPane.add( this.dateEntryField );
       contentPane.add( createGamesheetsButton );
-      contentPane.add( teamStatusPanel );
-      contentPane.add( playerStatusPanel );
+      contentPane.add( this.playerLabel );
       contentPane.add( this.fileLocationLabel );
 
       this.pack();
@@ -146,12 +121,9 @@ public class CreateGamesheetsFrame extends JFrame implements ActionListener
       {
          try
          {
-            final Calendar gameDate = getSelectedGameDate();
-            final String homeTeamName = getSelectedHomeTeamName();
-            final String roadTeamName = getSelectedRoadTeamName();
-
-            this.roadTeamStatusLabel.setText( roadTeamName );
-            this.homeTeamStatusLabel.setText( homeTeamName );
+            final Calendar gameDate = this.getSelectedGameDate();
+            final String homeTeamName = this.getSelectedHomeTeamName();
+            final String roadTeamName = this.getSelectedRoadTeamName();
 
             final Thread thread = new Thread()
             {
@@ -161,28 +133,29 @@ public class CreateGamesheetsFrame extends JFrame implements ActionListener
                {
                   try
                   {
-                     final Gamesheets gamesheets = Ohl.getGamesheets(
-                           homeTeamName, roadTeamName, gameDate,
-                           CreateGamesheetsFrame.this );
+                     final HtmlGamesheets htmlGamesheets =
+                             new HtmlGamesheetsGetter().getGamesheets(
+                             homeTeamName, roadTeamName, gameDate,
+                             CreateGamesheetsFrame.this );
 
                      final String directory = System.getProperty( "user.home" );
                      final File homeTeamGamesheetFile = new File(
                            directory, "home.html" );
                      final File roadTeamGamesheetFile = new File(
                            directory, "road.html" );
-                     IOUtil.setContents( homeTeamGamesheetFile, gamesheets.
-                           getHomeTeamGamesheet() );
-                     IOUtil.setContents( roadTeamGamesheetFile, gamesheets.
-                           getRoadTeamGamesheet() );
+                     IOUtil.setContents( homeTeamGamesheetFile,
+                           htmlGamesheets.getHomeTeamGamesheet() );
+                     IOUtil.setContents( roadTeamGamesheetFile,
+                           htmlGamesheets.getRoadTeamGamesheet() );
                      CreateGamesheetsFrame.this.fileLocationLabel.setText(
                            "<html>Gamesheets written to <i>" +
                            new File( directory ).getAbsolutePath() );
                   }
                   catch (final Exception e)
                   {
+                     e.printStackTrace();
                      JOptionPane.showMessageDialog( CreateGamesheetsFrame.this,
                            e.getMessage() );
-                     System.exit( 0 );
                   }
                }
             };
@@ -191,39 +164,8 @@ public class CreateGamesheetsFrame extends JFrame implements ActionListener
          catch (final Exception e)
          {
             JOptionPane.showMessageDialog( this, e.getMessage() );
-            System.exit( 0 );
          }
       }
-   }
-
-   public void setHomeTeamPlayer( final String playerName )
-   {
-      final Runnable runnable = new Runnable()
-      {
-         /** {@inheritDoc} */
-         public void run()
-         {
-            CreateGamesheetsFrame.this.homeTeamPlayerLabel.setText(
-                  playerName );
-         }
-      };
-
-      SwingUtilities.invokeLater( runnable );
-   }
-
-   public void setRoadTeamPlayer( final String playerName )
-   {
-      final Runnable runnable = new Runnable()
-      {
-         /** {@inheritDoc} */
-         public void run()
-         {
-            CreateGamesheetsFrame.this.roadTeamPlayerLabel.setText(
-                  playerName );
-         }
-      };
-
-      SwingUtilities.invokeLater( runnable );
    }
 
    private String getSelectedHomeTeamName()
@@ -238,16 +180,22 @@ public class CreateGamesheetsFrame extends JFrame implements ActionListener
 
    private Calendar getSelectedGameDate() throws ParseException
    {
-      final Date selectedDate = this.dateEntryField.getValue();
-      GregorianCalendar gameDate = new GregorianCalendar();
-      gameDate.setTime( selectedDate );
-
+      final GregorianCalendar gameDate = new GregorianCalendar();
+      gameDate.setTime( this.dateEntryField.getValue() );
       return gameDate;
    }
 
-   public static void main( final String[] args ) throws Exception
+   /** {@inheritDoc} */
+   public void setPlayerInProgress( final String playerName )
    {
-      final CreateGamesheetsFrame frame = new CreateGamesheetsFrame();
-      frame.setVisible( true );
+      SwingUtilities.invokeLater( new Runnable()
+      {
+         /** {@inheritDoc} */
+         public void run()
+         {
+            CreateGamesheetsFrame.this.playerLabel.setText(
+                  playerName );
+         }
+      });
    }
 }
