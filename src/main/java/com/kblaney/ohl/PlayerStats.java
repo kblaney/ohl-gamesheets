@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * One player's statistics.
@@ -49,7 +49,7 @@ public class PlayerStats
        */
       public Builder setNumGamesPlayed( final int numGamesPlayed )
       {
-         ArgChecker.checkIfNegative( numGamesPlayed, "numGamesPlayed" );
+         ArgAssert.notNegative( numGamesPlayed, "numGamesPlayed" );
 
          this.numGamesPlayed = numGamesPlayed;
          return this;
@@ -64,7 +64,7 @@ public class PlayerStats
        */
       public Builder setNumGoals( final int numGoals )
       {
-         ArgChecker.checkIfNegative( numGoals, "numGoals" );
+         ArgAssert.notNegative( numGoals, "numGoals" );
 
          this.numGoals = numGoals;
          return this;
@@ -79,7 +79,7 @@ public class PlayerStats
        */
       public Builder setNumAssists( final int numAssists )
       {
-         ArgChecker.checkIfNegative( numAssists, "numAssists" );
+         ArgAssert.notNegative( numAssists, "numAssists" );
 
          this.numAssists = numAssists;
          return this;
@@ -94,7 +94,7 @@ public class PlayerStats
        */
       public Builder setNumPoints( final int numPoints )
       {
-         ArgChecker.checkIfNegative( numPoints, "numPoints" );
+         ArgAssert.notNegative( numPoints, "numPoints" );
 
          this.numPoints = numPoints;
          return this;
@@ -124,7 +124,7 @@ public class PlayerStats
        */
       public Builder setNumPenaltyMinutes( final int numPenaltyMinutes )
       {
-         ArgChecker.checkIfNegative( numPenaltyMinutes, "numPenaltyMinutes" );
+         ArgAssert.notNegative( numPenaltyMinutes, "numPenaltyMinutes" );
 
          this.numPenaltyMinutes = numPenaltyMinutes;
          return this;
@@ -140,7 +140,7 @@ public class PlayerStats
        */
       public Builder setNumPowerPlayGoals( final int numPowerPlayGoals )
       {
-         ArgChecker.checkIfNegative( numPowerPlayGoals, "numPowerPlayGoals" );
+         ArgAssert.notNegative( numPowerPlayGoals, "numPowerPlayGoals" );
 
          this.numPowerPlayGoals = numPowerPlayGoals;
          return this;
@@ -156,7 +156,7 @@ public class PlayerStats
        */
       public Builder setNumShorthandedGoals( final int numShorthandedGoals )
       {
-         ArgChecker.checkIfNegative( numShorthandedGoals, "numShorthandedGoals" );
+         ArgAssert.notNegative( numShorthandedGoals, "numShorthandedGoals" );
 
          this.numShorthandedGoals = numShorthandedGoals;
          return this;

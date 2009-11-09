@@ -1,9 +1,8 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.html.HtmlUtil;
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public final class PlayerHtmlTableGetter
     */
    public String getHtmlTable( final List<Player> players )
    {
-      ArgChecker.checkIfNull( players, "players" );
+      ArgAssert.notNull( players, "players" );
 
       StringBuffer htmlTable = new StringBuffer( HtmlUtil.TABLE_START );
       htmlTable.append( SystemUtil.LINE_SEPARATOR );
@@ -72,7 +71,7 @@ public final class PlayerHtmlTableGetter
 
    private String getHtmlTableRow( final Player player )
    {
-      ArgChecker.checkIfNull( player, "player" );
+      ArgAssert.notNull( player, "player" );
 
       final StringBuffer htmlTableRow = new StringBuffer(
               HtmlUtil.TABLE_ROW_START );

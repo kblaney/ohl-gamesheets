@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * A goalie.
@@ -18,8 +18,8 @@ public class Goalie
     */
    public Goalie( final String name, final GoalieStats stats )
    {
-      ArgChecker.checkIfNull( name, "name" );
-      ArgChecker.checkIfNull( stats, "stats" );
+      ArgAssert.notNull( name, "name" );
+      ArgAssert.notNull( stats, "stats" );
 
       this.name = name;
       this.stats = stats;

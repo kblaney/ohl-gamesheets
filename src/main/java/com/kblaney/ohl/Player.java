@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * A player.
@@ -28,12 +28,12 @@ public final class Player
          final int sweaterNum, final PlayerStats stats, final PlayerBio bio,
          final PlayerStreaks streaks )
    {
-      ArgChecker.checkIfNull( name, "name" );
-      ArgChecker.checkIfNull( playerType, "playerType" );
-      ArgChecker.checkIfNegative( sweaterNum, "sweaterNum" );
-      ArgChecker.checkIfNull( stats, "stats" );
-      ArgChecker.checkIfNull( bio, "bio" );
-      ArgChecker.checkIfNull( streaks, "streaks" );
+      ArgAssert.notNull( name, "name" );
+      ArgAssert.notNull( playerType, "playerType" );
+      ArgAssert.notNegative( sweaterNum, "sweaterNum" );
+      ArgAssert.notNull( stats, "stats" );
+      ArgAssert.notNull( bio, "bio" );
+      ArgAssert.notNull( streaks, "streaks" );
 
       this.name = name;
       this.playerType = playerType;

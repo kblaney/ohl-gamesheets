@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * HTML gamesheets.
@@ -13,8 +13,8 @@ public class HtmlGamesheets
    public HtmlGamesheets( final String homeTeamGamesheet,
            final String roadTeamGamesheet )
    {
-      ArgChecker.checkIfNull( homeTeamGamesheet, "homeTeamGamesheet" );
-      ArgChecker.checkIfNull( roadTeamGamesheet, "roadTeamGamesheet" );
+      ArgAssert.notNull( homeTeamGamesheet, "homeTeamGamesheet" );
+      ArgAssert.notNull( roadTeamGamesheet, "roadTeamGamesheet" );
 
       this.homeTeamGamesheet = homeTeamGamesheet;
       this.roadTeamGamesheet = roadTeamGamesheet;

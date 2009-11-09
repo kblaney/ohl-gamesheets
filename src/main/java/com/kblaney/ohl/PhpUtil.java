@@ -1,10 +1,9 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
- *
- * @author Kyle
+ * PHP utilities.
  */
 public class PhpUtil
 {
@@ -29,8 +28,8 @@ public class PhpUtil
    public static String getKeyValueString( final String key,
            final String value )
    {
-      ArgChecker.checkIfNull( key, "key" );
-      ArgChecker.checkIfNull( value, "value" );
+      ArgAssert.notNull( key, "key" );
+      ArgAssert.notNull( value, "value" );
 
       return key + KEY_VALUE_SEPARATOR + value;
    }

@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * One player's streaks.
@@ -51,7 +51,7 @@ public final class PlayerStreaks
        */
       public Builder setGoalStreak( final int goalStreak )
       {
-         ArgChecker.checkIfNegative( goalStreak, "goalStreak" );
+         ArgAssert.notNegative( goalStreak, "goalStreak" );
          this.goalStreak = goalStreak;
          return this;
       }
@@ -65,7 +65,7 @@ public final class PlayerStreaks
        */
       public Builder setAssistStreak( final int assistStreak )
       {
-         ArgChecker.checkIfNegative( assistStreak, "assistStreak" );
+         ArgAssert.notNegative( assistStreak, "assistStreak" );
          this.assistStreak = assistStreak;
          return this;
       }
@@ -79,7 +79,7 @@ public final class PlayerStreaks
        */
       public Builder setPointStreak( final int pointStreak )
       {
-         ArgChecker.checkIfNegative( pointStreak, "pointStreak" );
+         ArgAssert.notNegative( pointStreak, "pointStreak" );
          this.pointStreak = pointStreak;
          return this;
       }

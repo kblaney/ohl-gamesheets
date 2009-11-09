@@ -1,7 +1,7 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.html.HtmlUtil;
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
 import java.io.IOException;
 import java.text.FieldPosition;
@@ -26,7 +26,7 @@ public final class HtmlGamesheetsGetter
          final String roadTeamName, final Calendar gameDate,
          final ProgressIndicator progressIndicator ) throws IOException
    {
-      ArgChecker.checkIfNull( progressIndicator, "progressIndicator" );
+      ArgAssert.notNull( progressIndicator, "progressIndicator" );
 
       final String roadTeamGamesheet = getRoadTeamGamesheet( roadTeamName,
             progressIndicator );
@@ -60,7 +60,7 @@ public final class HtmlGamesheetsGetter
    private String getGameHeading( final String homeTeamName,
          final String roadTeamName, final Calendar gameDate )
    {
-      ArgChecker.checkIfNull( gameDate, "gameDate" );
+      ArgAssert.notNull( gameDate, "gameDate" );
 
       final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
             "EEE., MMM. d, yyyy" );

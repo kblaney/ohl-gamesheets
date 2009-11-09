@@ -1,7 +1,7 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.html.HtmlUtil;
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -27,7 +27,7 @@ public final class GoalieHtmlTableGetter
     */
    public String getHtmlTable( final List<Goalie> goalies )
    {
-      ArgChecker.checkIfNull( goalies, "goalies" );
+      ArgAssert.notNull( goalies, "goalies" );
 
       StringBuffer htmlTable = new StringBuffer(
             HtmlUtil.TABLE_START );
@@ -67,7 +67,7 @@ public final class GoalieHtmlTableGetter
 
    private String getHtmlTableRow( final Goalie goalie )
    {
-      ArgChecker.checkIfNull( goalie, "goalie" );
+      ArgAssert.notNull( goalie, "goalie" );
 
       final DecimalFormat gaaDecimalFormat = new DecimalFormat( "0.00" );
       final DecimalFormat savePercentageDecimalFormat =

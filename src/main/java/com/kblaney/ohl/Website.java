@@ -1,7 +1,7 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.http.HttpUtil;
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.xml.XmlUtil;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -136,7 +136,7 @@ public class Website implements StatsProvider
          final ProgressIndicator progressIndicator )
          throws IOException
    {
-      ArgChecker.checkIfNull( teamName, "teamName" );
+      ArgAssert.notNull( teamName, "teamName" );
 
       try
       {
@@ -191,7 +191,7 @@ public class Website implements StatsProvider
    private URL getPlayerScoringUrl( final String teamName, final String type )
            throws IOException
    {
-      ArgChecker.checkIfNull( teamName, "teamName" );
+      ArgAssert.notNull( teamName, "teamName" );
       Validate.isTrue( this.getTeamNumbersMap().containsKey( teamName ),
               teamName + " not found" );
 
@@ -232,7 +232,7 @@ public class Website implements StatsProvider
    private Player getPlayer( final Node playerRowNode,
          final ProgressIndicator progressIndicator ) throws IOException
    {
-      ArgChecker.checkIfNull( playerRowNode, "playerRowNode" );
+      ArgAssert.notNull( playerRowNode, "playerRowNode" );
 
       if (( playerRowNode.getChildNodes() != null ) &&
             ( playerRowNode.getChildNodes().getLength() == 14 ))
@@ -267,7 +267,7 @@ public class Website implements StatsProvider
 
    private String getPlayerName( final Node playerRowNode )
    {
-      ArgChecker.checkIfNull( playerRowNode, "playerRowNode" );
+      ArgAssert.notNull( playerRowNode, "playerRowNode" );
 
       final int playerNameChildIndex = 2;
       final Node playerLinkNode = playerRowNode.getChildNodes().item(
@@ -277,7 +277,7 @@ public class Website implements StatsProvider
 
    private String getPlayerHref( final Node playerRowNode )
    {
-      ArgChecker.checkIfNull( playerRowNode, "playerRowNode" );
+      ArgAssert.notNull( playerRowNode, "playerRowNode" );
 
       final int playerIdChildIndex = 2;
       final Node playerLinkNode = playerRowNode.getChildNodes().item(
@@ -322,7 +322,7 @@ public class Website implements StatsProvider
 
    private PlayerStats getPlayerStats( final Node playerRowNode )
    {
-      ArgChecker.checkIfNull( playerRowNode, "playerRowNode" );
+      ArgAssert.notNull( playerRowNode, "playerRowNode" );
 
       final int numChildNodes = playerRowNode.getChildNodes().getLength();
       if (numChildNodes >= 11)
@@ -421,8 +421,8 @@ public class Website implements StatsProvider
    private PlayerStreaks getPlayerStreaks( final String playerId,
          final String playerPosition )
    {
-      ArgChecker.checkIfNull( playerId, "playerId" );
-      ArgChecker.checkIfNull( playerPosition, "playerPosition" );
+      ArgAssert.notNull( playerId, "playerId" );
+      ArgAssert.notNull( playerPosition, "playerPosition" );
 
       int goalStreak = 0;
       int assistStreak = 0;
@@ -517,7 +517,7 @@ public class Website implements StatsProvider
    private String getPlayerRowNodeValue( final Node playerRowNode,
          final int childNodeIndex )
    {
-      ArgChecker.checkIfNull( playerRowNode, "playerRowNode" );
+      ArgAssert.notNull( playerRowNode, "playerRowNode" );
 
       if (( playerRowNode.getChildNodes() != null ) &&
             ( playerRowNode.getChildNodes().getLength() >= childNodeIndex ))
@@ -543,7 +543,7 @@ public class Website implements StatsProvider
 
    private URL getPlayerBioUrl( final String playerId )
    {
-      ArgChecker.checkIfNull( playerId, "playerId" );
+      ArgAssert.notNull( playerId, "playerId" );
 
       try
       {
@@ -558,7 +558,7 @@ public class Website implements StatsProvider
 
    private URL getPlayerGameByGameUrl( final String playerId )
    {
-      ArgChecker.checkIfNull( playerId, "playerId" );
+      ArgAssert.notNull( playerId, "playerId" );
 
       try
       {
@@ -637,7 +637,7 @@ public class Website implements StatsProvider
 
    private String getGameRowText( final Node gameRowNode, final int itemIndex )
    {
-      ArgChecker.checkIfNull( gameRowNode, "gameRowNode" );
+      ArgAssert.notNull( gameRowNode, "gameRowNode" );
       if (gameRowNode.getChildNodes().getLength() >= itemIndex )
       {
          final Node node = gameRowNode.getChildNodes().item( itemIndex );
@@ -665,7 +665,7 @@ public class Website implements StatsProvider
    /** {@inheritDoc} */
    public List<Goalie> getGoalies( final String teamName ) throws IOException
    {
-      ArgChecker.checkIfNull( teamName, "teamName" );
+      ArgAssert.notNull( teamName, "teamName" );
 
       try
       {
@@ -714,7 +714,7 @@ public class Website implements StatsProvider
     */
    private Goalie getGoalie( Node goalieRowNode ) throws IOException
    {
-      ArgChecker.checkIfNull( goalieRowNode, "goalieRowNode" );
+      ArgAssert.notNull( goalieRowNode, "goalieRowNode" );
 
       final String name = getPlayerName( goalieRowNode );
       final String numGamesPlayedString = getPlayerRowNodeValue(

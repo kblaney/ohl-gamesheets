@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgChecker;
+import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * A goalie's statistics.
@@ -62,8 +62,7 @@ public class GoalieStats
        */
       public Builder setGoalsAgainstAverage( final double goalsAgainstAverage )
       {
-         ArgChecker.checkIfNegative( goalsAgainstAverage,
-               "goalsAgainstAverage" );
+         ArgAssert.notNegative( goalsAgainstAverage, "goalsAgainstAverage" );
 
          this.goalsAgainstAverage = goalsAgainstAverage;
          return this;
@@ -79,7 +78,7 @@ public class GoalieStats
        */
       public Builder setNumGamesPlayed( final int numGamesPlayed )
       {
-         ArgChecker.checkIfNegative( numGamesPlayed, "numGamesPlayed" );
+         ArgAssert.notNegative( numGamesPlayed, "numGamesPlayed" );
 
          this.numGamesPlayed = numGamesPlayed;
          return this;
@@ -95,7 +94,7 @@ public class GoalieStats
        */
       public Builder setNumGoalsAgainst( final int numGoalsAgainst )
       {
-         ArgChecker.checkIfNegative( numGoalsAgainst, "numGoalsAgainst" );
+         ArgAssert.notNegative( numGoalsAgainst, "numGoalsAgainst" );
 
          this.numGoalsAgainst = numGoalsAgainst;
          return this;
@@ -111,8 +110,7 @@ public class GoalieStats
        */
       public Builder setNumRegulationLosses( final int numRegulationLosses )
       {
-         ArgChecker.checkIfNegative( numRegulationLosses,
-                 "numRegulationLosses" );
+         ArgAssert.notNegative( numRegulationLosses, "numRegulationLosses" );
 
          this.numRegulationLosses = numRegulationLosses;
          return this;
@@ -128,7 +126,7 @@ public class GoalieStats
        */
       public Builder setNumMinutesPlayed( final int numMinutesPlayed )
       {
-         ArgChecker.checkIfNegative( numMinutesPlayed, "numMinutesPlayed" );
+         ArgAssert.notNegative( numMinutesPlayed, "numMinutesPlayed" );
 
          this.numMinutesPlayed = numMinutesPlayed;
          return this;
@@ -143,7 +141,7 @@ public class GoalieStats
        */
       public Builder setNumSaves( final int numSaves )
       {
-         ArgChecker.checkIfNegative( numSaves, "numSaves" );
+         ArgAssert.notNegative( numSaves, "numSaves" );
 
          this.numSaves = numSaves;
          return this;
@@ -159,7 +157,7 @@ public class GoalieStats
        */
       public Builder setNumShotsAgainst( final int numShotsAgainst )
       {
-         ArgChecker.checkIfNegative( numShotsAgainst, "numShotsAgainst" );
+         ArgAssert.notNegative( numShotsAgainst, "numShotsAgainst" );
 
          this.numShotsAgainst = numShotsAgainst;
          return this;
@@ -174,7 +172,7 @@ public class GoalieStats
        */
       public Builder setNumShutouts( final int numShutouts )
       {
-         ArgChecker.checkIfNegative( numShutouts, "numShutouts" );
+         ArgAssert.notNegative( numShutouts, "numShutouts" );
 
          this.numShutouts = numShutouts;
          return this;
@@ -190,7 +188,7 @@ public class GoalieStats
        */
       public Builder setNumOvertimeLosses( final int numOvertimeLosses )
       {
-         ArgChecker.checkIfNegative( numOvertimeLosses, "numOvertimeLosses" );
+         ArgAssert.notNegative( numOvertimeLosses, "numOvertimeLosses" );
 
          this.numOvertimeLosses = numOvertimeLosses;
          return this;
@@ -206,7 +204,7 @@ public class GoalieStats
        */
       public Builder setNumShootoutLosses( final int numShootoutLosses )
       {
-         ArgChecker.checkIfNegative( numShootoutLosses, "numShootoutLosses" );
+         ArgAssert.notNegative( numShootoutLosses, "numShootoutLosses" );
 
          this.numShootoutLosses = numShootoutLosses;
          return this;
@@ -221,7 +219,7 @@ public class GoalieStats
        */
       public Builder setNumWins( final int numWins )
       {
-         ArgChecker.checkIfNegative( numWins, "numWins" );
+         ArgAssert.notNegative( numWins, "numWins" );
 
          this.numWins = numWins;
          return this;
@@ -237,8 +235,8 @@ public class GoalieStats
        */
       public Builder setSavePercentage( final double savePercentage )
       {
-         ArgChecker.checkIfNegative( savePercentage, "savePercentage" );
-         ArgChecker.checkIfTooLarge( savePercentage, 1, "savePercentage" );
+         ArgAssert.notNegative( savePercentage, "savePercentage" );
+         ArgAssert.notTooLarge( savePercentage, 1, "savePercentage" );
 
          this.savePercentage = savePercentage;
          return this;
