@@ -5,18 +5,18 @@ package com.kblaney.ohl;
  */
 public enum PlayerType
 {
-    /**
-     * Indicates that a player is a rookie.
-     */
-    ROOKIE,
+  /**
+   * Indicates that a player is a rookie.
+   */
+  ROOKIE,
 
-    /**
-     * Indicates that a player is a veteran.
-     */
-    VETERAN,
+  /**
+   * Indicates that a player is a veteran.
+   */
+  VETERAN,
 
-    /**
-     * Indicates that a player is not active.
-     */
-    NOT_ACTIVE,
+  /**
+   * Indicates that a player is not active.
+   */
+  NOT_ACTIVE,
 }
