@@ -17,7 +17,7 @@ public final class PlayerBio
     */
    public static final class Builder
    {
-      private String birthDate;
+      private String birthYear;
       private String position;
       private String height;
       private String weight;
@@ -38,7 +38,7 @@ public final class PlayerBio
       public PlayerBio build()
       {
          final PlayerBio playerBio = new PlayerBio();
-         playerBio.birthDate = birthDate;
+         playerBio.birthYear = birthYear;
          playerBio.position = position;
          playerBio.height = height;
          playerBio.weight = weight;
@@ -53,9 +53,9 @@ public final class PlayerBio
        *
        * @return the builder instance
        */
-      public Builder setBirthDate( final String birthDate )
+      public Builder setBirthYear( final String birthDate )
       {
-         this.birthDate = birthDate;
+         this.birthYear = birthDate;
          return this;
       }
 
@@ -112,7 +112,7 @@ public final class PlayerBio
       }
    }
 
-   private String birthDate;
+   private String birthYear;
    private String position;
    private String height;
    private String weight;
@@ -133,27 +133,7 @@ public final class PlayerBio
     */
    public String getBirthYear()
    {
-      final int birthYearStartIndex = 0;
-      final int birthYearEndIndex = 4;
-      if (this.birthDate.length() >= birthYearEndIndex)
-      {
-         return this.birthDate.substring( birthYearStartIndex,
-                 birthYearEndIndex );
-      }
-      else
-      {
-         return StringUtils.EMPTY;
-      }
-   }
-
-   /**
-    * Gets the player's birth date (in the form YYYY-MM-DD).
-    *
-    * @return the player's birth date
-    */
-   public String getBirthDate()
-   {
-      return this.birthDate;
+      return this.birthYear;
    }
 
    /**

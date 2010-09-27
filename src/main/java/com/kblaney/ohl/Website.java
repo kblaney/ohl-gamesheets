@@ -51,7 +51,7 @@ public class Website implements StatsProvider
    private static final String TEAM_NUM = "subType";
    private static final String PAIR_SEPARATOR = "&";
    private static final String SEASON_ID_KEY = "season_id";
-   private static final String SEASON_ID = "38";
+   private static final String SEASON_ID = "42";
    private static final String PLAYER_STATS_FILE = TEAM_STATS_DISPLAY_PHP +
          PhpUtil.PAIRS_SEPARATOR +
          PhpUtil.getKeyValueString( TYPE, SCORING_TYPE ) +
@@ -389,27 +389,27 @@ public class Website implements StatsProvider
          final URL playerBioUrl = getPlayerBioUrl( playerId );
          final Document playerBioDocument = XmlUtil.getXmlDocument(
                playerBioUrl );
-         final Node playerBioDivNode = XPathAPI.selectSingleNode(
+         final Node playerBioTableNode = XPathAPI.selectSingleNode(
                playerBioDocument.getDocumentElement(),
-               "//div[@id='playerSummary'][table[tr[td['Name:']]]]" );
-         if (playerBioDivNode == null)
+               "//div[@class='profile']/div[@class='details']/table" );
+         if (playerBioTableNode == null)
          {
             throw new IOException( "Can't find player bio table node" );
          }
          else
          {
-            final String birthdate = getBirthdate( playerBioDivNode );
-            final String position = getPosition( playerBioDivNode );
-            final String height = getHeight( playerBioDivNode );
-            final String weight = getWeight( playerBioDivNode );
-            final String hometown = getHometowm( playerBioDivNode );
+            final String birthYear = getBirthYear( playerBioTableNode );
+            final String position = getPosition( playerBioTableNode );
+            final String height = getHeight( playerBioTableNode );
+            final String weight = getWeight( playerBioTableNode );
+            final String homeTown = getHomeTown( playerBioTableNode );
 
             return new PlayerBio.Builder().
-                    setBirthDate( birthdate ).
+                    setBirthYear( birthYear ).
                     setPosition( position ).
                     setHeight( height ).
                     setWeight( weight ).
-                    setHomeTown( hometown ).build();
+                    setHomeTown( homeTown ).build();
          }
       }
       catch (TransformerException e)
@@ -421,97 +421,10 @@ public class Website implements StatsProvider
    private PlayerStreaks getPlayerStreaks( final String playerId,
          final String playerPosition )
    {
-      ArgAssert.notNull( playerId, "playerId" );
-      ArgAssert.notNull( playerPosition, "playerPosition" );
-
-      int goalStreak = 0;
-      int assistStreak = 0;
-      int pointStreak = 0;
-
-      if (!playerPosition.equals( "G" ))
-      {
-         final URL playerGameByGameUrl = getPlayerGameByGameUrl( playerId );
-         final Document playerGameByGameDocument = XmlUtil.getXmlDocument(
-                 playerGameByGameUrl );
-         if (playerGameByGameDocument == null)
-         {
-            throw new IllegalStateException(
-                    "<html>Game-by-game URL not found: " + playerGameByGameUrl );
-         }
-
-         try
-         {
-            final int goalIndex = 4;
-            final int assistIndex = 5;
-            final int pointIndex = 6;
-            final NodeList nodeList = XPathAPI.selectNodeList(
-                  playerGameByGameDocument.getDocumentElement(),
-                  "//tr[td[a[contains(@href,'game-report')]]]" );
-            if (nodeList.getLength() > 0)
-            {
-               boolean onGoalStreak = true;
-               boolean onAssistStreak = true;
-               boolean onPointStreak = true;
-
-               int i = nodeList.getLength() - 1;
-               while (onPointStreak && i >= 0)
-               {
-                  final Node gameRowNode = nodeList.item( i );
-                  final int numGoals = NumberUtils.toInt( getGameRowText(
-                        gameRowNode, goalIndex ), 0 );
-                  final int numAssists = NumberUtils.toInt( getGameRowText(
-                        gameRowNode, assistIndex ), 0 );
-                  final int numPoints = NumberUtils.toInt( getGameRowText(
-                        gameRowNode, pointIndex ), 0 );
-                  if (numGoals > 0)
-                  {
-                     if (onGoalStreak)
-                     {
-                        goalStreak++;
-                     }
-                  }
-                  else
-                  {
-                     onGoalStreak = false;
-                  }
-                  if (numAssists > 0)
-                  {
-                     if (onAssistStreak)
-                     {
-                        assistStreak++;
-                     }
-                  }
-                  else
-                  {
-                     onAssistStreak = false;
-                  }
-                  if (numPoints > 0)
-                  {
-                     if (onPointStreak)
-                     {
-                        pointStreak++;
-                     }
-                  }
-                  else
-                  {
-                     onPointStreak = false;
-                  }
-
-                  i--;
-               }
-
-            }
-         }
-         catch (final TransformerException e)
-         {
-            throw new IllegalStateException( e );
-         }
-      }
-
       return new PlayerStreaks.Builder().
-              setGoalStreak( goalStreak ).
-              setAssistStreak( assistStreak ).
-              setPointStreak( pointStreak ).build();
+              setGoalStreak( 0 ).
+              setAssistStreak( 0 ).
+              setPointStreak( 0 ).build();
    }
 
    private String getPlayerRowNodeValue( final Node playerRowNode,
@@ -571,27 +484,61 @@ public class Website implements StatsProvider
       }
    }
 
-   private String getBirthdate( final Node playerBioDivNode )
+   private String getBirthYear( final Node playerBioDivNode )
          throws TransformerException
    {
       final Node birthdateRowNode = XPathAPI.selectSingleNode(
-            playerBioDivNode, "//tr[td='Birthdate:']" );
-      return getFirstChildNodeValue( birthdateRowNode.getLastChild() );
+            playerBioDivNode, "//tr[td='Birthdate']" );
+      final String birthDate = getFirstChildNodeValue( birthdateRowNode.getLastChild() );
+      final Pattern p = Pattern.compile("\\d\\d\\d\\d");
+      final Matcher m = p.matcher(birthDate);
+      if (m.find())
+     {
+        return m.group();
+     }
+      else
+      {
+        return StringUtils.EMPTY;
+      }
    }
 
    private String getPosition( final Node playerBioDivNode )
          throws TransformerException
    {
       final Node positionRowNode = XPathAPI.selectSingleNode(
-            playerBioDivNode, "//tr[td='Pos.:']" );
-      return getFirstChildNodeValue( positionRowNode.getLastChild() );
+            playerBioDivNode, "//tr[td='Position']" );
+      final String positionLongForm = getFirstChildNodeValue( positionRowNode.getLastChild() );
+      if (positionLongForm.contains("Defence"))
+     {
+        return "D";
+     }
+     else if("Centre".equals(positionLongForm))
+     {
+        return "C";
+     }
+     else if("Left Wing".equals(positionLongForm))
+     {
+        return "LW";
+     }
+     else if("Right Wing".equals(positionLongForm))
+     {
+        return "RW";
+     }
+     else if("Goaltender".equals(positionLongForm))
+     {
+        return "G";
+     }
+      else
+      {
+        return positionLongForm;
+      }
    }
 
    private String getHeight( final Node playerBioDivNode )
          throws TransformerException
    {
       final Node heightRowNode = XPathAPI.selectSingleNode(
-            playerBioDivNode, "//tr[td='Height:']" );
+            playerBioDivNode, "//tr[td='Height']" );
       final String height = getFirstChildNodeValue(
               heightRowNode.getLastChild() );
       return height.replace( '\'', '.' );
@@ -601,15 +548,15 @@ public class Website implements StatsProvider
          throws TransformerException
    {
       final Node weightRowNode = XPathAPI.selectSingleNode(
-            playerBioDivNode, "//tr[td='Weight:']" );
+            playerBioDivNode, "//tr[td='Weight']" );
       return getFirstChildNodeValue( weightRowNode.getLastChild() );
    }
 
-   private String getHometowm( final Node playerBioDivNode )
+   private String getHomeTown( final Node playerBioDivNode )
          throws TransformerException
    {
       final Node hometownRowNode = XPathAPI.selectSingleNode(
-            playerBioDivNode, "//tr[td='Hometown:']" );
+            playerBioDivNode, "//tr[td='Birthplace']" );
 
       final String hometown;
       if (hometownRowNode.getLastChild().hasChildNodes())
