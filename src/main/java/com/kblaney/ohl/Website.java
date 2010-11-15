@@ -392,7 +392,8 @@ public class Website implements StatsProvider
         final String weight = getWeight(playerBioTableNode);
         final String homeTown = getHomeTown(playerBioTableNode);
 
-        return new PlayerBio.Builder().setBirthYear(birthYear).
+        return new PlayerBio.Builder().
+              setBirthYear(birthYear).
               setPosition(position).
               setHeight(height).
               setWeight(weight).
