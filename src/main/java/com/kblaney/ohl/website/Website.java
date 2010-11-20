@@ -59,10 +59,10 @@ public class Website implements StatsProvider
   private static final String PAIR_SEPARATOR = "&";
   private static final String SEASON_ID_KEY = "season_id";
   private static final String SEASON_ID = "42";
-  private static final String PLAYER_STATS_FILE = TEAM_STATS_DISPLAY_PHP
-        + PhpUtil.PAIRS_SEPARATOR
-        + PhpUtil.getKeyValueString(TYPE, SCORING_TYPE) + PAIR_SEPARATOR + PhpUtil.
-        getKeyValueString(SEASON_ID_KEY, SEASON_ID);
+  private static final String PLAYER_STATS_FILE = TEAM_STATS_DISPLAY_PHP +
+        PhpUtil.PAIRS_SEPARATOR +
+        PhpUtil.getKeyValueString(TYPE, SCORING_TYPE) + PAIR_SEPARATOR +
+        PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
   private static final URL PLAYER_STATS_URL;
 
   static
@@ -76,6 +76,7 @@ public class Website implements StatsProvider
       throw new IllegalStateException(e);
     }
   }
+
   /**
    * Keys are the team name (for example, "Belleville Bulls").  Values are the
    * team's number as a String.
@@ -87,19 +88,12 @@ public class Website implements StatsProvider
   {
     // Return a defensive copy of the keys.
     //
-    return new HashSet<String>(this.getTeamNumbersMap().keySet());
+    return new HashSet<String>(getTeamNumbersMap().keySet());
   }
 
-  /**
-   * Gets the map of team numbers.
-   *
-   * @return the map
-   *
-   * @throws IOException if can't get the map
-   */
   private Map<String, String> getTeamNumbersMap() throws IOException
   {
-    if (this.teamNumbersMap == null)
+    if (teamNumbersMap == null)
     {
       final String playerStatsContent = HttpUtil.getContent(
             PLAYER_STATS_URL);
@@ -107,7 +101,7 @@ public class Website implements StatsProvider
             playerStatsContent);
       if (teamStatsTableMatcher.find())
       {
-        this.teamNumbersMap = new HashMap<String, String>();
+        teamNumbersMap = new HashMap<String, String>();
 
         final Matcher teamRowMatcher = TEAM_ROW_PATTERN.matcher(
               teamStatsTableMatcher.group(STATS_TABLE_GROUP_NUM));
@@ -117,7 +111,7 @@ public class Website implements StatsProvider
                 TEAM_NUM_GROUP_NUM);
           final String teamName = teamRowMatcher.group(
                 TEAM_NAME_GROUP_NUM).trim();
-          this.teamNumbersMap.put(teamName, teamNum);
+          teamNumbersMap.put(teamName, teamNum);
         }
       }
       else
@@ -126,7 +120,7 @@ public class Website implements StatsProvider
       }
     }
 
-    return this.teamNumbersMap;
+    return teamNumbersMap;
   }
 
   /** {@inheritDoc} */
@@ -172,8 +166,8 @@ public class Website implements StatsProvider
     }
     catch (final TransformerException e)
     {
-      throw new IOException("Transformer exception when getting "
-            + "player scoring table", e);
+      throw new IOException(
+            "Transformer exception when getting player scoring table", e);
     }
   }
 
@@ -190,17 +184,16 @@ public class Website implements StatsProvider
         throws IOException
   {
     ArgAssert.notNull(teamName, "teamName");
-    Validate.isTrue(this.getTeamNumbersMap().containsKey(teamName),
+    Validate.isTrue(getTeamNumbersMap().containsKey(teamName),
           teamName + " not found");
 
-    final String teamNum = this.teamNumbersMap.get(teamName);
+    final String teamNum = teamNumbersMap.get(teamName);
     if (teamNum != null)
     {
-      final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR + PhpUtil.
-            getKeyValueString(TYPE, type) + PAIR_SEPARATOR + PhpUtil.
-            getKeyValueString(TEAM_NUM, teamNum) + PAIR_SEPARATOR + PhpUtil.
-            getKeyValueString(SEASON_ID_KEY,
-            SEASON_ID);
+      final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
+            PhpUtil.getKeyValueString(TYPE, type) + PAIR_SEPARATOR +
+            PhpUtil.getKeyValueString(TEAM_NUM, teamNum) + PAIR_SEPARATOR +
+            PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
 
       try
       {
@@ -217,23 +210,11 @@ public class Website implements StatsProvider
     }
   }
 
-  /**
-   * Gets a player from a specified table row node.
-   *
-   * @param playerRowNode the player's table row node
-   * @param progressIndicator the progress indicator
-   *
-   * @return the player
-   *
-   * @throws IOException if an I/O problem occurs
-   */
   private Player getPlayer(final Node playerRowNode,
         final ProgressIndicator progressIndicator) throws IOException
   {
-    ArgAssert.notNull(playerRowNode, "playerRowNode");
-
-    if ((playerRowNode.getChildNodes() != null) && (playerRowNode.getChildNodes().
-          getLength() == 14))
+    if ((playerRowNode.getChildNodes() != null) &&
+          (playerRowNode.getChildNodes().getLength() == 14))
     {
       final String playerId = getPlayerId(playerRowNode);
       final String playerName = getPlayerName(playerRowNode);
@@ -265,8 +246,6 @@ public class Website implements StatsProvider
 
   private String getPlayerName(final Node playerRowNode)
   {
-    ArgAssert.notNull(playerRowNode, "playerRowNode");
-
     final int playerNameChildIndex = 2;
     final Node playerLinkNode = playerRowNode.getChildNodes().item(
           playerNameChildIndex);
@@ -275,8 +254,6 @@ public class Website implements StatsProvider
 
   private String getPlayerHref(final Node playerRowNode)
   {
-    ArgAssert.notNull(playerRowNode, "playerRowNode");
-
     final int playerIdChildIndex = 2;
     final Node playerLinkNode = playerRowNode.getChildNodes().item(
           playerIdChildIndex);
@@ -320,8 +297,6 @@ public class Website implements StatsProvider
 
   private PlayerStats getPlayerStats(final Node playerRowNode)
   {
-    ArgAssert.notNull(playerRowNode, "playerRowNode");
-
     final int numChildNodes = playerRowNode.getChildNodes().getLength();
     if (numChildNodes >= 11)
     {
@@ -503,8 +478,8 @@ public class Website implements StatsProvider
   {
     ArgAssert.notNull(playerRowNode, "playerRowNode");
 
-    if ((playerRowNode.getChildNodes() != null) && (playerRowNode.getChildNodes().
-          getLength() >= childNodeIndex))
+    if ((playerRowNode.getChildNodes() != null) &&
+          (playerRowNode.getChildNodes().getLength() >= childNodeIndex))
     {
       final Node childNode = playerRowNode.getChildNodes().item(
             childNodeIndex);
@@ -717,24 +692,13 @@ public class Website implements StatsProvider
     }
     catch (TransformerException t)
     {
-      throw new IOException("Transformer exception when getting "
-            + "goalie stats table");
+      throw new IOException(
+            "Transformer exception when getting goalie stats table");
     }
   }
 
-  /**
-   * Gets a goalie from a specified goalie row node.
-   *
-   * @param goalieRowNode the goalie row node
-   *
-   * @return the goalie
-   *
-   * @throws IOException if an I/O problem occurs
-   */
-  private Goalie getGoalie(Node goalieRowNode) throws IOException
+  private Goalie getGoalie(final Node goalieRowNode) throws IOException
   {
-    ArgAssert.notNull(goalieRowNode, "goalieRowNode");
-
     final String name = getPlayerName(goalieRowNode);
     final String numGamesPlayedString = getPlayerRowNodeValue(
           goalieRowNode, 3);
