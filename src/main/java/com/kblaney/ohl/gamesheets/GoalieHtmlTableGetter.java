@@ -27,7 +27,7 @@ final class GoalieHtmlTableGetter
     htmlTable.append(SystemUtil.LINE_SEPARATOR);
     htmlTable.append(getHtmlTableHeader());
     htmlTable.append(SystemUtil.LINE_SEPARATOR);
-    for (Goalie goalie : goalies)
+    for (final Goalie goalie : goalies)
     {
       htmlTable.append(getHtmlTableRow(goalie));
       htmlTable.append(SystemUtil.LINE_SEPARATOR);
@@ -39,7 +39,7 @@ final class GoalieHtmlTableGetter
 
   private String getHtmlTableHeader()
   {
-    final StringBuffer s = new StringBuffer();
+    final StringBuilder s = new StringBuilder();
     s.append(HtmlUtil.TABLE_ROW_START);
     s.append(HtmlUtil.getTableElement("Name", false));
     s.append(HtmlUtil.getTableElement("GP", true));
@@ -60,8 +60,6 @@ final class GoalieHtmlTableGetter
 
   private String getHtmlTableRow(final Goalie goalie)
   {
-    ArgAssert.notNull(goalie, "goalie");
-
     final DecimalFormat gaaDecimalFormat = new DecimalFormat("0.00");
     final DecimalFormat savePercentageDecimalFormat =
           new DecimalFormat("0.000");

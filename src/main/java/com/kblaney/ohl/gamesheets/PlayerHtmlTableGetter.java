@@ -1,7 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
 import com.kblaney.commons.html.HtmlUtil;
-import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerType;
@@ -21,8 +20,6 @@ final class PlayerHtmlTableGetter
    */
   public String getHtmlTable(final List<Player> players)
   {
-    ArgAssert.notNull(players, "players");
-
     StringBuilder htmlTable = new StringBuilder(HtmlUtil.TABLE_START);
     htmlTable.append(SystemUtil.LINE_SEPARATOR);
     htmlTable.append(getHtmlTableHeader());
@@ -39,7 +36,7 @@ final class PlayerHtmlTableGetter
 
   private String getHtmlTableHeader()
   {
-    final StringBuffer s = new StringBuffer();
+    final StringBuilder s = new StringBuilder();
     s.append(HtmlUtil.TABLE_ROW_START);
     s.append(HtmlUtil.getTableElement("R", false));
     s.append(HtmlUtil.getTableElement("#", true));
@@ -66,9 +63,7 @@ final class PlayerHtmlTableGetter
 
   private String getHtmlTableRow(final Player player)
   {
-    ArgAssert.notNull(player, "player");
-
-    final StringBuffer s = new StringBuffer(HtmlUtil.TABLE_ROW_START);
+    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_ROW_START);
     s.append(HtmlUtil.getTableElement(getRookieString(
           player.getPlayerType()), false));
     s.append(HtmlUtil.getTableElement(Integer.toString(

@@ -2,7 +2,6 @@ package com.kblaney.ohl.gamesheets;
 
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +22,7 @@ public interface StatsProvider
 
   /**
    * Gets the players on a specified team.  This method returns a list sorted
-   * by points in descinding order, then goals in descending order, then games
+   * by points in descending order, then goals in descending order, then games
    * played in ascending order.
    *
    * @param teamName the team name, which can't be null and must be a valid

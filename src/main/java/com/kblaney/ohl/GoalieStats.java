@@ -23,13 +23,6 @@ public class GoalieStats
     private double savePercentage;
 
     /**
-     * Constructs a new instance of Builder.
-     */
-    public Builder()
-    {
-    }
-
-    /**
      * Builds a GoalieStats instance.
      *
      * @return the instance
@@ -37,18 +30,18 @@ public class GoalieStats
     public GoalieStats build()
     {
       final GoalieStats goalieStats = new GoalieStats();
-      goalieStats.numGamesPlayed = this.numGamesPlayed;
-      goalieStats.numMinutesPlayed = this.numMinutesPlayed;
-      goalieStats.numGoalsAgainst = this.numGoalsAgainst;
-      goalieStats.numShutouts = this.numShutouts;
-      goalieStats.goalsAgainstAverage = this.goalsAgainstAverage;
-      goalieStats.numWins = this.numWins;
-      goalieStats.numRegulationLosses = this.numRegulationLosses;
-      goalieStats.numOvertimeLosses = this.numOvertimeLosses;
-      goalieStats.numShootoutLosses = this.numShootoutLosses;
-      goalieStats.numShotsAgainst = this.numShotsAgainst;
-      goalieStats.numSaves = this.numSaves;
-      goalieStats.savePercentage = this.savePercentage;
+      goalieStats.numGamesPlayed = numGamesPlayed;
+      goalieStats.numMinutesPlayed = numMinutesPlayed;
+      goalieStats.numGoalsAgainst = numGoalsAgainst;
+      goalieStats.numShutouts = numShutouts;
+      goalieStats.goalsAgainstAverage = goalsAgainstAverage;
+      goalieStats.numWins = numWins;
+      goalieStats.numRegulationLosses = numRegulationLosses;
+      goalieStats.numOvertimeLosses = numOvertimeLosses;
+      goalieStats.numShootoutLosses = numShootoutLosses;
+      goalieStats.numShotsAgainst = numShotsAgainst;
+      goalieStats.numSaves = numSaves;
+      goalieStats.savePercentage = savePercentage;
       return goalieStats;
     }
 
@@ -256,12 +249,7 @@ public class GoalieStats
   private int numSaves;
   private double savePercentage;
 
-  /**
-   * Constructs a new instance of GoalieStats.
-   */
-  private GoalieStats()
-  {
-  }
+  private GoalieStats() {}
 
   /**
    * Gets the goals against average.

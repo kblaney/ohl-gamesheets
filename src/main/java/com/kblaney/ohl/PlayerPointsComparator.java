@@ -22,60 +22,36 @@ public final class PlayerPointsComparator implements Comparator<Player>
     {
       if (p1.getStats().getNumGoals() == p2.getStats().getNumGoals())
       {
-        if (p1.getStats().getNumGamesPlayed()
-              == p2.getStats().getNumGamesPlayed())
+        if (p1.getStats().getNumGamesPlayed() ==
+              p2.getStats().getNumGamesPlayed())
         {
-          // The players have the same number of points, goals, assists,
-          // and games played, so we consider them equal.
-          //
           return 0;
         }
-        else if (p1.getStats().getNumGamesPlayed() < p2.getStats().
-              getNumGamesPlayed())
+        else if (p1.getStats().getNumGamesPlayed() <
+              p2.getStats().getNumGamesPlayed())
         {
-          // The players have the same number of points, goals, and
-          // assists, but player 1 has fewer games played so we consider
-          // player 1 less than player 2 (so that player 1 appears
-          // earlier in an ordered list).
-          //
           return -1;
         }
         else
         {
-          // The players have the same number of points, goals, and
-          // assists, but player 2 has fewer games played so we consider
-          // player 2 less than player 1.
-          //
           return 1;
         }
       }
       else if (p1.getStats().getNumGoals() < p2.getStats().getNumGoals())
       {
-        // The players have the same number of points, but player 1 has
-        // fewer goals so we consider player 2 less than player 1.
-        //
         return 1;
       }
       else
       {
-        // The players have the same number of points, but player 2 has
-        // fewer goals so we consider player 1 less than player 2.
-        //
         return -1;
       }
     }
     else if (p1.getStats().getNumPoints() < p2.getStats().getNumPoints())
     {
-      // Player 1 has fewer points so we consider player 2 less than
-      // player 1.
-      //
       return 1;
     }
     else
     {
-      // Player 2 has fewer points so we consider player 1 less than
-      // player 2.
-      //
       return -1;
     }
   }

@@ -29,9 +29,9 @@ public final class PlayerStreaks
     public PlayerStreaks build()
     {
       final PlayerStreaks playerStreaks = new PlayerStreaks();
-      playerStreaks.goalStreak = this.goalStreak;
-      playerStreaks.assistStreak = this.assistStreak;
-      playerStreaks.pointStreak = this.pointStreak;
+      playerStreaks.goalStreak = goalStreak;
+      playerStreaks.assistStreak = assistStreak;
+      playerStreaks.pointStreak = pointStreak;
       return playerStreaks;
     }
 
@@ -82,12 +82,7 @@ public final class PlayerStreaks
   private int assistStreak;
   private int pointStreak;
 
-  /**
-   * Constructs a new instance of PlayerStreaks.
-   */
-  private PlayerStreaks()
-  {
-  }
+  private PlayerStreaks() {}
 
   /**
    * Gets the goal streak.

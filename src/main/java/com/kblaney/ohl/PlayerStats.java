@@ -21,14 +21,14 @@ public class PlayerStats
     public PlayerStats build()
     {
       final PlayerStats playerStats = new PlayerStats();
-      playerStats.numGamesPlayed = this.numGamesPlayed;
-      playerStats.numGoals = this.numGoals;
-      playerStats.numAssists = this.numAssists;
-      playerStats.numPoints = this.numPoints;
-      playerStats.numPenaltyMinutes = this.numPenaltyMinutes;
-      playerStats.plusMinus = this.plusMinus;
-      playerStats.numPowerPlayGoals = this.numPowerPlayGoals;
-      playerStats.numShorthandedGoals = this.numShorthandedGoals;
+      playerStats.numGamesPlayed = numGamesPlayed;
+      playerStats.numGoals = numGoals;
+      playerStats.numAssists = numAssists;
+      playerStats.numPoints = numPoints;
+      playerStats.numPenaltyMinutes = numPenaltyMinutes;
+      playerStats.plusMinus = plusMinus;
+      playerStats.numPowerPlayGoals = numPowerPlayGoals;
+      playerStats.numShorthandedGoals = numShorthandedGoals;
       return playerStats;
     }
 
@@ -165,12 +165,7 @@ public class PlayerStats
   private int numPowerPlayGoals;
   private int numShorthandedGoals;
 
-  /**
-   * Constructs a new instance of PlayerStats.
-   */
-  private PlayerStats()
-  {
-  }
+  private PlayerStats() {}
 
   /**
    * Gets the number of games played.

@@ -1,7 +1,5 @@
 package com.kblaney.ohl;
 
-import org.apache.commons.lang.StringUtils;
-
 /**
  * The biographical information of one player.
  *
@@ -111,12 +109,7 @@ public final class PlayerBio
   private String weight;
   private String homeTown;
 
-  /**
-   * Constructs a new instance of PlayerBio.
-   */
-  private PlayerBio()
-  {
-  }
+  private PlayerBio() {}
 
   /**
    * Gets the player's birth year.
