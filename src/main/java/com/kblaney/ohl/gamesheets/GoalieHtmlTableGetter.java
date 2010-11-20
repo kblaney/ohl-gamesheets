@@ -1,15 +1,16 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.gamesheets;
 
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
+import com.kblaney.ohl.Goalie;
 import java.text.DecimalFormat;
 import java.util.List;
 
 /**
  * Gets HTML tables for goalies.
  */
-public final class GoalieHtmlTableGetter
+final class GoalieHtmlTableGetter
 {
   /**
    * Gets an HTML table using a specified list of goalies.

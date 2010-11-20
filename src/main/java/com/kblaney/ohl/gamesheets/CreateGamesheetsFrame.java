@@ -1,5 +1,6 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.gamesheets;
 
+import com.kblaney.ohl.website.Website;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -26,7 +27,7 @@ import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
 import org.apache.commons.io.FileUtils;
 
-public final class CreateGamesheetsFrame extends JFrame
+final class CreateGamesheetsFrame extends JFrame
       implements ActionListener, ProgressIndicator
 {
   private final JLabel playerLabel;
@@ -35,12 +36,6 @@ public final class CreateGamesheetsFrame extends JFrame
   private final MDateEntryField dateEntryField;
   private final JLabel fileLocationLabel;
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
-
-  public static void main(final String[] args) throws Exception
-  {
-    final CreateGamesheetsFrame frame = new CreateGamesheetsFrame();
-    frame.setVisible(true);
-  }
 
   public CreateGamesheetsFrame() throws IOException
   {

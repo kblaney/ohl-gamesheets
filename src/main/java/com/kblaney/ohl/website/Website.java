@@ -1,8 +1,17 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.gamesheets.StatsProvider;
 import com.kblaney.commons.http.HttpUtil;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.xml.XmlUtil;
+import com.kblaney.ohl.Goalie;
+import com.kblaney.ohl.GoalieStats;
+import com.kblaney.ohl.Player;
+import com.kblaney.ohl.PlayerBio;
+import com.kblaney.ohl.PlayerStats;
+import com.kblaney.ohl.PlayerStreaks;
+import com.kblaney.ohl.PlayerType;
+import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -648,7 +657,6 @@ public class Website implements StatsProvider
 
   private String getGameRowText(final Node gameRowNode, final int itemIndex)
   {
-    ArgAssert.notNull(gameRowNode, "gameRowNode");
     if (gameRowNode.getChildNodes().getLength() >= itemIndex)
     {
       final Node node = gameRowNode.getChildNodes().item(itemIndex);

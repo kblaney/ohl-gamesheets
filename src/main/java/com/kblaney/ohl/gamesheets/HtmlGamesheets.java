@@ -1,11 +1,11 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.gamesheets;
 
 import com.kblaney.commons.lang.ArgAssert;
 
 /**
  * HTML gamesheets.
  */
-public class HtmlGamesheets
+final class HtmlGamesheets
 {
   private final String homeTeamGamesheet;
   private final String roadTeamGamesheet;

@@ -1,14 +1,16 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.gamesheets;
 
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
+import com.kblaney.ohl.Player;
+import com.kblaney.ohl.PlayerType;
 import java.util.List;
 
 /**
  * Gets HTML tables for players.
  */
-public final class PlayerHtmlTableGetter
+final class PlayerHtmlTableGetter
 {
   /**
    * Gets an HTML table using a specified list of players.

@@ -1,8 +1,12 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.gamesheets;
 
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
+import com.kblaney.ohl.Goalie;
+import com.kblaney.ohl.Player;
+import com.kblaney.ohl.PlayerPointsComparator;
+import com.kblaney.ohl.website.Website;
 import java.io.IOException;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
@@ -13,8 +17,10 @@ import java.util.List;
 /**
  * Gets HTML gamesheets.
  */
-public final class HtmlGamesheetsGetter
+final class HtmlGamesheetsGetter
 {
+  private final StatsProvider statsProvider = new Website();
+
   public HtmlGamesheets getGamesheets(final String homeTeamName,
         final String roadTeamName, final Calendar gameDate,
         final ProgressIndicator progressIndicator) throws IOException
@@ -69,8 +75,6 @@ public final class HtmlGamesheetsGetter
   private StringBuffer getGamesheet(final String teamName,
         final ProgressIndicator progressIndicator) throws IOException
   {
-    final StatsProvider statsProvider = new Website();
-
     final List<Player> players = statsProvider.getPlayers(teamName,
           progressIndicator);
     Collections.sort(players, new PlayerPointsComparator());
