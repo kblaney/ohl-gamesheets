@@ -1,7 +1,10 @@
 package com.kblaney.ohl.website;
 
+import com.google.common.base.Function;
+import com.google.common.collect.Sets;
+import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.ohl.gamesheets.StatsProvider;
-import com.kblaney.commons.http.HttpUtil;
+import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.xml.XmlUtil;
 import com.kblaney.ohl.Goalie;
@@ -16,16 +19,12 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.lang.math.NumberUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
@@ -37,13 +36,6 @@ import org.w3c.dom.NodeList;
  */
 public class Website implements StatsProvider
 {
-  private static final int STATS_TABLE_GROUP_NUM = 0;
-  private static final Pattern STATS_TABLE_PATTERN = Pattern.compile(
-        "<SELECT name=\"subStat\".*?</SELECT>", Pattern.DOTALL);
-  private static final int TEAM_NUM_GROUP_NUM = 1;
-  private static final int TEAM_NAME_GROUP_NUM = 2;
-  private static final Pattern TEAM_ROW_PATTERN = Pattern.compile(
-        "OPTION value.*?subType=(\\d+).*?>(.*?)<", Pattern.DOTALL);
   private static final String PROTOCOL = "http";
   private static final String HOST = "www.ontariohockeyleague.com";
   private static final String STATS = "/stats/";
@@ -77,50 +69,32 @@ public class Website implements StatsProvider
     }
   }
 
-  /**
-   * Keys are the team name (for example, "Belleville Bulls").  Values are the
-   * team's number as a String.
-   */
-  private Map<String, String> teamNumbersMap;
+  private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
+  private Function<String, Set<Team>> toTeamsFunction =
+        new PlayerStatsHtmlToTeamsFunction();
+  private Set<Team> teams;
 
   /** {@inheritDoc} */
   public Set<String> getTeamNames() throws IOException
   {
-    // Return a defensive copy of the keys.
-    //
-    return new HashSet<String>(getTeamNumbersMap().keySet());
+    final Set<String> teamNames = Sets.newHashSet();
+    for (final Team team : getTeams())
+    {
+      teamNames.add(team.getName());
+    }
+    return teamNames;
   }
 
-  private Map<String, String> getTeamNumbersMap() throws IOException
+  private Set<Team> getTeams() throws IOException
   {
-    if (teamNumbersMap == null)
+    if (teams == null)
     {
-      final String playerStatsContent = HttpUtil.getContent(
-            PLAYER_STATS_URL);
-      final Matcher teamStatsTableMatcher = STATS_TABLE_PATTERN.matcher(
-            playerStatsContent);
-      if (teamStatsTableMatcher.find())
-      {
-        teamNumbersMap = new HashMap<String, String>();
-
-        final Matcher teamRowMatcher = TEAM_ROW_PATTERN.matcher(
-              teamStatsTableMatcher.group(STATS_TABLE_GROUP_NUM));
-        while (teamRowMatcher.find())
-        {
-          final String teamNum = teamRowMatcher.group(
-                TEAM_NUM_GROUP_NUM);
-          final String teamName = teamRowMatcher.group(
-                TEAM_NAME_GROUP_NUM).trim();
-          teamNumbersMap.put(teamName, teamNum);
-        }
-      }
-      else
-      {
-        throw new IllegalStateException("Can't find teams");
-      }
+      final String playerStatsHtml =
+            urlContentsGetter.getContentsOf(PLAYER_STATS_URL);
+      return toTeamsFunction.apply(playerStatsHtml);
     }
 
-    return teamNumbersMap;
+    return teams;
   }
 
   /** {@inheritDoc} */
@@ -129,11 +103,11 @@ public class Website implements StatsProvider
         throws IOException
   {
     ArgAssert.notNull(teamName, "teamName");
+    // TODO:  Validate legal team name
 
     try
     {
-      final URL playerScoringUrl = getPlayerScoringUrl(teamName,
-            SCORING_TYPE);
+      final URL playerScoringUrl = getPlayerScoringUrl(teamName, SCORING_TYPE);
       final Document playerScoringDocument = XmlUtil.getXmlDocument(
             playerScoringUrl);
       final Node playerScoringTableNode = XPathAPI.selectSingleNode(
@@ -183,11 +157,7 @@ public class Website implements StatsProvider
   private URL getPlayerScoringUrl(final String teamName, final String type)
         throws IOException
   {
-    ArgAssert.notNull(teamName, "teamName");
-    Validate.isTrue(getTeamNumbersMap().containsKey(teamName),
-          teamName + " not found");
-
-    final String teamNum = teamNumbersMap.get(teamName);
+    final String teamNum = getTeamNum(teamName);
     if (teamNum != null)
     {
       final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
@@ -208,6 +178,18 @@ public class Website implements StatsProvider
     {
       throw new IllegalArgumentException(teamName);
     }
+  }
+
+  private String getTeamNum(final String teamName) throws IOException
+  {
+    for (final Team team : getTeams())
+    {
+      if (team.getName().equals(teamName))
+      {
+        return Integer.toString(team.getNum());
+      }
+    }
+    throw new IllegalStateException("Invalid teamName:" + teamName);
   }
 
   private Player getPlayer(final Node playerRowNode,
@@ -660,11 +642,11 @@ public class Website implements StatsProvider
   public List<Goalie> getGoalies(final String teamName) throws IOException
   {
     ArgAssert.notNull(teamName, "teamName");
+    // TODO:  Validate legal team name
 
     try
     {
-      final URL teamGoaliesUrl = getPlayerScoringUrl(teamName,
-            GOALIES_TYPE);
+      final URL teamGoaliesUrl = getPlayerScoringUrl(teamName, GOALIES_TYPE);
       final Document goalieDocument = XmlUtil.getXmlDocument(
             teamGoaliesUrl);
       final Node goalieTableNode = XPathAPI.selectSingleNode(
