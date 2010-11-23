@@ -1,5 +1,6 @@
 package com.kblaney.ohl.website;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 final class Team
@@ -34,7 +35,7 @@ final class Team
     if (thatObject.getClass().equals(getClass()))
     {
       final Team that = (Team) thatObject;
-      return ((this.name.equals(that.name)) && (this.num == that.num));
+      return ((ObjectUtils.equals(name, that.name)) && (num == that.num));
     }
     else
     {
