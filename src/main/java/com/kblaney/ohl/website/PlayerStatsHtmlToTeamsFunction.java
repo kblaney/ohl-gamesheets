@@ -8,12 +8,26 @@ import java.util.Set;
 final class PlayerStatsHtmlToTeamsFunction
       implements Function<String, Set<Team>>
 {
-  private final Function<String, String> toTeamsSelectListHtmlFunction =
-        new PlayerStatsHtmlToTeamsSelectListHtmlFunction();
-  private final Function<String, List<String>> toTeamOptionsHtmlFunction =
-        new TeamsSelectListHtmlToTeamOptionsHtmlFunction();
-  private final Function<String, Team> toTeamFunction =
-        new TeamOptionHtmlToTeamFunction();
+  private final Function<String, String> toTeamsSelectListHtmlFunction;
+  private final Function<String, List<String>> toTeamOptionsHtmlFunction;
+  private final Function<String, Team> toTeamFunction;
+
+  public PlayerStatsHtmlToTeamsFunction()
+  {
+    this(new PlayerStatsHtmlToTeamsSelectListHtmlFunction(),
+            new TeamsSelectListHtmlToTeamOptionsHtmlFunction(),
+            new TeamOptionHtmlToTeamFunction());
+  }
+
+  PlayerStatsHtmlToTeamsFunction(
+          final Function<String, String> toTeamsSelectListHtmlFunction,
+          final Function<String, List<String>> toTeamOptionsHtmlFunction,
+          final Function<String, Team> toTeamFunction)
+  {
+    this.toTeamsSelectListHtmlFunction = toTeamsSelectListHtmlFunction;
+    this.toTeamOptionsHtmlFunction = toTeamOptionsHtmlFunction;
+    this.toTeamFunction = toTeamFunction;
+  }
 
   public Set<Team> apply(final String playerStatsHtml)
   {
