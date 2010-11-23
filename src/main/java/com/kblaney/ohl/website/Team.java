@@ -3,7 +3,7 @@ package com.kblaney.ohl.website;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
-final class Team
+public final class Team
 {
   private String name;
   private int num;

@@ -1,7 +1,6 @@
 package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
-import com.google.common.collect.Sets;
 import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.ohl.gamesheets.StatsProvider;
 import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
@@ -39,35 +38,11 @@ public class Website implements StatsProvider
   private static final String PROTOCOL = "http";
   private static final String HOST = "www.ontariohockeyleague.com";
   private static final String STATS = "/stats/";
-  private static final String TEAM_STATS_DISPLAY_PHP =
-        STATS + "statdisplay.php";
   private static final String PLAYER_STATS_PHP = STATS + "player.php";
   private static final String PLAYER_GAME_BY_GAME_PHP =
         STATS + "gamebygame.php";
   private static final String SCORING_TYPE = "skaters";
   private static final String GOALIES_TYPE = "goalies";
-  private static final String TYPE = "type";
-  private static final String TEAM_NUM = "subType";
-  private static final String PAIR_SEPARATOR = "&";
-  private static final String SEASON_ID_KEY = "season_id";
-  private static final String SEASON_ID = "42";
-  private static final String PLAYER_STATS_FILE = TEAM_STATS_DISPLAY_PHP +
-        PhpUtil.PAIRS_SEPARATOR +
-        PhpUtil.getKeyValueString(TYPE, SCORING_TYPE) + PAIR_SEPARATOR +
-        PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
-  private static final URL PLAYER_STATS_URL;
-
-  static
-  {
-    try
-    {
-      PLAYER_STATS_URL = new URL(PROTOCOL, HOST, PLAYER_STATS_FILE);
-    }
-    catch (final MalformedURLException e)
-    {
-      throw new IllegalStateException(e);
-    }
-  }
 
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
   private Function<String, Set<Team>> toTeamsFunction =
@@ -75,22 +50,12 @@ public class Website implements StatsProvider
   private Set<Team> teams;
 
   /** {@inheritDoc} */
-  public Set<String> getTeamNames() throws IOException
-  {
-    final Set<String> teamNames = Sets.newHashSet();
-    for (final Team team : getTeams())
-    {
-      teamNames.add(team.getName());
-    }
-    return teamNames;
-  }
-
-  private Set<Team> getTeams() throws IOException
+  public Set<Team> getTeams() throws IOException
   {
     if (teams == null)
     {
       final String playerStatsHtml =
-            urlContentsGetter.getContentsOf(PLAYER_STATS_URL);
+            urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
       return toTeamsFunction.apply(playerStatsHtml);
     }
 
@@ -98,16 +63,15 @@ public class Website implements StatsProvider
   }
 
   /** {@inheritDoc} */
-  public List<Player> getPlayers(final String teamName,
+  public List<Player> getPlayers(final Team team,
         final ProgressIndicator progressIndicator)
         throws IOException
   {
-    ArgAssert.notNull(teamName, "teamName");
-    // TODO:  Validate legal team name
+    ArgAssert.notNull(team, "team");
 
     try
     {
-      final URL playerScoringUrl = getPlayerScoringUrl(teamName, SCORING_TYPE);
+      final URL playerScoringUrl = Urls.getPlayerScoringUrl(team, SCORING_TYPE);
       final Document playerScoringDocument = XmlUtil.getXmlDocument(
             playerScoringUrl);
       final Node playerScoringTableNode = XPathAPI.selectSingleNode(
@@ -143,53 +107,6 @@ public class Website implements StatsProvider
       throw new IOException(
             "Transformer exception when getting player scoring table", e);
     }
-  }
-
-  /**
-   * Gets the player scoring URL for a specified team name and type.
-   *
-   * @param teamName the team name
-   * @param type the type, either <code>SCORING_TYPE</code> or
-   * <code>GOALIES_TYPE</code>
-   *
-   * @return the URL that contains the team's data of the specified type
-   */
-  private URL getPlayerScoringUrl(final String teamName, final String type)
-        throws IOException
-  {
-    final String teamNum = getTeamNum(teamName);
-    if (teamNum != null)
-    {
-      final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
-            PhpUtil.getKeyValueString(TYPE, type) + PAIR_SEPARATOR +
-            PhpUtil.getKeyValueString(TEAM_NUM, teamNum) + PAIR_SEPARATOR +
-            PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
-
-      try
-      {
-        return new URL(PROTOCOL, HOST, file);
-      }
-      catch (final MalformedURLException e)
-      {
-        throw new IllegalStateException(e);
-      }
-    }
-    else
-    {
-      throw new IllegalArgumentException(teamName);
-    }
-  }
-
-  private String getTeamNum(final String teamName) throws IOException
-  {
-    for (final Team team : getTeams())
-    {
-      if (team.getName().equals(teamName))
-      {
-        return Integer.toString(team.getNum());
-      }
-    }
-    throw new IllegalStateException("Invalid teamName:" + teamName);
   }
 
   private Player getPlayer(final Node playerRowNode,
@@ -639,14 +556,13 @@ public class Website implements StatsProvider
   }
 
   /** {@inheritDoc} */
-  public List<Goalie> getGoalies(final String teamName) throws IOException
+  public List<Goalie> getGoalies(final Team team) throws IOException
   {
-    ArgAssert.notNull(teamName, "teamName");
-    // TODO:  Validate legal team name
+    ArgAssert.notNull(team, "team");
 
     try
     {
-      final URL teamGoaliesUrl = getPlayerScoringUrl(teamName, GOALIES_TYPE);
+      final URL teamGoaliesUrl = Urls.getPlayerScoringUrl(team, GOALIES_TYPE);
       final Document goalieDocument = XmlUtil.getXmlDocument(
             teamGoaliesUrl);
       final Node goalieTableNode = XPathAPI.selectSingleNode(
