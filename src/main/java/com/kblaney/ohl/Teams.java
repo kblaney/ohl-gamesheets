@@ -12,7 +12,7 @@ public final class Teams
 {
   private final Set<Team> teams;
 
-  public Teams(final Set<Team> teams)
+  public Teams(final Set<? extends Team> teams)
   {
     ArgAssert.notNull(teams, "teams");
 

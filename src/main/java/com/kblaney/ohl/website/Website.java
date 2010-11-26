@@ -1,7 +1,6 @@
 package com.kblaney.ohl.website;
 
 import com.kblaney.ohl.Teams;
-import com.kblaney.ohl.Team;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.kblaney.commons.io.UrlContentsGetter;
@@ -16,6 +15,7 @@ import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
+import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.net.URL;
@@ -38,21 +38,21 @@ import org.w3c.dom.NodeList;
 public class Website implements StatsProvider
 {
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
-  private Function<String, Set<Team>> toTeamsFunction =
+  private Function<String, Set<NumberedTeam>> toTeamsFunction =
         new PlayerStatsHtmlToTeamsFunction();
-  private Teams teams;
+  private Set<NumberedTeam> numberedTeams;
 
   /** {@inheritDoc} */
   public Teams getTeams() throws IOException
   {
-    if (teams == null)
+    if (numberedTeams == null)
     {
       final String playerStatsHtml =
             urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
-      teams = new Teams(toTeamsFunction.apply(playerStatsHtml));
+      numberedTeams = toTeamsFunction.apply(playerStatsHtml);
     }
 
-    return teams;
+    return new Teams(numberedTeams);
   }
 
   /** {@inheritDoc} */
@@ -64,7 +64,7 @@ public class Website implements StatsProvider
 
     try
     {
-      final URL playerScoringUrl = Urls.getPlayerScoringUrl(team,
+      final URL playerScoringUrl = Urls.getPlayerScoringUrl(getTeamNum(team),
             /*isForSkaters=*/true);
       final Document playerScoringDocument = XmlUtil.getXmlDocument(
             playerScoringUrl);
@@ -101,6 +101,18 @@ public class Website implements StatsProvider
       throw new IOException(
             "Transformer exception when getting player scoring table", e);
     }
+  }
+
+  private int getTeamNum(final Team team)
+  {
+    for (final NumberedTeam numberedTeam : numberedTeams)
+    {
+      if (numberedTeam.getName().equals(team.getName()))
+      {
+        return numberedTeam.getNum();
+      }
+    }
+    throw new IllegalArgumentException("Team num not found: " + team);
   }
 
   private Player getPlayer(final Node playerRowNode,
@@ -486,7 +498,7 @@ public class Website implements StatsProvider
 
     try
     {
-      final URL teamGoaliesUrl = Urls.getPlayerScoringUrl(team,
+      final URL teamGoaliesUrl = Urls.getPlayerScoringUrl(getTeamNum(team),
             /*isForSkaters=*/false);
       final Document goalieDocument = XmlUtil.getXmlDocument(
             teamGoaliesUrl);

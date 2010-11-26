@@ -9,22 +9,14 @@ final class Nodes
   public static String getChildNodeValue(final Node node,
         final int childNodeIndex)
   {
-    if ((node.getChildNodes() != null) &&
-          (node.getChildNodes().getLength() >= childNodeIndex))
+    final Node childNode = node.getChildNodes().item(childNodeIndex);
+    if (childNode.getFirstChild() == null)
     {
-      final Node childNode = node.getChildNodes().item(childNodeIndex);
-      if (childNode.getFirstChild() == null)
-      {
-        return null;
-        }
-      else
-      {
-        return childNode.getFirstChild().getNodeValue();
-      }
+      return null;
     }
     else
     {
-      throw new IllegalArgumentException("Invalid node");
+      return childNode.getFirstChild().getNodeValue();
     }
   }
 

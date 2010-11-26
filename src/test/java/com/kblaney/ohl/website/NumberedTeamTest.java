@@ -1,21 +1,22 @@
-package com.kblaney.ohl;
+package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.Team;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public final class TeamTest
+public final class NumberedTeamTest
 {
   private String name;
   private int num;
-  private Team team;
+  private NumberedTeam team;
 
   @Before
   public void setUp()
   {
     name = "NAME";
     num = 2;
-    team = new Team(name, num);
+    team = new NumberedTeam(name, num);
   }
 
   @Test
@@ -45,27 +46,41 @@ public final class TeamTest
   @Test
   public void equals_equalInstance()
   {
-    assertTrue(team.equals(new Team(name, num)));
+    assertTrue(team.equals(new NumberedTeam(name, num)));
   }
 
   @Test
   public void equals_differentName()
   {
     final String differentName = name + "A";
-    assertFalse(team.equals(new Team(differentName, num)));
+    assertFalse(team.equals(new NumberedTeam(differentName, num)));
+  }
+
+  @Test
+  public void equals_equalNameDifferentType()
+  {
+    final Team differentType = new Team()
+    {
+      @Override
+      public String getName()
+      {
+        return name;
+      }
+    };
+    assertTrue(team.equals(differentType));
   }
 
   @Test
   public void equals_differentNum()
   {
     final int differentNum = num + 1;
-    assertFalse(team.equals(new Team(name, differentNum)));
+    assertTrue(team.equals(new NumberedTeam(name, differentNum)));
   }
 
   @Test
   public void equals_nullNameSameNum()
   {
-    assertTrue(new Team(null, num).equals(new Team(null, num)));
+    assertTrue(new NumberedTeam(null, num).equals(new NumberedTeam(null, num)));
   }
 
   @Test
@@ -73,6 +88,6 @@ public final class TeamTest
   {
     name = "A";
     num = 4;
-    assertEquals("A:4", new Team(name, num).toString());
+    assertEquals("A:4", new NumberedTeam(name, num).toString());
   }
 }

@@ -17,9 +17,21 @@ public final class TeamsTest
   public void setUp()
   {
     teamName = "Belleville Bulls";
-    team = new Team(teamName, /*teamNum=*/2);
+    team = getTeamWithName(teamName);
     emptyTeams = new Teams(Sets.<Team>newHashSet());
     singletonTeams = new Teams(Sets.newHashSet(team));
+  }
+
+  private Team getTeamWithName(final String name)
+  {
+    return new Team()
+    {
+      @Override
+      public String getName()
+      {
+        return name;
+      }
+    };
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -32,9 +44,9 @@ public final class TeamsTest
   public void getSortedTeamNames()
   {
     final Teams teams = new Teams(Sets.newHashSet(
-          new Team("Belleville Bulls", /*teamNum=*/2),
-          new Team("Barrie Colts", /*teamNum=*/3),
-          new Team("Erie Otters", /*teamNum=*/4)));
+          getTeamWithName("Belleville Bulls"),
+          getTeamWithName("Barrie Colts"),
+          getTeamWithName("Erie Otters")));
     assertEquals(Lists.newArrayList("Barrie Colts", "Belleville Bulls",
           "Erie Otters"), teams.getSortedTeamNames());
   }
@@ -57,9 +69,8 @@ public final class TeamsTest
   @Test
   public void getTeamWithName_teamWithName()
   {
-    final Teams teams = new Teams(Sets.newHashSet(
-          team, new Team("Barrie Colts", /*teamNum=*/3),
-          new Team("Erie Otters", /*teamNum=*/4)));
+    final Teams teams = new Teams(Sets.newHashSet(team,
+          getTeamWithName("Barrie Colts"), getTeamWithName("Erie Otters")));
     assertEquals(team, teams.getTeamWithName(teamName));
   }
 
@@ -102,13 +113,9 @@ public final class TeamsTest
   @Test
   public void testToString()
   {
-    final String toString = new Teams(Sets.newHashSet(
-          new Team("Belleville Bulls", /*teamNum=*/2),
-          new Team("Barrie Colts", /*teamNum=*/3),
-          new Team("Erie Otters", /*teamNum=*/4))).toString();
-
-    assertTrue(toString.contains("Belleville Bulls"));
-    assertTrue(toString.contains("Barrie Colts"));
-    assertTrue(toString.contains("Erie Otters"));
+    assertNotNull(new Teams(Sets.newHashSet(
+          getTeamWithName("Belleville Bulls"),
+          getTeamWithName("Barrie Colts"),
+          getTeamWithName("Erie Otters"))).toString());
   }
 }

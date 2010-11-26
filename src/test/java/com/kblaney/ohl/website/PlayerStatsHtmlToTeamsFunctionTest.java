@@ -19,8 +19,8 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
   private String teamsSelectListHtml;
   private Function<String, String> toTeamsSelectListHtmlFunction;
   private Function<String, List<String>> toTeamOptionsHtmlFunction;
-  private Function<String, Team> toTeamFunction;
-  private Function<String, Set<Team>> toTeamsFunction;
+  private Function<String, NumberedTeam> toTeamFunction;
+  private Function<String, Set<NumberedTeam>> toTeamsFunction;
 
   @Before
   public void setUp()
@@ -51,7 +51,7 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
     final String teamOptionHtml = "TEAM_OPTION_HTML";
     when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).
             thenReturn(Lists.newArrayList(teamOptionHtml));
-    final Team team = new Team("Boston Bruins", /*teamNum=*/2);
+    final NumberedTeam team = new NumberedTeam("Boston Bruins", /*teamNum=*/2);
     when(toTeamFunction.apply(teamOptionHtml)).thenReturn(team);
     assertEquals(Sets.newHashSet(team), toTeamsFunction.apply(playerStatsHtml));
   }
@@ -66,9 +66,12 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
             thenReturn(Lists.newArrayList(firstTeamOptionHtml,
             secondTeamOptionHtml, thirdTeamOptionHtml));
 
-    final Team firstTeam = new Team("Buffalo Sabres", /*teamNum=*/3);
-    final Team secondTeam = new Team("New York Rangers", /*teamNum=*/14);
-    final Team thirdTeam = new Team("Vancouver Canucks", /*teamNum=*/28);
+    final NumberedTeam firstTeam =
+          new NumberedTeam("Buffalo Sabres", /*teamNum=*/3);
+    final NumberedTeam secondTeam =
+          new NumberedTeam("New York Rangers", /*teamNum=*/14);
+    final NumberedTeam thirdTeam =
+          new NumberedTeam("Vancouver Canucks", /*teamNum=*/28);
     when(toTeamFunction.apply(firstTeamOptionHtml)).thenReturn(firstTeam);
     when(toTeamFunction.apply(secondTeamOptionHtml)).thenReturn(secondTeam);
     when(toTeamFunction.apply(thirdTeamOptionHtml)).thenReturn(thirdTeam);

@@ -1,6 +1,5 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.ohl.Team;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -40,13 +39,13 @@ final class Urls
     }
   }
 
-  public static URL getPlayerScoringUrl(final Team team,
+  public static URL getPlayerScoringUrl(final int teamNum,
         final boolean isForSkaters) throws IOException
   {
     final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
           PhpUtil.getKeyValueString(TYPE, getType(isForSkaters)) +
           PAIR_SEPARATOR +
-          PhpUtil.getKeyValueString(TEAM_NUM, Integer.toString(team.getNum())) +
+          PhpUtil.getKeyValueString(TEAM_NUM, Integer.toString(teamNum)) +
           PAIR_SEPARATOR +
           PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
 

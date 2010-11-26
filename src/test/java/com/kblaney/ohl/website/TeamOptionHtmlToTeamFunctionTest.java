@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public final class TeamOptionHtmlToTeamFunctionTest
 {
-  private Function<String, Team> function;
+  private Function<String, NumberedTeam> function;
 
   @Before
   public void setUp()
@@ -35,7 +35,7 @@ public final class TeamOptionHtmlToTeamFunctionTest
   public void apply_teamPresent()
   {
     final int teamNum = 0;
-    assertEquals(new Team("Barrie Colts", teamNum),
+    assertEquals(new NumberedTeam("Barrie Colts", teamNum),
           function.apply(getTeamOptionHtml(Integer.toString(teamNum))));
   }
 
