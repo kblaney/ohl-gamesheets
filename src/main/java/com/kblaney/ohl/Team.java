@@ -1,4 +1,4 @@
-package com.kblaney.ohl.website;
+package com.kblaney.ohl;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;

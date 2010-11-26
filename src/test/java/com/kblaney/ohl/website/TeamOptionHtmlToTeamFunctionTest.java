@@ -1,5 +1,6 @@
 package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.Team;
 import com.google.common.base.Function;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,5 +1,7 @@
 package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.Teams;
+import com.kblaney.ohl.Team;
 import com.google.common.base.Function;
 import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.ohl.gamesheets.StatsProvider;
@@ -15,7 +17,6 @@ import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,28 +36,19 @@ import org.w3c.dom.NodeList;
  */
 public class Website implements StatsProvider
 {
-  private static final String PROTOCOL = "http";
-  private static final String HOST = "www.ontariohockeyleague.com";
-  private static final String STATS = "/stats/";
-  private static final String PLAYER_STATS_PHP = STATS + "player.php";
-  private static final String PLAYER_GAME_BY_GAME_PHP =
-        STATS + "gamebygame.php";
-  private static final String SCORING_TYPE = "skaters";
-  private static final String GOALIES_TYPE = "goalies";
-
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
   private Function<String, Set<Team>> toTeamsFunction =
         new PlayerStatsHtmlToTeamsFunction();
-  private Set<Team> teams;
+  private Teams teams;
 
   /** {@inheritDoc} */
-  public Set<Team> getTeams() throws IOException
+  public Teams getTeams() throws IOException
   {
     if (teams == null)
     {
       final String playerStatsHtml =
             urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
-      return toTeamsFunction.apply(playerStatsHtml);
+      teams = new Teams(toTeamsFunction.apply(playerStatsHtml));
     }
 
     return teams;
@@ -71,7 +63,8 @@ public class Website implements StatsProvider
 
     try
     {
-      final URL playerScoringUrl = Urls.getPlayerScoringUrl(team, SCORING_TYPE);
+      final URL playerScoringUrl = Urls.getPlayerScoringUrl(team,
+            /*isForSkaters=*/true);
       final Document playerScoringDocument = XmlUtil.getXmlDocument(
             playerScoringUrl);
       final Node playerScoringTableNode = XPathAPI.selectSingleNode(
@@ -248,7 +241,7 @@ public class Website implements StatsProvider
   {
     try
     {
-      final URL playerBioUrl = getPlayerBioUrl(playerId);
+      final URL playerBioUrl = Urls.getPlayerBioUrl(playerId);
       final Document playerBioDocument = XmlUtil.getXmlDocument(
             playerBioUrl);
       final Node playerBioTableNode = XPathAPI.selectSingleNode(
@@ -289,7 +282,7 @@ public class Website implements StatsProvider
 
     if (!playerPosition.equals("G"))
     {
-      final URL playerGameByGameUrl = getPlayerGameByGameUrl(playerId);
+      final URL playerGameByGameUrl = Urls.getPlayerGameByGameUrl(playerId);
       final Document playerGameByGameDocument = XmlUtil.getXmlDocument(
             playerGameByGameUrl);
       if (playerGameByGameDocument == null)
@@ -396,36 +389,6 @@ public class Website implements StatsProvider
     else
     {
       throw new IllegalArgumentException("Invalid playerRowNode");
-    }
-  }
-
-  private URL getPlayerBioUrl(final String playerId)
-  {
-    ArgAssert.notNull(playerId, "playerId");
-
-    try
-    {
-      return new URL(PROTOCOL, HOST,
-            PLAYER_STATS_PHP + PhpUtil.PAIRS_SEPARATOR + playerId);
-    }
-    catch (final MalformedURLException e)
-    {
-      throw new IllegalStateException(e);
-    }
-  }
-
-  private URL getPlayerGameByGameUrl(final String playerId)
-  {
-    ArgAssert.notNull(playerId, "playerId");
-
-    try
-    {
-      return new URL(PROTOCOL, HOST,
-            PLAYER_GAME_BY_GAME_PHP + PhpUtil.PAIRS_SEPARATOR + playerId);
-    }
-    catch (final MalformedURLException e)
-    {
-      throw new IllegalStateException(e);
     }
   }
 
@@ -562,7 +525,8 @@ public class Website implements StatsProvider
 
     try
     {
-      final URL teamGoaliesUrl = Urls.getPlayerScoringUrl(team, GOALIES_TYPE);
+      final URL teamGoaliesUrl = Urls.getPlayerScoringUrl(team,
+            /*isForSkaters=*/false);
       final Document goalieDocument = XmlUtil.getXmlDocument(
             teamGoaliesUrl);
       final Node goalieTableNode = XPathAPI.selectSingleNode(

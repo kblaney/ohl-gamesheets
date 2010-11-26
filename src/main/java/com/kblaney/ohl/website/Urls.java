@@ -1,5 +1,6 @@
 package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.Team;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,16 +15,15 @@ final class Urls
   private static final String PLAYER_STATS_PHP = STATS + "player.php";
   private static final String PLAYER_GAME_BY_GAME_PHP =
         STATS + "gamebygame.php";
-  private static final String SCORING_TYPE = "skaters";
-  private static final String GOALIES_TYPE = "goalies";
+  private static final String SKATERS_TYPE = "skaters";
   private static final String TYPE = "type";
   private static final String TEAM_NUM = "subType";
   private static final String PAIR_SEPARATOR = "&";
   private static final String SEASON_ID_KEY = "season_id";
   private static final String SEASON_ID = "42";
-  private static final String PLAYER_STATS_FILE = TEAM_STATS_DISPLAY_PHP +
-        PhpUtil.PAIRS_SEPARATOR +
-        PhpUtil.getKeyValueString(TYPE, SCORING_TYPE) + PAIR_SEPARATOR +
+  private static final String PLAYER_STATS_FILE =
+        TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
+        PhpUtil.getKeyValueString(TYPE, SKATERS_TYPE) + PAIR_SEPARATOR +
         PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
 
   private Urls() {}
@@ -40,11 +40,12 @@ final class Urls
     }
   }
 
-  public static URL getPlayerScoringUrl(final Team team, final String type)
-        throws IOException
+  public static URL getPlayerScoringUrl(final Team team,
+        final boolean isForSkaters) throws IOException
   {
     final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
-          PhpUtil.getKeyValueString(TYPE, type) + PAIR_SEPARATOR +
+          PhpUtil.getKeyValueString(TYPE, getType(isForSkaters)) +
+          PAIR_SEPARATOR +
           PhpUtil.getKeyValueString(TEAM_NUM, Integer.toString(team.getNum())) +
           PAIR_SEPARATOR +
           PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
@@ -52,6 +53,44 @@ final class Urls
     try
     {
       return new URL(PROTOCOL, HOST, file);
+    }
+    catch (final MalformedURLException e)
+    {
+      throw new IllegalStateException(e);
+    }
+  }
+
+  private static String getType(final boolean isForSkaters)
+  {
+    if (isForSkaters)
+    {
+      return SKATERS_TYPE;
+    }
+    else
+    {
+      return "goalies";
+    }
+  }
+
+  public static URL getPlayerBioUrl(final String playerId)
+  {
+    try
+    {
+      return new URL(PROTOCOL, HOST,
+            PLAYER_STATS_PHP + PhpUtil.PAIRS_SEPARATOR + playerId);
+    }
+    catch (final MalformedURLException e)
+    {
+      throw new IllegalStateException(e);
+    }
+  }
+
+  public static URL getPlayerGameByGameUrl(final String playerId)
+  {
+    try
+    {
+      return new URL(PROTOCOL, HOST,
+            PLAYER_GAME_BY_GAME_PHP + PhpUtil.PAIRS_SEPARATOR + playerId);
     }
     catch (final MalformedURLException e)
     {

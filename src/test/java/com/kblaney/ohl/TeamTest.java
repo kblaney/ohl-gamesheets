@@ -1,4 +1,4 @@
-package com.kblaney.ohl.website;
+package com.kblaney.ohl;
 
 import org.junit.Before;
 import org.junit.Test;

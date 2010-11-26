@@ -5,7 +5,7 @@ import com.kblaney.commons.lang.SystemUtil;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerPointsComparator;
-import com.kblaney.ohl.website.Team;
+import com.kblaney.ohl.Team;
 import com.kblaney.ohl.website.Website;
 import java.io.IOException;
 import java.text.FieldPosition;

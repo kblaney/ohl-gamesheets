@@ -1,7 +1,7 @@
 package com.kblaney.ohl.gamesheets;
 
-import com.google.common.collect.Lists;
-import com.kblaney.ohl.website.Team;
+import com.kblaney.ohl.Team;
+import com.kblaney.ohl.Teams;
 import com.kblaney.ohl.website.Website;
 import java.awt.Color;
 import java.awt.Container;
@@ -13,10 +13,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Set;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -38,7 +36,7 @@ final class CreateGamesheetsFrame extends JFrame
   private final JComboBox homeTeamComboBox;
   private final MDateEntryField dateEntryField;
   private final JLabel fileLocationLabel;
-  private final Set<Team> teams;
+  private final Teams teams;
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
   public CreateGamesheetsFrame() throws IOException
@@ -48,13 +46,13 @@ final class CreateGamesheetsFrame extends JFrame
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     teams = new Website().getTeams();
-    final List<String> sortedTeamNames = getSortedTeamNames(teams);
+    final String[] sortedTeamNames = getSortedTeamNames(teams);
 
-    homeTeamComboBox = new JComboBox(sortedTeamNames.toArray());
-    homeTeamComboBox.setMaximumRowCount(sortedTeamNames.size());
+    homeTeamComboBox = new JComboBox(sortedTeamNames);
+    homeTeamComboBox.setMaximumRowCount(sortedTeamNames.length);
 
-    roadTeamComboBox = new JComboBox(sortedTeamNames.toArray());
-    roadTeamComboBox.setMaximumRowCount(sortedTeamNames.size());
+    roadTeamComboBox = new JComboBox(sortedTeamNames);
+    roadTeamComboBox.setMaximumRowCount(sortedTeamNames.length);
 
     final SimpleDateFormat simpleDateFormat = new MSimpleDateFormat(
           "EEEE, MMMM d, yyyy");
@@ -112,15 +110,10 @@ final class CreateGamesheetsFrame extends JFrame
     pack();
   }
 
-  private List<String> getSortedTeamNames(final Set<Team> teams)
+  private String[] getSortedTeamNames(final Teams teams)
   {
-    final List<String> teamNames = Lists.newArrayList();
-    for (final Team team : teams)
-    {
-      teamNames.add(team.getName());
-    }
-    Collections.sort(teamNames);
-    return teamNames;
+    final List<String> sortedTeamNames = teams.getSortedTeamNames();
+    return sortedTeamNames.toArray(new String[sortedTeamNames.size()]);
   }
 
   /** {@inheritDoc} */
@@ -180,26 +173,14 @@ final class CreateGamesheetsFrame extends JFrame
   {
     final String selectedHomeTeamName =
           (String) homeTeamComboBox.getSelectedItem();
-    return getTeam(selectedHomeTeamName);
-  }
-
-  private Team getTeam(final String teamName)
-  {
-    for (final Team team : teams)
-    {
-      if (team.getName().equals(teamName))
-      {
-        return team;
-      }
-    }
-    throw new IllegalStateException("Can't find team with name: " + teamName);
+    return teams.getTeamWithName(selectedHomeTeamName);
   }
 
   private Team getSelectedRoadTeam()
   {
     final String selectedRoadTeamName =
           (String) roadTeamComboBox.getSelectedItem();
-    return getTeam(selectedRoadTeamName);
+    return teams.getTeamWithName(selectedRoadTeamName);
   }
 
   private Calendar getSelectedGameDate() throws ParseException
