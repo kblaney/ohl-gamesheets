@@ -1,48 +1,45 @@
 package com.kblaney.ohl.website;
 
-import org.w3c.dom.Node;
+import org.junit.Before;
 import org.w3c.dom.Element;
-import org.w3c.dom.Document;
-import org.w3c.tidy.Tidy;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public final class NodesTest
 {
-  @Test
-  public void getChildNodeValue_noNodeValue()
+  private XmlToElementFunction toElementFunction;
+
+  @Before
+  public void setUp() throws Exception
   {
-    final Document document = Tidy.createEmptyDocument();
-    final Element rootElement = document.createElement("A");
-    rootElement.appendChild(document.createElement("B"));
-    assertNull(Nodes.getChildNodeValue(rootElement, 0));
+    toElementFunction = new XmlToElementFunction();
   }
 
   @Test
-  public void getChildNodeValue_nodeValue()
+  public void getChildNodeValue_noNodeValue() throws Exception
   {
-    final Document document = Tidy.createEmptyDocument();
-    final Element rootElement = document.createElement("A");
-    final Node childElement =
-          rootElement.appendChild(document.createElement("B"));
-    childElement.appendChild(document.createTextNode("C"));
-    assertEquals("C", Nodes.getChildNodeValue(rootElement, 0));
+    final Element element = toElementFunction.apply("<A><B></B></A>");
+    assertNull(Nodes.getChildNodeValue(element, 0));
   }
 
   @Test
-  public void getFirstChildNodeValueOrEmpty_noChildren()
+  public void getChildNodeValue_nodeValue() throws Exception
   {
-    final Document document = Tidy.createEmptyDocument();
-    final Element rootElement = document.createElement("A");
-    assertEquals("", Nodes.getFirstChildNodeValueOrEmpty(rootElement));
+    final Element element = toElementFunction.apply("<A><B>C</B></A>");
+    assertEquals("C", Nodes.getChildNodeValue(element, 0));
   }
 
   @Test
-  public void getFirstChildNodeValueOrEmpty_oneChild()
+  public void getFirstChildNodeValueOrEmpty_noChildren() throws Exception
   {
-    final Document document = Tidy.createEmptyDocument();
-    final Element rootElement = document.createElement("A");
-    rootElement.appendChild(document.createTextNode("B"));
-    assertEquals("B", Nodes.getFirstChildNodeValueOrEmpty(rootElement));
+    final Element element = toElementFunction.apply("<A></A>");
+    assertEquals("", Nodes.getFirstChildNodeValueOrEmpty(element));
+  }
+
+  @Test
+  public void getFirstChildNodeValueOrEmpty_oneChild() throws Exception
+  {
+    final Element element = toElementFunction.apply("<A>B</A>");
+    assertEquals("B", Nodes.getFirstChildNodeValueOrEmpty(element));
   }
 }
