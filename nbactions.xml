@@ -36,5 +36,13 @@
                 <exec.executable>${profiler.java}</exec.executable>
             </properties>
         </action>
+        <action>
+            <actionName>CUSTOM-Cobertura</actionName>
+            <displayName>Cobertura</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>cobertura:cobertura</goal>
+            </goals>
+        </action>
         
     </actions>

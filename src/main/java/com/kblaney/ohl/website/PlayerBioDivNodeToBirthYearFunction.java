@@ -15,10 +15,10 @@ final class PlayerBioDivNodeToBirthYearFunction
   {
     try
     {
-      final Node birthdateRowNode = XPathAPI.selectSingleNode(
-            bioDivNode, "//tr[td='Birthdate']");
+      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode,
+            "//tr[td='Birthdate']");
       final String birthDate = Nodes.getFirstChildNodeValueOrEmpty(
-            birthdateRowNode.getLastChild());
+            rowNode.getLastChild());
       final Pattern p = Pattern.compile("\\d\\d\\d\\d");
       final Matcher m = p.matcher(birthDate);
       if (m.find())
