@@ -1,16 +1,16 @@
 package com.kblaney.ohl.website;
 
+import com.google.common.base.Function;
 import com.kblaney.commons.xml.XmlUtil;
-import java.io.IOException;
 import java.net.URL;
 import javax.xml.transform.TransformerException;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
-final class PlayerIdToBioDivNodeFunction
+final class PlayerIdToBioDivNodeFunction implements Function<String, Node>
 {
-  public Node apply(final String playerId) throws IOException
+  public Node apply(final String playerId)
   {
     try
     {
@@ -21,7 +21,7 @@ final class PlayerIdToBioDivNodeFunction
             "//div[@class='profile']/div[@class='details']/table");
       if (bioDivNode == null)
       {
-        throw new IOException(
+        throw new IllegalStateException(
               "Can't find bio div node for player with ID: " + playerId);
       }
       else
@@ -31,7 +31,7 @@ final class PlayerIdToBioDivNodeFunction
     }
     catch (TransformerException e)
     {
-      throw new IOException(e);
+      throw new IllegalStateException(e);
     }
   }
 }
