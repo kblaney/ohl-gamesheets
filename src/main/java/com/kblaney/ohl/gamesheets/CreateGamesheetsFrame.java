@@ -36,6 +36,7 @@ final class CreateGamesheetsFrame extends JFrame
   private final JComboBox homeTeamComboBox;
   private final MDateEntryField dateEntryField;
   private final JLabel fileLocationLabel;
+  private final StatsProvider statsProvider = new Website();
   private final Teams teams;
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
@@ -45,7 +46,7 @@ final class CreateGamesheetsFrame extends JFrame
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-    teams = new Website().getTeams();
+    teams = statsProvider.getTeams();
     final String[] sortedTeamNames = getSortedTeamNames(teams);
 
     homeTeamComboBox = new JComboBox(sortedTeamNames);
@@ -136,7 +137,7 @@ final class CreateGamesheetsFrame extends JFrame
             try
             {
               final HtmlGamesheets htmlGamesheets =
-                    new HtmlGamesheetsGetter().getGamesheets(
+                    new HtmlGamesheetsGetter(statsProvider).getGamesheets(
                     homeTeam, roadTeam, gameDate, CreateGamesheetsFrame.this);
 
               final String directory = System.getProperty("user.home");

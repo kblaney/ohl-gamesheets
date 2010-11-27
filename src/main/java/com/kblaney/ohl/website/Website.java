@@ -6,22 +6,15 @@ import com.google.common.collect.Lists;
 import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
 import com.kblaney.commons.lang.ArgAssert;
-import com.kblaney.commons.xml.XmlUtil;
 import com.kblaney.ohl.Goalie;
-import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import com.kblaney.ohl.gamesheets.StatsProvider;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import javax.xml.transform.TransformerException;
-import org.apache.xpath.XPathAPI;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -94,89 +87,21 @@ public class Website implements StatsProvider
   {
     ArgAssert.notNull(team, "team");
 
-    try
-    {
-      final URL url = Urls.getPlayerScoringUrl(getTeamNum(team),
-            /*isForSkaters=*/false);
-      final Document document = XmlUtil.getXmlDocument(url);
-      final Node tableNode = XPathAPI.selectSingleNode(
-            document.getDocumentElement(), "//table[tr[th='SVS']]");
+    final NodeList tableRowNodeList = new GoalieTableRowNodeListSupplier().get(
+          getTeamNum(team));
 
-      if (tableNode != null)
-      {
-        final NodeList tableRowNodeList = XPathAPI.selectNodeList(
-              tableNode, "tr[td[position()=3][a]]");
-
-        final List<Goalie> goalies = new ArrayList<Goalie>();
-        for (int i = 0; i < tableRowNodeList.getLength(); i++)
-        {
-          final Node tableRowNode = tableRowNodeList.item(i);
-          final Goalie goalie = getGoalie(tableRowNode);
-          goalies.add(goalie);
-        }
-        return goalies;
-      }
-      else
-      {
-        throw new IOException("Can not find goalie stats table");
-      }
-    }
-    catch (TransformerException t)
+    final List<Goalie> goalies = Lists.newArrayList();
+    for (int i = 0; i < tableRowNodeList.getLength(); i++)
     {
-      throw new IOException(
-            "Transformer exception when getting goalie stats table");
+      final Node tableRowNode = tableRowNodeList.item(i);
+      final Goalie goalie = getGoalie(tableRowNode);
+      goalies.add(goalie);
     }
+    return goalies;
   }
 
-  private Goalie getGoalie(final Node rowNode) throws IOException
+  private Goalie getGoalie(final Node tableRowNode) throws IOException
   {
-    final String name = getPlayerName(rowNode);
-    final String numGamesPlayedString = Nodes.getChildNodeValue(rowNode, 3);
-    final String numMinutesPlayedString = Nodes.getChildNodeValue(rowNode, 4);
-    final String numGoalsAgainstString = Nodes.getChildNodeValue(rowNode, 5);
-    final String numShutoutsString = Nodes.getChildNodeValue(rowNode, 6);
-    final String goalsAgainstAverageString = Nodes.getChildNodeValue(rowNode, 7);
-    final String numWinsString = Nodes.getChildNodeValue(rowNode, 8);
-    final String numLossesString = Nodes.getChildNodeValue(rowNode, 9);
-    final String numOvertimeLossesString = Nodes.getChildNodeValue(rowNode, 10);
-    final String numShootoutLossesString = Nodes.getChildNodeValue(rowNode, 11);
-    final String numShotsAgainstString = Nodes.getChildNodeValue(rowNode, 12);
-    final String numSavesString = Nodes.getChildNodeValue(rowNode, 13);
-    final String savePercentageString = Nodes.getChildNodeValue(rowNode, 14);
-
-    final int numGamesPlayed = Integer.parseInt(numGamesPlayedString);
-    final int numMinutesPlayed = Integer.parseInt(numMinutesPlayedString);
-    final int numGoalsAgainst = (int) Double.parseDouble(
-          numGoalsAgainstString);
-    final int numShutouts = Integer.parseInt(numShutoutsString);
-    final double goalsAgainstAverage = Double.parseDouble(
-          goalsAgainstAverageString);
-    final int numWins = Integer.parseInt(numWinsString);
-    final int numLosses = Integer.parseInt(numLossesString);
-    final int numOvertimeLosses = Integer.parseInt(numOvertimeLossesString);
-    final int numShootoutLosses = Integer.parseInt(numShootoutLossesString);
-    final int numShotsAgainst = Integer.parseInt(numShotsAgainstString);
-    final int numSaves = Integer.parseInt(numSavesString);
-    final double savePercentage = Double.parseDouble(savePercentageString);
-
-    final GoalieStats goalieStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setNumShutouts(numShutouts).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setNumWins(numWins).
-          setNumRegulationLosses(numLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).
-          setSavePercentage(savePercentage).build();
-    return new Goalie(name, goalieStats);
-  }
-
-  private String getPlayerName(final Node tableRowNode)
-  {
-    return new PlayerTableRowNodeToNameFunction().apply(tableRowNode);
+    return new GoalieSupplier().getGoalie(tableRowNode);
   }
 }

@@ -6,7 +6,6 @@ import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerPointsComparator;
 import com.kblaney.ohl.Team;
-import com.kblaney.ohl.website.Website;
 import java.io.IOException;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
@@ -16,7 +15,12 @@ import java.util.List;
 
 final class HtmlGamesheetsGetter
 {
-  private final StatsProvider statsProvider = new Website();
+  private final StatsProvider statsProvider;
+
+  public HtmlGamesheetsGetter(final StatsProvider statsProvider)
+  {
+    this.statsProvider = statsProvider;
+  }
 
   public HtmlGamesheets getGamesheets(final Team homeTeam, final Team roadTeam,
           final Calendar gameDate, final ProgressIndicator progressIndicator)
