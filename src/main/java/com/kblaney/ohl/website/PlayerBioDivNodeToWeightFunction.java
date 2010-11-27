@@ -1,10 +1,12 @@
 package com.kblaney.ohl.website;
 
+import com.google.common.base.Function;
 import javax.xml.transform.TransformerException;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 
 final class PlayerBioDivNodeToWeightFunction
+      implements Function<Node, String>
 {
   public String apply(final Node bioDivNode)
   {

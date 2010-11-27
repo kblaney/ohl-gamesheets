@@ -19,7 +19,7 @@ public final class PlayerBio
     private String position;
     private String height;
     private String weight;
-    private String homeTown;
+    private String birthplace;
 
     /**
      * Builds a PlayerBio instance.
@@ -33,72 +33,37 @@ public final class PlayerBio
       playerBio.position = position;
       playerBio.height = height;
       playerBio.weight = weight;
-      playerBio.homeTown = homeTown;
+      playerBio.birthplace = birthplace;
       return playerBio;
     }
 
-    /**
-     * Sets the player's birth date.
-     *
-     * @param birthDate the birth date
-     *
-     * @return the builder instance
-     */
-    public Builder setBirthYear(final String birthDate)
+    public Builder setBirthYear(final String birthYear)
     {
-      this.birthYear = birthDate;
+      this.birthYear = birthYear;
       return this;
     }
 
-    /**
-     * Sets the player's position.
-     *
-     * @param position the position
-     *
-     * @return the builder instance
-     */
     public Builder setPosition(final String position)
     {
       this.position = position;
       return this;
     }
 
-    /**
-     * Sets the player's height.
-     *
-     * @param height the height
-     *
-     * @return the builder instance
-     */
     public Builder setHeight(final String height)
     {
       this.height = height;
       return this;
     }
 
-    /**
-     * Sets the player's weight.
-     *
-     * @param weight the weight
-     *
-     * @return the builder instance
-     */
     public Builder setWeight(final String weight)
     {
       this.weight = weight;
       return this;
     }
 
-    /**
-     * Sets the player's home town.
-     *
-     * @param homeTown the homeTown
-     *
-     * @return the builder instance
-     */
-    public Builder setHomeTown(final String homeTown)
+    public Builder setBirthplace(final String birthplace)
     {
-      this.homeTown = homeTown;
+      this.birthplace = birthplace;
       return this;
     }
   }
@@ -107,56 +72,30 @@ public final class PlayerBio
   private String position;
   private String height;
   private String weight;
-  private String homeTown;
+  private String birthplace;
 
   private PlayerBio() {}
 
-  /**
-   * Gets the player's birth year.
-   *
-   * @return the player's birth year, or an empty string if the birth year is
-   * unknown
-   */
   public String getBirthYear()
   {
     return birthYear;
   }
 
-  /**
-   * Gets the player's position.
-   *
-   * @return the player's position
-   */
   public String getPosition()
   {
     return position;
   }
 
-  /**
-   * Gets the player's height.
-   *
-   * @return the player's height
-   */
   public String getHeight()
   {
     return height;
   }
 
-  /**
-   * Gets the player's home town.
-   *
-   * @return the player's home town
-   */
-  public String getHomeTown()
+  public String getBirthplace()
   {
-    return homeTown;
+    return birthplace;
   }
 
-  /**
-   * Gets the player's weight.
-   *
-   * @return the player's weight
-   */
   public String getWeight()
   {
     return weight;

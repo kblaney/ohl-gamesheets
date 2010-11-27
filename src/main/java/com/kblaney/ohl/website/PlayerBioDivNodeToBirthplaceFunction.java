@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 
-final class PlayerBioDivNodeToHometownFunction
+final class PlayerBioDivNodeToBirthplaceFunction
       implements Function<Node, String>
 {
   public String apply(final Node bioDivNode)
@@ -22,11 +22,11 @@ final class PlayerBioDivNodeToHometownFunction
       {
         final String nodeValue = rowNode.getLastChild().
               getFirstChild().getNodeValue();
-        final Pattern pattern = Pattern.compile("^[^,]+, [^,]+");
-        final Matcher matcher = pattern.matcher(nodeValue);
-        if (matcher.find())
+        final Pattern p = Pattern.compile("^[^,]+, [^,]+");
+        final Matcher m = p.matcher(nodeValue);
+        if (m.find())
         {
-          return matcher.group();
+          return m.group();
         }
         else
         {
@@ -40,7 +40,7 @@ final class PlayerBioDivNodeToHometownFunction
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException("Can't get hometown", e);
+      throw new IllegalStateException("Can't get birthplace", e);
     }
   }
 }

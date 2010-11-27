@@ -56,7 +56,7 @@ final class PlayerHtmlTableGetter
     s.append(HtmlUtil.getTableElement("P", true));
     s.append(HtmlUtil.getTableElement("H", true));
     s.append(HtmlUtil.getTableElement("W", true));
-    s.append(HtmlUtil.getTableElement("Home Town", false));
+    s.append(HtmlUtil.getTableElement("Birthplace", false));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
@@ -101,7 +101,7 @@ final class PlayerHtmlTableGetter
     s.append(HtmlUtil.getTableElement(
           player.getBio().getWeight(), true));
     s.append(HtmlUtil.getTableElement(
-          player.getBio().getHomeTown(), false));
+          player.getBio().getBirthplace(), false));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
