@@ -1,23 +1,48 @@
 package com.kblaney.ohl.website;
 
-import org.junit.Test;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.Element;
+import org.w3c.dom.Document;
+import org.w3c.tidy.Tidy;
+import org.junit.Test;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public final class NodesTest
 {
   @Test
   public void getChildNodeValue_noNodeValue()
   {
-    final Node childNode = mock(Node.class);
-    when(childNode.getFirstChild()).thenReturn(null);
-    final NodeList nodeList = mock(NodeList.class);
-    final int childNodeIndex = 2;
-    when(nodeList.item(childNodeIndex)).thenReturn(childNode);
-    final Node node = mock(Node.class);
-    when(node.getChildNodes()).thenReturn(nodeList);
-    assertNull(Nodes.getChildNodeValue(node, childNodeIndex));
+    final Document document = Tidy.createEmptyDocument();
+    final Element rootElement = document.createElement("A");
+    rootElement.appendChild(document.createElement("B"));
+    assertNull(Nodes.getChildNodeValue(rootElement, 0));
+  }
+
+  @Test
+  public void getChildNodeValue_nodeValue()
+  {
+    final Document document = Tidy.createEmptyDocument();
+    final Element rootElement = document.createElement("A");
+    final Node childElement =
+          rootElement.appendChild(document.createElement("B"));
+    childElement.appendChild(document.createTextNode("C"));
+    assertEquals("C", Nodes.getChildNodeValue(rootElement, 0));
+  }
+
+  @Test
+  public void getFirstChildNodeValueOrEmpty_noChildren()
+  {
+    final Document document = Tidy.createEmptyDocument();
+    final Element rootElement = document.createElement("A");
+    assertEquals("", Nodes.getFirstChildNodeValueOrEmpty(rootElement));
+  }
+
+  @Test
+  public void getFirstChildNodeValueOrEmpty_oneChild()
+  {
+    final Document document = Tidy.createEmptyDocument();
+    final Element rootElement = document.createElement("A");
+    rootElement.appendChild(document.createTextNode("B"));
+    assertEquals("B", Nodes.getFirstChildNodeValueOrEmpty(rootElement));
   }
 }
