@@ -62,45 +62,20 @@ public class Website implements StatsProvider
     ArgAssert.notNull(team, "team");
     ArgAssert.notNull(progressIndicator, "progressIndicator");
 
-    try
+    final NodeList tableRowNodeList = new PlayerTableRowNodeListSupplier().get(
+          getTeamNum(team), /*isForSkaters=*/true);
+
+    final List<Player> players = Lists.newArrayList();
+    for (int i = 0; i < tableRowNodeList.getLength(); i++)
     {
-      final URL playerScoringUrl = Urls.getPlayerScoringUrl(getTeamNum(team),
-            /*isForSkaters=*/true);
-      final Document playerScoringDocument = XmlUtil.getXmlDocument(
-            playerScoringUrl);
-      final Node playerScoringTableNode = XPathAPI.selectSingleNode(
-            playerScoringDocument.getDocumentElement(),
-            "//table[tr[th='PIMPG']]");
-
-      if (playerScoringTableNode != null)
+      final Node tableRowNode = tableRowNodeList.item(i);
+      final Player player = getPlayer(tableRowNode, progressIndicator);
+      if (player.getPlayerType() != PlayerType.NOT_ACTIVE)
       {
-        final List<Player> players = Lists.newArrayList();
-        final NodeList playerRowNodeList = XPathAPI.selectNodeList(
-              playerScoringTableNode, "tr[td[position()=3][a]]");
-
-        for (int i = 0; i < playerRowNodeList.getLength(); i++)
-        {
-          final Node playerRowNode = playerRowNodeList.item(i);
-          final Player player = getPlayer(playerRowNode,
-                progressIndicator);
-          if (player.getPlayerType() != PlayerType.NOT_ACTIVE)
-          {
-            players.add(player);
-          }
-        }
-
-        return players;
-      }
-      else
-      {
-        throw new IOException("Can not find player scoring table");
+        players.add(player);
       }
     }
-    catch (final TransformerException e)
-    {
-      throw new IOException(
-            "Transformer exception when getting player scoring table", e);
-    }
+    return players;
   }
 
   private int getTeamNum(final Team team)
@@ -115,20 +90,20 @@ public class Website implements StatsProvider
     throw new IllegalArgumentException("Team num not found: " + team);
   }
 
-  private Player getPlayer(final Node playerRowNode,
+  private Player getPlayer(final Node playerTableRowNode,
         final ProgressIndicator progressIndicator) throws IOException
   {
-    if ((playerRowNode.getChildNodes() != null) &&
-          (playerRowNode.getChildNodes().getLength() == 14))
+    if ((playerTableRowNode.getChildNodes() != null) &&
+          (playerTableRowNode.getChildNodes().getLength() == 14))
     {
-      final String playerId = getPlayerId(playerRowNode);
-      final String playerName = getPlayerName(playerRowNode);
+      final String playerId = getPlayerId(playerTableRowNode);
+      final String playerName = getPlayerName(playerTableRowNode);
 
       progressIndicator.setPlayerInProgress(playerName);
 
-      final PlayerType playerType = getPlayerType(playerRowNode);
-      final int sweaterNum = getSweaterNum(playerRowNode);
-      final PlayerStats playerStats = getPlayerStats(playerRowNode);
+      final PlayerType playerType = getPlayerType(playerTableRowNode);
+      final int sweaterNum = getSweaterNum(playerTableRowNode);
+      final PlayerStats playerStats = getPlayerStats(playerTableRowNode);
       final PlayerBio playerBio = getPlayerBio(playerId);
       final PlayerStreaks playerStreaks = getPlayerStreaks(playerId,
             playerBio.getPosition());
@@ -147,15 +122,15 @@ public class Website implements StatsProvider
     return new PlayerTableRowNodeToIdFunction().apply(playerTableRowNode);
   }
 
-  private String getPlayerName(final Node playerRowNode)
+  private String getPlayerName(final Node playerTableRowNode)
   {
     final int playerNameChildIndex = 2;
-    final Node playerLinkNode = playerRowNode.getChildNodes().item(
+    final Node playerLinkNode = playerTableRowNode.getChildNodes().item(
           playerNameChildIndex);
     return playerLinkNode.getFirstChild().getFirstChild().getNodeValue();
   }
 
-  private PlayerType getPlayerType(final Node playerRowNode)
+  private PlayerType getPlayerType(final Node playerTableRowNode)
   {
     final int playerTypeChildIndex = 0;
     final String isRookie = "*";
@@ -163,7 +138,7 @@ public class Website implements StatsProvider
     final String isVeteran = "\u00A0";
 
     final String nodeValue = Nodes.getChildNodeValue(
-          playerRowNode, playerTypeChildIndex);
+          playerTableRowNode, playerTypeChildIndex);
     if (isRookie.equals(nodeValue))
     {
       return PlayerType.ROOKIE;
@@ -178,38 +153,37 @@ public class Website implements StatsProvider
     }
   }
 
-  private int getSweaterNum(final Node playerRowNode)
+  private int getSweaterNum(final Node playerTableRowNode)
   {
     final int sweaterNumChildIndex = 1;
-
-    final String sweaterNumAsString = Nodes.getChildNodeValue(playerRowNode,
-          sweaterNumChildIndex);
+    final String sweaterNumAsString = Nodes.getChildNodeValue(
+          playerTableRowNode, sweaterNumChildIndex);
 
     final int sweaterNumIfParseError = 0;
     return NumberUtils.toInt(sweaterNumAsString, sweaterNumIfParseError);
   }
 
-  private PlayerStats getPlayerStats(final Node playerRowNode)
+  private PlayerStats getPlayerStats(final Node playerTableRowNode)
   {
-    final int numChildNodes = playerRowNode.getChildNodes().getLength();
+    final int numChildNodes = playerTableRowNode.getChildNodes().getLength();
     if (numChildNodes >= 11)
     {
       final String numGamesPlayedString = Nodes.getChildNodeValue(
-            playerRowNode, 4);
+            playerTableRowNode, 4);
       final String numGoalsString = Nodes.getChildNodeValue(
-            playerRowNode, 5);
+            playerTableRowNode, 5);
       final String numAssistsString = Nodes.getChildNodeValue(
-            playerRowNode, 6);
+            playerTableRowNode, 6);
       final String numPointsString = Nodes.getChildNodeValue(
-            playerRowNode, 7);
+            playerTableRowNode, 7);
       final String plusMinusString = StringUtils.remove(
-            Nodes.getChildNodeValue(playerRowNode, 8), '+');
+            Nodes.getChildNodeValue(playerTableRowNode, 8), '+');
       final String numPenaltyMinutesString = Nodes.getChildNodeValue(
-            playerRowNode, 9);
+            playerTableRowNode, 9);
       final String numPowerplayGoalsString = Nodes.getChildNodeValue(
-            playerRowNode, 10);
+            playerTableRowNode, 10);
       final String numShorthandedGoalsString = Nodes.getChildNodeValue(
-            playerRowNode, 11);
+            playerTableRowNode, 11);
 
       final int numGamesPlayed = Integer.parseInt(numGamesPlayedString);
       final int numGoals = Integer.parseInt(numGoalsString);
@@ -255,18 +229,12 @@ public class Website implements StatsProvider
       }
       else
       {
-        final String birthYear = getBirthYear(playerBioTableNode);
-        final String position = getPosition(playerBioTableNode);
-        final String height = getHeight(playerBioTableNode);
-        final String weight = getWeight(playerBioTableNode);
-        final String homeTown = getHomeTown(playerBioTableNode);
-
         return new PlayerBio.Builder().
-              setBirthYear(birthYear).
-              setPosition(position).
-              setHeight(height).
-              setWeight(weight).
-              setHomeTown(homeTown).build();
+              setBirthYear(getBirthYear(playerBioTableNode)).
+              setPosition(getPosition(playerBioTableNode)).
+              setHeight(getHeight(playerBioTableNode)).
+              setWeight(getWeight(playerBioTableNode)).
+              setHomeTown(getHomeTown(playerBioTableNode)).build();
       }
     }
     catch (TransformerException e)
