@@ -142,10 +142,9 @@ public class Website implements StatsProvider
     }
   }
 
-  private String getPlayerId(final Node playerRowNode)
+  private String getPlayerId(final Node playerTableRowNode)
   {
-    final String playerHref = getPlayerHref(playerRowNode);
-    return playerHref.substring(playerHref.indexOf("?") + 1);
+    return new PlayerTableRowNodeToIdFunction().apply(playerTableRowNode);
   }
 
   private String getPlayerName(final Node playerRowNode)
@@ -154,15 +153,6 @@ public class Website implements StatsProvider
     final Node playerLinkNode = playerRowNode.getChildNodes().item(
           playerNameChildIndex);
     return playerLinkNode.getFirstChild().getFirstChild().getNodeValue();
-  }
-
-  private String getPlayerHref(final Node playerRowNode)
-  {
-    final int playerIdChildIndex = 2;
-    final Node playerLinkNode = playerRowNode.getChildNodes().item(
-          playerIdChildIndex);
-    return playerLinkNode.getFirstChild().getAttributes().getNamedItem(
-          "href").getNodeValue();
   }
 
   private PlayerType getPlayerType(final Node playerRowNode)
