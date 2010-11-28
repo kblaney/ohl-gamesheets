@@ -1,6 +1,8 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgAssert;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * One player's streaks.
@@ -84,33 +86,52 @@ public final class PlayerStreaks
 
   private PlayerStreaks() {}
 
-  /**
-   * Gets the goal streak.
-   *
-   * @return the goal streak
-   */
   public int getGoalStreak()
   {
     return goalStreak;
   }
 
-  /**
-   * Gets the assist streak.
-   *
-   * @return the assist streak
-   */
   public int getAssistStreak()
   {
     return assistStreak;
   }
 
-  /**
-   * Gets the point streak.
-   *
-   * @return the point streak
-   */
   public int getPointStreak()
   {
     return pointStreak;
+  }
+
+  @Override
+  public boolean equals(final Object thatObject)
+  {
+    if (thatObject == null)
+    {
+      return false;
+    }
+
+    if (thatObject.getClass().equals(getClass()))
+    {
+      final PlayerStreaks that = (PlayerStreaks) thatObject;
+      return ((goalStreak == that.goalStreak) &&
+            (assistStreak == that.assistStreak) &&
+            (pointStreak == that.pointStreak));
+    }
+    else
+    {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return new HashCodeBuilder().append(goalStreak).append(assistStreak).
+          append(pointStreak).toHashCode();
+  }
+
+  @Override
+  public String toString()
+  {
+    return goalStreak + ":" + assistStreak + ":" + pointStreak;
   }
 }

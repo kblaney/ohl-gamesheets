@@ -1,105 +1,92 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.commons.xml.XmlUtil;
+import com.google.common.base.Function;
 import com.kblaney.ohl.PlayerStreaks;
-import java.net.URL;
-import javax.xml.transform.TransformerException;
 import org.apache.commons.lang.math.NumberUtils;
-import org.apache.xpath.XPathAPI;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 final class PlayerStreaksSupplier
 {
+  private final Function<String, NodeList> toGameRowNodeListFunction;
+
+  public PlayerStreaksSupplier()
+  {
+    this(new PlayerIdToGameByGameRowNodeListFunction());
+  }
+
+  PlayerStreaksSupplier(
+        final Function<String, NodeList> toGameRowNodeListFunction)
+  {
+    this.toGameRowNodeListFunction = toGameRowNodeListFunction;
+  }
+
   public PlayerStreaks get(final String playerId, final String position)
   {
+    if (position.equals("G"))
+    {
+      return getGoalieStreaks();
+    }
+    else
+    {
+      return getSkaterStreaks(playerId);
+    }
+  }
+
+  private PlayerStreaks getSkaterStreaks(final String playerId)
+  {
+    final NodeList gameRowNodeList =
+          toGameRowNodeListFunction.apply(playerId);
+
     int goalStreak = 0;
     int assistStreak = 0;
     int pointStreak = 0;
+    boolean onGoalStreak = true;
+    boolean onAssistStreak = true;
+    boolean onPointStreak = true;
 
-    if (!position.equals("G"))
+    int i = gameRowNodeList.getLength() - 1;
+    while (onPointStreak && i >= 0)
     {
-      final URL gameByGameUrl = Urls.getPlayerGameByGameUrl(playerId);
-      final Document gameByGameDocument = XmlUtil.getXmlDocument(gameByGameUrl);
-      if (gameByGameDocument == null)
+      final Node gameRowNode = gameRowNodeList.item(i);
+      final int numGoalsInGame = getNumGoalsInGame(gameRowNode);
+      final int numAssistsInGame = getNumAssistsInGame(gameRowNode);
+      final int numPointsInGame = getNumPointsInGame(gameRowNode);
+      if (onGoalStreak && (numGoalsInGame > 0))
       {
-        throw new IllegalStateException(
-              "<html>Game-by-game URL not found: " + gameByGameUrl);
+        goalStreak++;
       }
+      onGoalStreak = (numGoalsInGame > 0);
 
-      try
+      if (onAssistStreak && (numAssistsInGame > 0))
       {
-        final int goalIndex = 4;
-        final int assistIndex = 5;
-        final int pointIndex = 6;
-        final NodeList nodeList = XPathAPI.selectNodeList(
-              gameByGameDocument.getDocumentElement(),
-              "//div[@id='gamebygameBlock']/table[@class='statsTable']/tr[td[a]]");
-        if (nodeList.getLength() > 0)
-        {
-          boolean onGoalStreak = true;
-          boolean onAssistStreak = true;
-          boolean onPointStreak = true;
-
-          int i = nodeList.getLength() - 1;
-          while (onPointStreak && i >= 0)
-          {
-            final Node gameRowNode = nodeList.item(i);
-            final int numGoals = NumberUtils.toInt(getGameRowText(
-                  gameRowNode, goalIndex), 0);
-            final int numAssists = NumberUtils.toInt(getGameRowText(
-                  gameRowNode, assistIndex), 0);
-            final int numPoints = NumberUtils.toInt(getGameRowText(
-                  gameRowNode, pointIndex), 0);
-            if (numGoals > 0)
-            {
-              if (onGoalStreak)
-              {
-                goalStreak++;
-              }
-            }
-            else
-            {
-              onGoalStreak = false;
-            }
-            if (numAssists > 0)
-            {
-              if (onAssistStreak)
-              {
-                assistStreak++;
-              }
-            }
-            else
-            {
-              onAssistStreak = false;
-            }
-            if (numPoints > 0)
-            {
-              if (onPointStreak)
-              {
-                pointStreak++;
-              }
-            }
-            else
-            {
-              onPointStreak = false;
-            }
-
-            i--;
-          }
-
-        }
+        assistStreak++;
       }
-      catch (final TransformerException e)
+      onAssistStreak = (numAssistsInGame > 0);
+
+      if (numPointsInGame > 0)
       {
-        throw new IllegalStateException(e);
+        pointStreak++;
       }
+      onPointStreak = (numPointsInGame > 0);
+
+      i--;
     }
 
     return new PlayerStreaks.Builder().setGoalStreak(goalStreak).
           setAssistStreak(assistStreak).
           setPointStreak(pointStreak).build();
+  }
+
+  private PlayerStreaks getGoalieStreaks()
+  {
+    return new PlayerStreaks.Builder().build();
+  }
+
+  private int getNumGoalsInGame(final Node gameRowNode)
+  {
+    final int goalIndex = 4;
+    return NumberUtils.toInt(getGameRowText(gameRowNode, goalIndex), 0);
   }
 
   private String getGameRowText(final Node gameRowNode, final int itemIndex)
@@ -114,5 +101,17 @@ final class PlayerStreaksSupplier
     }
 
     return null;
+  }
+
+  private int getNumAssistsInGame(final Node gameRowNode)
+  {
+    final int assistIndex = 5;
+    return NumberUtils.toInt(getGameRowText(gameRowNode, assistIndex), 0);
+  }
+
+  private int getNumPointsInGame(final Node gameRowNode)
+  {
+    final int pointsIndex = 6;
+    return NumberUtils.toInt(getGameRowText(gameRowNode, pointsIndex), 0);
   }
 }
