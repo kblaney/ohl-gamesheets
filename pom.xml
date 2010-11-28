@@ -25,7 +25,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.kblaney.ohl.CreateGamesheetsFrame</mainClass>
+              <mainClass>com.kblaney.ohl.gamesheets.EntryPoint</mainClass>
             </manifest>
           </archive>
         </configuration>
