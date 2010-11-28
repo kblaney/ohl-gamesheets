@@ -20,18 +20,18 @@ final class PlayerHtmlTableGetter
    */
   public String getHtmlTable(final List<Player> players)
   {
-    StringBuilder htmlTable = new StringBuilder(HtmlUtil.TABLE_START);
-    htmlTable.append(SystemUtil.LINE_SEPARATOR);
-    htmlTable.append(getHtmlTableHeader());
-    htmlTable.append(SystemUtil.LINE_SEPARATOR);
+    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_START);
+    s.append(SystemUtil.LINE_SEPARATOR);
+    s.append(getHtmlTableHeader());
+    s.append(SystemUtil.LINE_SEPARATOR);
     for (final Player player : players)
     {
-      htmlTable.append(getHtmlTableRow(player));
-      htmlTable.append(SystemUtil.LINE_SEPARATOR);
+      s.append(getHtmlTableRow(player));
+      s.append(SystemUtil.LINE_SEPARATOR);
     }
-    htmlTable.append(HtmlUtil.TABLE_END);
+    s.append(HtmlUtil.TABLE_END);
 
-    return htmlTable.toString();
+    return s.toString();
   }
 
   private String getHtmlTableHeader()

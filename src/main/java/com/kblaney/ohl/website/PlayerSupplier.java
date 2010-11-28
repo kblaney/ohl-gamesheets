@@ -38,6 +38,7 @@ final class PlayerSupplier
             "Wrong # child nodes in player table row node: " + tableRowNode);
     }
   }
+
   private String getPlayerId(final Node tableRowNode)
   {
     return new PlayerTableRowNodeToIdFunction().apply(tableRowNode);

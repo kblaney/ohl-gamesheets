@@ -1,8 +1,8 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.google.inject.Inject;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.Teams;
-import com.kblaney.ohl.website.Website;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.GridLayout;
@@ -36,16 +36,20 @@ final class CreateGamesheetsFrame extends JFrame
   private final JComboBox homeTeamComboBox;
   private final MDateEntryField dateEntryField;
   private final JLabel fileLocationLabel;
-  private final StatsProvider statsProvider = new Website();
+  private final HtmlGamesheetsGetter htmlGamesheetsGetter;
   private final Teams teams;
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
-  public CreateGamesheetsFrame() throws IOException
+  @Inject
+  public CreateGamesheetsFrame(final StatsProvider statsProvider,
+        final HtmlGamesheetsGetter htmlGamesheetsGetter)
+        throws IOException
   {
     super("OHL Gamesheets");
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+    this.htmlGamesheetsGetter = htmlGamesheetsGetter;
     teams = statsProvider.getTeams();
     final String[] sortedTeamNames = getSortedTeamNames(teams);
 
@@ -137,7 +141,7 @@ final class CreateGamesheetsFrame extends JFrame
             try
             {
               final HtmlGamesheets htmlGamesheets =
-                    new HtmlGamesheetsGetter(statsProvider).getGamesheets(
+                    htmlGamesheetsGetter.getGamesheets(
                     homeTeam, roadTeam, gameDate, CreateGamesheetsFrame.this);
 
               final String directory = System.getProperty("user.home");
