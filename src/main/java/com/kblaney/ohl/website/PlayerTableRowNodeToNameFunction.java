@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 
 final class PlayerTableRowNodeToNameFunction implements Function<Node, String>
 {
-  public String apply(Node node)
+  public String apply(final Node node)
   {
     final Node linkNode = node.getChildNodes().item(2);
     return linkNode.getFirstChild().getFirstChild().getNodeValue();

@@ -22,18 +22,21 @@ import org.w3c.dom.NodeList;
 /**
  * The Ontario Hockey League website.
  */
-class Website implements StatsProvider
+final class Website implements StatsProvider
 {
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
   private final PlayerSupplier playerSupplier;
+  private final GoalieSupplier goalieSupplier;
   private Function<String, Set<NumberedTeam>> toTeamsFunction =
         new PlayerStatsHtmlToTeamsFunction();
   private Set<NumberedTeam> numberedTeams;
 
   @Inject
-  Website(final PlayerSupplier playerSupplier)
+  Website(final PlayerSupplier playerSupplier,
+        final GoalieSupplier goalieSupplier)
   {
     this.playerSupplier = playerSupplier;
+    this.goalieSupplier = goalieSupplier;
   }
 
   /** {@inheritDoc} */
@@ -91,7 +94,8 @@ class Website implements StatsProvider
   }
 
   /** {@inheritDoc} */
-  public List<Goalie> getGoalies(final Team team) throws IOException
+  public List<Goalie> getGoalies(final Team team,
+        final ProgressIndicator progressIndicator) throws IOException
   {
     ArgAssert.notNull(team, "team");
 
@@ -102,14 +106,15 @@ class Website implements StatsProvider
     for (int i = 0; i < tableRowNodeList.getLength(); i++)
     {
       final Node tableRowNode = tableRowNodeList.item(i);
-      final Goalie goalie = getGoalie(tableRowNode);
+      final Goalie goalie = getGoalie(tableRowNode, progressIndicator);
       goalies.add(goalie);
     }
     return goalies;
   }
 
-  private Goalie getGoalie(final Node tableRowNode) throws IOException
+  private Goalie getGoalie(final Node tableRowNode,
+        final ProgressIndicator progressIndicator) throws IOException
   {
-    return new GoalieSupplier().getGoalie(tableRowNode);
+    return goalieSupplier.get(tableRowNode, progressIndicator);
   }
 }

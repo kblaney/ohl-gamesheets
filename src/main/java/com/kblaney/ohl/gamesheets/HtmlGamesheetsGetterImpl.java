@@ -76,7 +76,8 @@ final class HtmlGamesheetsGetterImpl implements HtmlGamesheetsGetter
     final List<Player> players = statsProvider.getPlayers(team,
           progressIndicator);
     Collections.sort(players, new PlayerPointsComparator());
-    final List<Goalie> goalies = statsProvider.getGoalies(team);
+    final List<Goalie> goalies = statsProvider.getGoalies(team,
+          progressIndicator);
 
     final StringBuilder s = new StringBuilder(getTeamHeading(team));
     s.append(SystemUtil.LINE_SEPARATOR);

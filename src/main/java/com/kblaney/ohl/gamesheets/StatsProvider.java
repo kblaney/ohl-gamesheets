@@ -33,10 +33,12 @@ public interface StatsProvider
    * Gets the goalies on a specified team.
    *
    * @param team the team, which can't be null
+   * @param progressIndicator the progress indicator, which can't be null
    *
    * @return a list of the goalies on the specified team
    *
    * @throws IOException if can't get the goalies
    */
-  List<Goalie> getGoalies(Team team) throws IOException;
+  List<Goalie> getGoalies(Team team, ProgressIndicator progressIndicator)
+        throws IOException;
 }

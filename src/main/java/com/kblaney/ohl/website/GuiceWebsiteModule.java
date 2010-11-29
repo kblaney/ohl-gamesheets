@@ -18,6 +18,7 @@ public final class GuiceWebsiteModule extends AbstractModule
   {
     bind(StatsProvider.class).to(Website.class).in(Scopes.SINGLETON);
     bind(PlayerSupplier.class).to(PlayerSupplierImpl.class);
+    bind(GoalieSupplier.class).to(GoalieSupplierImpl.class);
     bind(new TypeLiteral<Function<Node, PlayerType>>() {}).
           to(PlayerTableRowNodeToPlayerTypeFunction.class);
     bind(new TypeLiteral<Function<Node, Integer>>() {}).
