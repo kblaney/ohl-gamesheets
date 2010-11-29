@@ -1,5 +1,7 @@
 package com.kblaney.ohl.website;
 
+import com.google.common.base.Function;
+import com.google.inject.Inject;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
@@ -7,6 +9,15 @@ import org.w3c.dom.Node;
 
 final class GoalieSupplierImpl implements GoalieSupplier
 {
+  private final Function<Node, String> tableRowNodeToNameFunction;
+
+  @Inject
+  public GoalieSupplierImpl(
+        final Function<Node, String> tableRowNodeToNameFunction)
+  {
+    this.tableRowNodeToNameFunction = tableRowNodeToNameFunction;
+  }
+
   public Goalie get(final Node tableRowNode,
         final ProgressIndicator progressIndicator)
   {
@@ -59,6 +70,6 @@ final class GoalieSupplierImpl implements GoalieSupplier
 
   private String getGoalieName(final Node tableRowNode)
   {
-    return new PlayerTableRowNodeToNameFunction().apply(tableRowNode);
+    return tableRowNodeToNameFunction.apply(tableRowNode);
   }
 }

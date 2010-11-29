@@ -1,24 +1,15 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.google.common.base.Function;
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.SystemUtil;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerType;
 import java.util.List;
 
-/**
- * Gets HTML tables for players.
- */
-final class PlayerHtmlTableGetter
+final class PlayerHtmlTableGetter implements Function<List<Player>, String>
 {
-  /**
-   * Gets an HTML table using a specified list of players.
-   *
-   * @param players the list of players, which can't be null or empty
-   *
-   * @return the HTML table
-   */
-  public String getHtmlTable(final List<Player> players)
+  public String apply(final List<Player> players)
   {
     final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_START);
     s.append(SystemUtil.LINE_SEPARATOR);

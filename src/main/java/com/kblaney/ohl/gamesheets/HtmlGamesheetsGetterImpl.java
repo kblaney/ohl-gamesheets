@@ -1,5 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.SystemUtil;
@@ -17,11 +18,17 @@ import java.util.List;
 final class HtmlGamesheetsGetterImpl implements HtmlGamesheetsGetter
 {
   private final StatsProvider statsProvider;
+  private final Function<List<Player>, String> playersToHtmlTableFunction;
+  private final Function<List<Goalie>, String> goaliesToHtmlTableFunction;
 
   @Inject
-  public HtmlGamesheetsGetterImpl(final StatsProvider statsProvider)
+  public HtmlGamesheetsGetterImpl(final StatsProvider statsProvider,
+        final Function<List<Player>, String> playersToHtmlTableFunction,
+        final Function<List<Goalie>, String> goaliesToHtmlTableFunction)
   {
     this.statsProvider = statsProvider;
+    this.playersToHtmlTableFunction = playersToHtmlTableFunction;
+    this.goaliesToHtmlTableFunction = goaliesToHtmlTableFunction;
   }
 
   public HtmlGamesheets getGamesheets(final Team homeTeam, final Team roadTeam,
@@ -81,12 +88,11 @@ final class HtmlGamesheetsGetterImpl implements HtmlGamesheetsGetter
 
     final StringBuilder s = new StringBuilder(getTeamHeading(team));
     s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(new PlayerHtmlTableGetter().getHtmlTable(players));
+    s.append(playersToHtmlTableFunction.apply(players));
     s.append(SystemUtil.LINE_SEPARATOR);
     s.append(HtmlUtil.LINE_BREAK);
     s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(new GoalieHtmlTableGetter().getHtmlTable(goalies));
-
+    s.append(goaliesToHtmlTableFunction.apply(goalies));
     return s.toString();
   }
 

@@ -1,40 +1,28 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.google.common.base.Function;
 import com.kblaney.commons.html.HtmlUtil;
-import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.commons.lang.SystemUtil;
 import com.kblaney.ohl.Goalie;
 import java.text.DecimalFormat;
 import java.util.List;
 
-/**
- * Gets HTML tables for goalies.
- */
-final class GoalieHtmlTableGetter
+final class GoalieHtmlTableGetter implements Function<List<Goalie>, String>
 {
-  /**
-   * Gets an HTML table using a specified list of goalies.
-   *
-   * @param goalies the list of goalies, which can't be null or empty
-   *
-   * @return the HTML table
-   */
-  public String getHtmlTable(final List<Goalie> goalies)
+  public String apply(final List<Goalie> goalies)
   {
-    ArgAssert.notNull(goalies, "goalies");
-
-    final StringBuilder htmlTable = new StringBuilder(HtmlUtil.TABLE_START);
-    htmlTable.append(SystemUtil.LINE_SEPARATOR);
-    htmlTable.append(getHtmlTableHeader());
-    htmlTable.append(SystemUtil.LINE_SEPARATOR);
+    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_START);
+    s.append(SystemUtil.LINE_SEPARATOR);
+    s.append(getHtmlTableHeader());
+    s.append(SystemUtil.LINE_SEPARATOR);
     for (final Goalie goalie : goalies)
     {
-      htmlTable.append(getHtmlTableRow(goalie));
-      htmlTable.append(SystemUtil.LINE_SEPARATOR);
+      s.append(getHtmlTableRow(goalie));
+      s.append(SystemUtil.LINE_SEPARATOR);
     }
-    htmlTable.append(HtmlUtil.TABLE_END);
+    s.append(HtmlUtil.TABLE_END);
 
-    return htmlTable.toString();
+    return s.toString();
   }
 
   private String getHtmlTableHeader()
