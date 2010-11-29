@@ -15,7 +15,7 @@ public final class PlayerStreaksSupplierTest
   private String position;
   private PlayerStreaks notOnAStreak;
   private Function<String, NodeList> toGameRowNodeListFunction;
-  private PlayerStreaksSupplier streaksSupplier;
+  private PlayerStreaksSupplierImpl streaksSupplier;
 
   @Before
   public void setUp()
@@ -24,13 +24,13 @@ public final class PlayerStreaksSupplierTest
     position = "LW";
     notOnAStreak = new PlayerStreaks.Builder().build();
     toGameRowNodeListFunction = mock(Function.class);
-    streaksSupplier = new PlayerStreaksSupplier(toGameRowNodeListFunction);
+    streaksSupplier = new PlayerStreaksSupplierImpl(toGameRowNodeListFunction);
   }
 
   @Test
   public void apply_goalie()
   {
-    assertEquals(notOnAStreak, new PlayerStreaksSupplier().get(playerId, "G"));
+    assertEquals(notOnAStreak, streaksSupplier.get(playerId, "G"));
   }
 
   @Test

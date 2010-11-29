@@ -3,6 +3,7 @@ package com.kblaney.ohl.website;
 import com.kblaney.ohl.Teams;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
+import com.google.inject.Inject;
 import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
 import com.kblaney.commons.lang.ArgAssert;
@@ -21,12 +22,19 @@ import org.w3c.dom.NodeList;
 /**
  * The Ontario Hockey League website.
  */
-public class Website implements StatsProvider
+class Website implements StatsProvider
 {
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
+  private final PlayerSupplier playerSupplier;
   private Function<String, Set<NumberedTeam>> toTeamsFunction =
         new PlayerStatsHtmlToTeamsFunction();
   private Set<NumberedTeam> numberedTeams;
+
+  @Inject
+  Website(final PlayerSupplier playerSupplier)
+  {
+    this.playerSupplier = playerSupplier;
+  }
 
   /** {@inheritDoc} */
   public Teams getTeams() throws IOException
@@ -79,7 +87,7 @@ public class Website implements StatsProvider
   private Player getPlayer(final Node tableRowNode,
         final ProgressIndicator progressIndicator) throws IOException
   {
-    return new PlayerSupplier().getPlayer(tableRowNode, progressIndicator);
+    return playerSupplier.getPlayer(tableRowNode, progressIndicator);
   }
 
   /** {@inheritDoc} */

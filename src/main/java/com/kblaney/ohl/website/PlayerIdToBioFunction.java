@@ -1,25 +1,22 @@
 package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
+import com.google.inject.Inject;
 import com.kblaney.ohl.PlayerBio;
-import java.io.IOException;
 import org.w3c.dom.Node;
 
-final class PlayerIdToBioFunction
+final class PlayerIdToBioFunction implements Function<String, PlayerBio>
 {
   private final Function<String, Node> toBioDivNodeFunction;
 
-  public PlayerIdToBioFunction()
-  {
-    this(new PlayerIdToBioDivNodeFunction());
-  }
-
-  PlayerIdToBioFunction(final Function<String, Node> toBioDivNodeFunction)
+  @Inject
+  public PlayerIdToBioFunction(
+        final Function<String, Node> toBioDivNodeFunction)
   {
     this.toBioDivNodeFunction = toBioDivNodeFunction;
   }
 
-  public PlayerBio apply(final String playerId) throws IOException
+  public PlayerBio apply(final String playerId)
   {
     final Node bioDivNode = toBioDivNodeFunction.apply(playerId);
     return new PlayerBio.Builder().setBirthYear(getBirthYear(bioDivNode)).
