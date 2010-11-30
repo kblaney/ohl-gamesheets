@@ -11,13 +11,14 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
 {
   public String apply(final List<Player> players)
   {
-    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_START);
+    final StringBuilder s = new StringBuilder();
+    s.append(HtmlUtil.TABLE_START);
     s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(getHtmlTableHeader());
+    s.append(getTableHeader());
     s.append(SystemUtil.LINE_SEPARATOR);
     for (final Player player : players)
     {
-      s.append(getHtmlTableRow(player));
+      s.append(getTableRow(player));
       s.append(SystemUtil.LINE_SEPARATOR);
     }
     s.append(HtmlUtil.TABLE_END);
@@ -25,79 +26,60 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
     return s.toString();
   }
 
-  private String getHtmlTableHeader()
+  private String getTableHeader()
   {
     final StringBuilder s = new StringBuilder();
     s.append(HtmlUtil.TABLE_ROW_START);
-    s.append(HtmlUtil.getTableElement("R", false));
-    s.append(HtmlUtil.getTableElement("#", true));
-    s.append(HtmlUtil.getTableElement("Name", false));
-    s.append(HtmlUtil.getTableElement("GP", true));
-    s.append(HtmlUtil.getTableElement("G", true));
-    s.append(HtmlUtil.getTableElement("A", true));
-    s.append(HtmlUtil.getTableElement("PT", true));
-    s.append(HtmlUtil.getTableElement("+/-", true));
-    s.append(HtmlUtil.getTableElement("PIM", true));
-    s.append(HtmlUtil.getTableElement("PP", true));
-    s.append(HtmlUtil.getTableElement("SH", true));
-    s.append(HtmlUtil.getTableElement("G", true));
-    s.append(HtmlUtil.getTableElement("A", true));
-    s.append(HtmlUtil.getTableElement("P", true));
-    s.append(HtmlUtil.getTableElement("Birth", true));
-    s.append(HtmlUtil.getTableElement("P", true));
-    s.append(HtmlUtil.getTableElement("H", true));
-    s.append(HtmlUtil.getTableElement("W", true));
-    s.append(HtmlUtil.getTableElement("Birthplace", false));
+    s.append(HtmlUtil.getLeftAlignedTdElement("R"));
+    s.append(HtmlUtil.getRightAlignedTdElement("#"));
+    s.append(HtmlUtil.getLeftAlignedTdElement("Name"));
+    s.append(HtmlUtil.getRightAlignedTdElement("GP"));
+    s.append(HtmlUtil.getRightAlignedTdElement("G"));
+    s.append(HtmlUtil.getRightAlignedTdElement("A"));
+    s.append(HtmlUtil.getRightAlignedTdElement("PT"));
+    s.append(HtmlUtil.getRightAlignedTdElement("+/-"));
+    s.append(HtmlUtil.getRightAlignedTdElement("PIM"));
+    s.append(HtmlUtil.getRightAlignedTdElement("PP"));
+    s.append(HtmlUtil.getRightAlignedTdElement("SH"));
+    s.append(HtmlUtil.getRightAlignedTdElement("G"));
+    s.append(HtmlUtil.getRightAlignedTdElement("A"));
+    s.append(HtmlUtil.getRightAlignedTdElement("P"));
+    s.append(HtmlUtil.getRightAlignedTdElement("Birth"));
+    s.append(HtmlUtil.getRightAlignedTdElement("P"));
+    s.append(HtmlUtil.getRightAlignedTdElement("H"));
+    s.append(HtmlUtil.getRightAlignedTdElement("W"));
+    s.append(HtmlUtil.getLeftAlignedTdElement("Birthplace"));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
 
-  private String getHtmlTableRow(final Player player)
+  private String getTableRow(final Player p)
   {
     final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_ROW_START);
-    s.append(HtmlUtil.getTableElement(getRookieString(
-          player.getPlayerType()), false));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getSweaterNum()), true));
-    s.append(HtmlUtil.getTableElement(
-          player.getName(), false));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumGamesPlayed()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumGoals()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumAssists()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumPoints()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getPlusMinus()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumPenaltyMinutes()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumPowerPlayGoals()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStats().getNumShorthandedGoals()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStreaks().getGoalStreak()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStreaks().getAssistStreak()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          player.getStreaks().getPointStreak()), true));
-    s.append(HtmlUtil.getTableElement(
-          player.getBio().getBirthYear(), true));
-    s.append(HtmlUtil.getTableElement(
-          player.getBio().getPosition(), true));
-    s.append(HtmlUtil.getTableElement(
-          player.getBio().getHeight(), true));
-    s.append(HtmlUtil.getTableElement(
-          player.getBio().getWeight(), true));
-    s.append(HtmlUtil.getTableElement(
-          player.getBio().getBirthplace(), false));
+    s.append(HtmlUtil.getLeftAlignedTdElement(getRookieString(p.getPlayerType())));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getSweaterNum()));
+    s.append(HtmlUtil.getLeftAlignedTdElement(p.getName()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumGamesPlayed()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumGoals()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumAssists()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumPoints()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getPlusMinus()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumPenaltyMinutes()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumPowerPlayGoals()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumShorthandedGoals()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStreaks().getGoalStreak()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStreaks().getAssistStreak()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getStreaks().getPointStreak()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getBirthYear()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getPosition()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getHeight()));
+    s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getWeight()));
+    s.append(HtmlUtil.getLeftAlignedTdElement(p.getBio().getBirthplace()));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
 
-  private static String getRookieString(final PlayerType playerType)
+  private String getRookieString(final PlayerType playerType)
   {
     if (playerType == PlayerType.ROOKIE)
     {

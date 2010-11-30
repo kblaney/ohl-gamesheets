@@ -11,13 +11,14 @@ final class GoalieHtmlTableGetter implements Function<List<Goalie>, String>
 {
   public String apply(final List<Goalie> goalies)
   {
-    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_START);
+    final StringBuilder s = new StringBuilder();
+    s.append(HtmlUtil.TABLE_START);
     s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(getHtmlTableHeader());
+    s.append(getTableHeader());
     s.append(SystemUtil.LINE_SEPARATOR);
     for (final Goalie goalie : goalies)
     {
-      s.append(getHtmlTableRow(goalie));
+      s.append(getTableRow(goalie));
       s.append(SystemUtil.LINE_SEPARATOR);
     }
     s.append(HtmlUtil.TABLE_END);
@@ -25,60 +26,49 @@ final class GoalieHtmlTableGetter implements Function<List<Goalie>, String>
     return s.toString();
   }
 
-  private String getHtmlTableHeader()
+  private String getTableHeader()
   {
     final StringBuilder s = new StringBuilder();
     s.append(HtmlUtil.TABLE_ROW_START);
-    s.append(HtmlUtil.getTableElement("Name", false));
-    s.append(HtmlUtil.getTableElement("GP", true));
-    s.append(HtmlUtil.getTableElement("W", true));
-    s.append(HtmlUtil.getTableElement("L", true));
-    s.append(HtmlUtil.getTableElement("OTL", true));
-    s.append(HtmlUtil.getTableElement("SOL", true));
-    s.append(HtmlUtil.getTableElement("MIN", true));
-    s.append(HtmlUtil.getTableElement("SO", true));
-    s.append(HtmlUtil.getTableElement("SA", true));
-    s.append(HtmlUtil.getTableElement("SV", true));
-    s.append(HtmlUtil.getTableElement("GA", true));
-    s.append(HtmlUtil.getTableElement("GAA", true));
-    s.append(HtmlUtil.getTableElement("Sv%", true));
+    s.append(HtmlUtil.getLeftAlignedTdElement("Name"));
+    s.append(HtmlUtil.getRightAlignedTdElement("GP"));
+    s.append(HtmlUtil.getRightAlignedTdElement("W"));
+    s.append(HtmlUtil.getRightAlignedTdElement("L"));
+    s.append(HtmlUtil.getRightAlignedTdElement("OTL"));
+    s.append(HtmlUtil.getRightAlignedTdElement("SOL"));
+    s.append(HtmlUtil.getRightAlignedTdElement("MIN"));
+    s.append(HtmlUtil.getRightAlignedTdElement("SO"));
+    s.append(HtmlUtil.getRightAlignedTdElement("SA"));
+    s.append(HtmlUtil.getRightAlignedTdElement("SV"));
+    s.append(HtmlUtil.getRightAlignedTdElement("GA"));
+    s.append(HtmlUtil.getRightAlignedTdElement("GAA"));
+    s.append(HtmlUtil.getRightAlignedTdElement("Sv%"));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
 
-  private String getHtmlTableRow(final Goalie goalie)
+  private String getTableRow(final Goalie g)
   {
+    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_ROW_START);
+    s.append(HtmlUtil.getLeftAlignedTdElement(g.getName()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumGamesPlayed()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumWins()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumRegulationLosses()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumOvertimeLosses()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumShootoutLosses()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumMinutesPlayed()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumShutouts()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumShotsAgainst()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumSaves()));
+    s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumGoalsAgainst()));
     final DecimalFormat gaaDecimalFormat = new DecimalFormat("0.00");
+    s.append(HtmlUtil.getRightAlignedTdElement(gaaDecimalFormat.format(
+          g.getStats().getGoalsAgainstAverage())));
     final DecimalFormat savePercentageDecimalFormat =
           new DecimalFormat("0.000");
-
-    final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_ROW_START);
-    s.append(HtmlUtil.getTableElement(goalie.getName(), false));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumGamesPlayed()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumWins()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumRegulationLosses()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumOvertimeLosses()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumShootoutLosses()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumMinutesPlayed()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumShutouts()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumShotsAgainst()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumSaves()), true));
-    s.append(HtmlUtil.getTableElement(Integer.toString(
-          goalie.getStats().getNumGoalsAgainst()), true));
-    s.append(HtmlUtil.getTableElement(gaaDecimalFormat.format(
-          goalie.getStats().getGoalsAgainstAverage()), true));
-    s.append(HtmlUtil.getTableElement(
-          savePercentageDecimalFormat.format(goalie.getStats().
-          getSavePercentage()), true));
+    s.append(HtmlUtil.getRightAlignedTdElement(
+          savePercentageDecimalFormat.format(g.getStats().
+          getSavePercentage())));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
