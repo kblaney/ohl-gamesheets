@@ -10,9 +10,6 @@ package com.kblaney.ohl;
  */
 public final class PlayerBio
 {
-  /**
-   * Builds PlayerBio instances.
-   */
   public static final class Builder
   {
     private String birthYear;
@@ -21,11 +18,6 @@ public final class PlayerBio
     private String weight;
     private String birthplace;
 
-    /**
-     * Builds a PlayerBio instance.
-     *
-     * @return the PlayerBio instance
-     */
     public PlayerBio build()
     {
       final PlayerBio playerBio = new PlayerBio();

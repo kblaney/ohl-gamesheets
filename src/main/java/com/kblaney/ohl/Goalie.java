@@ -2,10 +2,7 @@ package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgAssert;
 
-/**
- * A goalie.
- */
-public class Goalie
+public final class Goalie
 {
   private final String name;
   private final GoalieStats stats;
@@ -25,21 +22,11 @@ public class Goalie
     this.stats = stats;
   }
 
-  /**
-   * Gets the goalie's name.
-   *
-   * @return the name
-   */
   public String getName()
   {
     return name;
   }
 
-  /**
-   * Gets the goalie's statistics.
-   *
-   * @return the statistics
-   */
   public GoalieStats getStats()
   {
     return stats;

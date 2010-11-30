@@ -2,10 +2,7 @@ package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgAssert;
 
-/**
- * A goalie's statistics.
- */
-public class GoalieStats
+public final class GoalieStats
 {
   public static class Builder
   {
@@ -251,121 +248,61 @@ public class GoalieStats
 
   private GoalieStats() {}
 
-  /**
-   * Gets the goals against average.
-   *
-   * @return the goals against average
-   */
   public double getGoalsAgainstAverage()
   {
     return goalsAgainstAverage;
   }
 
-  /**
-   * Gets the number of games played.
-   *
-   * @return the number of games played
-   */
   public int getNumGamesPlayed()
   {
     return numGamesPlayed;
   }
 
-  /**
-   * Gets the number of goals against.
-   *
-   * @return the number of goals against
-   */
   public int getNumGoalsAgainst()
   {
     return numGoalsAgainst;
   }
 
-  /**
-   * Gets the number of regulation losses.
-   *
-   * @return the number of regulation losses
-   */
   public int getNumRegulationLosses()
   {
     return numRegulationLosses;
   }
 
-  /**
-   * Gets the number of minutes played.
-   *
-   * @return the number of minutes played
-   */
   public int getNumMinutesPlayed()
   {
     return numMinutesPlayed;
   }
 
-  /**
-   * Gets the number of saves.
-   *
-   * @return the number of saves
-   */
   public int getNumSaves()
   {
     return numSaves;
   }
 
-  /**
-   * Gets the number of shots against.
-   *
-   * @return the number of shots against
-   */
   public int getNumShotsAgainst()
   {
     return numShotsAgainst;
   }
 
-  /**
-   * Gets the number of shutouts.
-   *
-   * @return the number of shutouts
-   */
   public int getNumShutouts()
   {
     return numShutouts;
   }
 
-  /**
-   * Gets the number of overtime losses.
-   *
-   * @return the number of overtime losses
-   */
   public int getNumOvertimeLosses()
   {
     return numOvertimeLosses;
   }
 
-  /**
-   * Gets the number of shootout losses.
-   *
-   * @return the number of shootout losses
-   */
   public int getNumShootoutLosses()
   {
     return numShootoutLosses;
   }
 
-  /**
-   * Gets the number of wins.
-   *
-   * @return the number of wins
-   */
   public int getNumWins()
   {
     return numWins;
   }
 
-  /**
-   * Gets the save percentage.
-   *
-   * @return the save percentage
-   */
   public double getSavePercentage()
   {
     return savePercentage;

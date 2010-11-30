@@ -45,36 +45,10 @@ final class HtmlGamesheetsGetterImpl implements HtmlGamesheetsGetter
     return new HtmlGamesheets(homeTeamGamesheet, roadTeamGamesheet);
   }
 
-  private String getHomeTeamGamesheet(final Team homeTeam, final Team roadTeam,
-        final Calendar gameDate, final ProgressIndicator progressIndicator)
-        throws IOException
-  {
-    final StringBuilder s = new StringBuilder(
-          getGameHeading(homeTeam, roadTeam, gameDate));
-    s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(getGamesheet(homeTeam, progressIndicator));
-
-    return s.toString();
-  }
-
   private String getRoadTeamGamesheet(final Team roadTeam,
         final ProgressIndicator progressIndicator) throws IOException
   {
     return getGamesheet(roadTeam, progressIndicator);
-  }
-
-  private String getGameHeading(final Team homeTeam, final Team roadTeam,
-        final Calendar gameDate)
-  {
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-          "EEE., MMM. d, yyyy");
-    final FieldPosition fieldPosition = new FieldPosition(0);
-    final StringBuffer bufferToAppendTo = new StringBuffer();
-    final StringBuffer formattedGameDate = simpleDateFormat.format(
-          gameDate.getTime(), bufferToAppendTo, fieldPosition);
-
-    return HtmlUtil.getH3Heading(roadTeam.getName() + " @ " +
-          homeTeam.getName() + " - " + formattedGameDate);
   }
 
   private String getGamesheet(final Team team,
@@ -99,5 +73,31 @@ final class HtmlGamesheetsGetterImpl implements HtmlGamesheetsGetter
   private String getTeamHeading(final Team team)
   {
     return HtmlUtil.getH3Heading(team.getName());
+  }
+
+  private String getHomeTeamGamesheet(final Team homeTeam, final Team roadTeam,
+        final Calendar gameDate, final ProgressIndicator progressIndicator)
+        throws IOException
+  {
+    final StringBuilder s = new StringBuilder(
+          getGameHeading(homeTeam, roadTeam, gameDate));
+    s.append(SystemUtil.LINE_SEPARATOR);
+    s.append(getGamesheet(homeTeam, progressIndicator));
+
+    return s.toString();
+  }
+
+  private String getGameHeading(final Team homeTeam, final Team roadTeam,
+        final Calendar gameDate)
+  {
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
+          "EEE., MMM. d, yyyy");
+    final FieldPosition fieldPosition = new FieldPosition(0);
+    final StringBuffer bufferToAppendTo = new StringBuffer();
+    final StringBuffer formattedGameDate = simpleDateFormat.format(
+          gameDate.getTime(), bufferToAppendTo, fieldPosition);
+
+    return HtmlUtil.getH3Heading(roadTeam.getName() + " @ " +
+          homeTeam.getName() + " - " + formattedGameDate);
   }
 }
