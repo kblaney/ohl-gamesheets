@@ -18,6 +18,5 @@ public final class GuiceGamesheetsModule extends AbstractModule
           to(PlayerHtmlTableGetter.class);
     bind(new TypeLiteral<Function<List<Goalie>, String>>() {}).
           to(GoalieHtmlTableGetter.class);
-    bind(Teams.class).toProvider(TeamsProvider.class);
   }
 }

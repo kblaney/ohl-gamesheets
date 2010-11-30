@@ -41,16 +41,15 @@ final class CreateGamesheetsFrame extends JFrame
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
   @Inject
-  public CreateGamesheetsFrame(final Teams teams,
-        final HtmlGamesheetsGetter htmlGamesheetsGetter)
-        throws IOException
+  public CreateGamesheetsFrame(final StatsProvider statsProvider,
+        final HtmlGamesheetsGetter htmlGamesheetsGetter) throws IOException
   {
     super("OHL Gamesheets");
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.htmlGamesheetsGetter = htmlGamesheetsGetter;
-    this.teams = teams;
+    this.teams = statsProvider.getTeams();
     final String[] sortedTeamNames = getSortedTeamNames(teams);
 
     homeTeamComboBox = new JComboBox(sortedTeamNames);
