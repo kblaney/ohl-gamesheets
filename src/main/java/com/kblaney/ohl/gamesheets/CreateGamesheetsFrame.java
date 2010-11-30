@@ -41,7 +41,7 @@ final class CreateGamesheetsFrame extends JFrame
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
   @Inject
-  public CreateGamesheetsFrame(final StatsProvider statsProvider,
+  public CreateGamesheetsFrame(final Teams teams,
         final HtmlGamesheetsGetter htmlGamesheetsGetter)
         throws IOException
   {
@@ -50,7 +50,7 @@ final class CreateGamesheetsFrame extends JFrame
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.htmlGamesheetsGetter = htmlGamesheetsGetter;
-    teams = statsProvider.getTeams();
+    this.teams = teams;
     final String[] sortedTeamNames = getSortedTeamNames(teams);
 
     homeTeamComboBox = new JComboBox(sortedTeamNames);

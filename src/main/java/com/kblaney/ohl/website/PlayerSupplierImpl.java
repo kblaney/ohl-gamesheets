@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 
 final class PlayerSupplierImpl implements PlayerSupplier
 {
+  private final Function<Node, String> tableRowNodeToNameFunction;
   private final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction;
   private final Function<Node, Integer> tableRowNodeToSweaterNumFunction;
   private final Function<Node, PlayerStats> tableRowNodeToStatsFunction;
@@ -21,12 +22,14 @@ final class PlayerSupplierImpl implements PlayerSupplier
 
   @Inject
   public PlayerSupplierImpl(
+        final Function<Node, String> tableRowNodeToNameFunction,
         final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction,
         final Function<Node, Integer> tableRowNodeToSweaterNumFunction,
         final Function<Node, PlayerStats> tableRowNodeToStatsFunction,
         final Function<String, PlayerBio> playerIdToBioFunction,
         final PlayerStreaksSupplier streaksSupplier)
   {
+    this.tableRowNodeToNameFunction = tableRowNodeToNameFunction;
     this.tableRowNodeToPlayerTypeFunction = tableRowNodeToPlayerTypeFunction;
     this.tableRowNodeToSweaterNumFunction = tableRowNodeToSweaterNumFunction;
     this.tableRowNodeToStatsFunction = tableRowNodeToStatsFunction;
@@ -59,7 +62,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
 
   private String getPlayerName(final Node tableRowNode)
   {
-    return new PlayerTableRowNodeToNameFunction().apply(tableRowNode);
+    return tableRowNodeToNameFunction.apply(tableRowNode);
   }
 
   private PlayerType getPlayerType(final Node tableRowNode)

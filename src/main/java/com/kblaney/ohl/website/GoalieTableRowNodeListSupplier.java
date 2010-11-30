@@ -25,7 +25,7 @@ final class GoalieTableRowNodeListSupplier
     return XmlUtil.getXmlDocument(url);
   }
 
-  private Node getTableNode(final Document document) throws IOException
+  private Node getTableNode(final Document document)
   {
     try
     {
@@ -33,7 +33,7 @@ final class GoalieTableRowNodeListSupplier
             document.getDocumentElement(), "//table[tr[th='SVS']]");
       if (tableNode == null)
       {
-        throw new IOException("Can not find goalies table");
+        throw new IllegalStateException("Can not find goalies table");
       }
       else
       {
