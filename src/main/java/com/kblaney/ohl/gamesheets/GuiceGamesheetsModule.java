@@ -13,6 +13,7 @@ public final class GuiceGamesheetsModule extends AbstractModule
   protected void configure()
   {
     bind(HtmlGamesheetsGetter.class).to(HtmlGamesheetsGetterImpl.class);
+    bind(HtmlGamesheetsWriter.class).to(HtmlGamesheetsFileWriter.class);
     bind(new TypeLiteral<Function<List<Player>, String>>() {}).
           to(PlayerHtmlTableGetter.class);
     bind(new TypeLiteral<Function<List<Goalie>, String>>() {}).

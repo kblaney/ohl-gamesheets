@@ -40,18 +40,21 @@ final class CreateGamesheetsFrame extends JFrame
   private final MDateEntryField dateEntryField;
   private final JLabel fileLocationLabel;
   private final HtmlGamesheetsGetter htmlGamesheetsGetter;
+  private final HtmlGamesheetsWriter htmlGamesheetsWriter;
   private final Teams teams;
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
   @Inject
   public CreateGamesheetsFrame(final StatsProvider statsProvider,
-        final HtmlGamesheetsGetter htmlGamesheetsGetter) throws IOException
+        final HtmlGamesheetsGetter htmlGamesheetsGetter,
+        final HtmlGamesheetsWriter htmlGamesheetsWriter) throws IOException
   {
     super("OHL Gamesheets");
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     this.htmlGamesheetsGetter = htmlGamesheetsGetter;
+    this.htmlGamesheetsWriter = htmlGamesheetsWriter;
     this.teams = statsProvider.getTeams();
     final String[] sortedTeamNames = getSortedTeamNames(teams);
 
@@ -147,19 +150,10 @@ final class CreateGamesheetsFrame extends JFrame
               final HtmlGamesheets htmlGamesheets =
                     htmlGamesheetsGetter.getGamesheets(
                     homeTeam, roadTeam, gameDate, CreateGamesheetsFrame.this);
-
-              final String directory = System.getProperty("user.home");
-              final File homeTeamGamesheetFile = new File(
-                    directory, "home.html");
-              final File roadTeamGamesheetFile = new File(
-                    directory, "road.html");
-              FileUtils.writeStringToFile(homeTeamGamesheetFile,
-                    htmlGamesheets.getHomeTeamGamesheet());
-              FileUtils.writeStringToFile(roadTeamGamesheetFile,
-                    htmlGamesheets.getRoadTeamGamesheet());
+              htmlGamesheetsWriter.write(htmlGamesheets);
               CreateGamesheetsFrame.this.fileLocationLabel.setText(
-                    "<html>Gamesheets written to <i>" + new File(directory).
-                    getAbsolutePath());
+                    "<html>Gamesheets written to <i>" +
+                    htmlGamesheetsWriter.getDescription());
             }
             catch (final Exception e)
             {
