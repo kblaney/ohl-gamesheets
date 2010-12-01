@@ -95,6 +95,12 @@
       <version>1.8.4</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.uispec4j</groupId>
+      <artifactId>uispec4j</artifactId>
+      <version>2.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <repositories>
     <repository>

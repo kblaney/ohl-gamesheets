@@ -31,6 +31,9 @@ import org.apache.commons.io.FileUtils;
 final class CreateGamesheetsFrame extends JFrame
       implements ActionListener, ProgressIndicator
 {
+  static final String HOME_TEAM_COMBO_BOX_NAME = "HomeTeam";
+  static final String ROAD_TEAM_COMBO_BOX_NAME = "RoadTeam";
+
   private final JLabel playerLabel;
   private final JComboBox roadTeamComboBox;
   private final JComboBox homeTeamComboBox;
@@ -53,9 +56,11 @@ final class CreateGamesheetsFrame extends JFrame
     final String[] sortedTeamNames = getSortedTeamNames(teams);
 
     homeTeamComboBox = new JComboBox(sortedTeamNames);
+    homeTeamComboBox.setName(HOME_TEAM_COMBO_BOX_NAME);
     homeTeamComboBox.setMaximumRowCount(sortedTeamNames.length);
 
     roadTeamComboBox = new JComboBox(sortedTeamNames);
+    roadTeamComboBox.setName(ROAD_TEAM_COMBO_BOX_NAME);
     roadTeamComboBox.setMaximumRowCount(sortedTeamNames.length);
 
     final SimpleDateFormat simpleDateFormat = new MSimpleDateFormat(
