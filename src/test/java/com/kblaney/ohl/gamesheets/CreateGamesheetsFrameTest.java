@@ -1,5 +1,7 @@
 package com.kblaney.ohl.gamesheets;
 
+import org.uispec4j.ComboBox;
+import org.uispec4j.Button;
 import org.uispec4j.UISpec4J;
 import com.google.common.collect.Sets;
 import com.kblaney.ohl.Team;
@@ -23,8 +25,10 @@ public final class CreateGamesheetsFrameTest
     when(statsProvider.getTeams()).thenReturn(getTeams());
     final HtmlGamesheetsGetter htmlGamesheetsGetter =
           mock(HtmlGamesheetsGetter.class);
+    final HtmlGamesheetsWriter htmlGamesheetsWriter =
+          mock(HtmlGamesheetsWriter.class);
     window = new Window(new CreateGamesheetsFrame(statsProvider,
-          htmlGamesheetsGetter));
+          htmlGamesheetsGetter, htmlGamesheetsWriter));
   }
 
   @After
@@ -58,5 +62,18 @@ public final class CreateGamesheetsFrameTest
   public void title() throws Exception
   {
     assertEquals("OHL Gamesheets", window.getTitle());
+  }
+
+  @Test
+  public void createGamesheets() throws Exception
+  {
+    final ComboBox homeTeamComboBox = window.getComboBox(
+          CreateGamesheetsFrame.HOME_TEAM_COMBO_BOX_NAME);
+    homeTeamComboBox.select("Belleville Bulls");
+    final ComboBox roadTeamComboBox = window.getComboBox(
+          CreateGamesheetsFrame.ROAD_TEAM_COMBO_BOX_NAME);
+    roadTeamComboBox.select("Kingston Frontenacs");
+    final Button button = window.getButton("Create gamesheets!");
+    button.click();
   }
 }
