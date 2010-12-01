@@ -19,11 +19,6 @@ public final class GoalieStats
     private int numSaves;
     private double savePercentage;
 
-    /**
-     * Builds a GoalieStats instance.
-     *
-     * @return the instance
-     */
     public GoalieStats build()
     {
       final GoalieStats goalieStats = new GoalieStats();
@@ -42,14 +37,6 @@ public final class GoalieStats
       return goalieStats;
     }
 
-    /**
-     * Sets the goals against average.
-     *
-     * @param goalsAgainstAverage the goals against average, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setGoalsAgainstAverage(final double goalsAgainstAverage)
     {
       ArgAssert.notNegative(goalsAgainstAverage, "goalsAgainstAverage");
@@ -58,14 +45,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of games played.
-     *
-     * @param numGamesPlayed the number of games played, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumGamesPlayed(final int numGamesPlayed)
     {
       ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
@@ -74,14 +53,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of goals against.
-     *
-     * @param numGoalsAgainst the number of goals against, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumGoalsAgainst(final int numGoalsAgainst)
     {
       ArgAssert.notNegative(numGoalsAgainst, "numGoalsAgainst");
@@ -90,14 +61,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of regulation losses.
-     *
-     * @param numLosses the number of regulation losses, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumRegulationLosses(final int numRegulationLosses)
     {
       ArgAssert.notNegative(numRegulationLosses, "numRegulationLosses");
@@ -106,14 +69,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of minutes played.
-     *
-     * @param numMinutesPlayed the number of minutes played, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumMinutesPlayed(final int numMinutesPlayed)
     {
       ArgAssert.notNegative(numMinutesPlayed, "numMinutesPlayed");
@@ -122,13 +77,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of saves.
-     *
-     * @param numSaves the number of saves, which can't be negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumSaves(final int numSaves)
     {
       ArgAssert.notNegative(numSaves, "numSaves");
@@ -137,14 +85,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of shots against.
-     *
-     * @param numShotsAgainst the number of shots against, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumShotsAgainst(final int numShotsAgainst)
     {
       ArgAssert.notNegative(numShotsAgainst, "numShotsAgainst");
@@ -153,13 +93,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of shutouts.
-     *
-     * @param numShutouts the number of shutouts, which can't be negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumShutouts(final int numShutouts)
     {
       ArgAssert.notNegative(numShutouts, "numShutouts");
@@ -168,14 +101,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of overtime losses.
-     *
-     * @param numOvertimeLosses the number of overtime losses, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumOvertimeLosses(final int numOvertimeLosses)
     {
       ArgAssert.notNegative(numOvertimeLosses, "numOvertimeLosses");
@@ -184,14 +109,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of shootout losses.
-     *
-     * @param numShootoutLosses the number of shootout losses, which can't be
-     * negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumShootoutLosses(final int numShootoutLosses)
     {
       ArgAssert.notNegative(numShootoutLosses, "numShootoutLosses");
@@ -200,13 +117,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the number of wins.
-     *
-     * @param numWins the number of wins, which can't be negative
-     *
-     * @return the builder instance
-     */
     public Builder setNumWins(final int numWins)
     {
       ArgAssert.notNegative(numWins, "numWins");
@@ -215,14 +125,6 @@ public final class GoalieStats
       return this;
     }
 
-    /**
-     * Sets the save percentage.
-     *
-     * @param savePercentage the save percentage, which must be between 0 and
-     * 1 inclusive
-     *
-     * @return the builder instance
-     */
     public Builder setSavePercentage(final double savePercentage)
     {
       ArgAssert.notNegative(savePercentage, "savePercentage");
@@ -248,63 +150,16 @@ public final class GoalieStats
 
   private GoalieStats() {}
 
-  public double getGoalsAgainstAverage()
-  {
-    return goalsAgainstAverage;
-  }
-
-  public int getNumGamesPlayed()
-  {
-    return numGamesPlayed;
-  }
-
-  public int getNumGoalsAgainst()
-  {
-    return numGoalsAgainst;
-  }
-
-  public int getNumRegulationLosses()
-  {
-    return numRegulationLosses;
-  }
-
-  public int getNumMinutesPlayed()
-  {
-    return numMinutesPlayed;
-  }
-
-  public int getNumSaves()
-  {
-    return numSaves;
-  }
-
-  public int getNumShotsAgainst()
-  {
-    return numShotsAgainst;
-  }
-
-  public int getNumShutouts()
-  {
-    return numShutouts;
-  }
-
-  public int getNumOvertimeLosses()
-  {
-    return numOvertimeLosses;
-  }
-
-  public int getNumShootoutLosses()
-  {
-    return numShootoutLosses;
-  }
-
-  public int getNumWins()
-  {
-    return numWins;
-  }
-
-  public double getSavePercentage()
-  {
-    return savePercentage;
-  }
+  public double getGoalsAgainstAverage() { return goalsAgainstAverage; }
+  public int getNumGamesPlayed() { return numGamesPlayed; }
+  public int getNumGoalsAgainst() { return numGoalsAgainst; }
+  public int getNumRegulationLosses() { return numRegulationLosses; }
+  public int getNumMinutesPlayed() { return numMinutesPlayed; }
+  public int getNumSaves() { return numSaves; }
+  public int getNumShotsAgainst() { return numShotsAgainst; }
+  public int getNumShutouts() { return numShutouts; }
+  public int getNumOvertimeLosses() { return numOvertimeLosses; }
+  public int getNumShootoutLosses() { return numShootoutLosses; }
+  public int getNumWins() { return numWins; }
+  public double getSavePercentage() { return savePercentage; }
 }

@@ -104,43 +104,12 @@ public class PlayerStats
 
   private PlayerStats() {}
 
-  public int getNumGamesPlayed()
-  {
-    return numGamesPlayed;
-  }
-
-  public int getNumGoals()
-  {
-    return numGoals;
-  }
-
-  public int getNumAssists()
-  {
-    return numAssists;
-  }
-
-  public int getNumPoints()
-  {
-    return numPoints;
-  }
-
-  public int getPlusMinus()
-  {
-    return plusMinus;
-  }
-
-  public int getNumPenaltyMinutes()
-  {
-    return numPenaltyMinutes;
-  }
-
-  public int getNumPowerPlayGoals()
-  {
-    return numPowerPlayGoals;
-  }
-
-  public int getNumShorthandedGoals()
-  {
-    return numShorthandedGoals;
-  }
+  public int getNumGamesPlayed() { return numGamesPlayed; }
+  public int getNumGoals() { return numGoals; }
+  public int getNumAssists() { return numAssists; }
+  public int getNumPoints() { return numPoints; }
+  public int getPlusMinus() { return plusMinus; }
+  public int getNumPenaltyMinutes() { return numPenaltyMinutes; }
+  public int getNumPowerPlayGoals() { return numPowerPlayGoals; }
+  public int getNumShorthandedGoals() { return numShorthandedGoals; }
 }

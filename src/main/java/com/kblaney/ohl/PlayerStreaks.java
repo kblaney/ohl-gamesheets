@@ -56,20 +56,9 @@ public final class PlayerStreaks
 
   private PlayerStreaks() {}
 
-  public int getGoalStreak()
-  {
-    return goalStreak;
-  }
-
-  public int getAssistStreak()
-  {
-    return assistStreak;
-  }
-
-  public int getPointStreak()
-  {
-    return pointStreak;
-  }
+  public int getGoalStreak() { return goalStreak; }
+  public int getAssistStreak() { return assistStreak; }
+  public int getPointStreak() { return pointStreak; }
 
   @Override
   public boolean equals(final Object thatObject)

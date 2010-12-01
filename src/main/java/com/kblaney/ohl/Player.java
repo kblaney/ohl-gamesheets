@@ -30,33 +30,10 @@ public final class Player
     this.streaks = streaks;
   }
 
-  public String getName()
-  {
-    return name;
-  }
-
-  public PlayerType getPlayerType()
-  {
-    return playerType;
-  }
-
-  public int getSweaterNum()
-  {
-    return sweaterNum;
-  }
-
-  public PlayerStats getStats()
-  {
-    return stats;
-  }
-
-  public PlayerBio getBio()
-  {
-    return bio;
-  }
-
-  public PlayerStreaks getStreaks()
-  {
-    return streaks;
-  }
+  public String getName() { return name; }
+  public PlayerType getPlayerType() { return playerType; }
+  public int getSweaterNum() { return sweaterNum; }
+  public PlayerStats getStats() { return stats; }
+  public PlayerBio getBio() { return bio; }
+  public PlayerStreaks getStreaks() { return streaks; }
 }

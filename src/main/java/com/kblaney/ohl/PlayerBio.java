@@ -1,5 +1,7 @@
 package com.kblaney.ohl;
 
+import com.kblaney.commons.lang.ArgAssert;
+
 /**
  * The biographical information of one player.
  *
@@ -31,30 +33,35 @@ public final class PlayerBio
 
     public Builder setBirthYear(final String birthYear)
     {
+      ArgAssert.notNull(birthYear, "birthYear");
       this.birthYear = birthYear;
       return this;
     }
 
     public Builder setPosition(final String position)
     {
+      ArgAssert.notNull(position, "position");
       this.position = position;
       return this;
     }
 
     public Builder setHeight(final String height)
     {
+      ArgAssert.notNull(height, "height");
       this.height = height;
       return this;
     }
 
     public Builder setWeight(final String weight)
     {
+      ArgAssert.notNull(weight, "weight");
       this.weight = weight;
       return this;
     }
 
     public Builder setBirthplace(final String birthplace)
     {
+      ArgAssert.notNull(birthplace, "birthplace");
       this.birthplace = birthplace;
       return this;
     }
@@ -68,28 +75,9 @@ public final class PlayerBio
 
   private PlayerBio() {}
 
-  public String getBirthYear()
-  {
-    return birthYear;
-  }
-
-  public String getPosition()
-  {
-    return position;
-  }
-
-  public String getHeight()
-  {
-    return height;
-  }
-
-  public String getBirthplace()
-  {
-    return birthplace;
-  }
-
-  public String getWeight()
-  {
-    return weight;
-  }
+  public String getBirthYear() { return birthYear; }
+  public String getPosition() { return position; }
+  public String getHeight() { return height; }
+  public String getBirthplace() { return birthplace; }
+  public String getWeight() { return weight; }
 }
