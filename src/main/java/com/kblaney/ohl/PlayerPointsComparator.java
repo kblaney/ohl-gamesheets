@@ -18,17 +18,17 @@ public final class PlayerPointsComparator implements Comparator<Player>
   /** {@inheritDoc} */
   public int compare(final Player p1, final Player p2)
   {
-    if (p1.getStats().getNumPoints() == p2.getStats().getNumPoints())
+    final PlayerStats s1 = p1.getStats();
+    final PlayerStats s2 = p2.getStats();
+    if (s1.getNumPoints() == s2.getNumPoints())
     {
-      if (p1.getStats().getNumGoals() == p2.getStats().getNumGoals())
+      if (s1.getNumGoals() == s2.getNumGoals())
       {
-        if (p1.getStats().getNumGamesPlayed() ==
-              p2.getStats().getNumGamesPlayed())
+        if (s1.getNumGamesPlayed() == s2.getNumGamesPlayed())
         {
           return 0;
         }
-        else if (p1.getStats().getNumGamesPlayed() <
-              p2.getStats().getNumGamesPlayed())
+        else if (s1.getNumGamesPlayed() < s2.getNumGamesPlayed())
         {
           return -1;
         }
@@ -37,7 +37,7 @@ public final class PlayerPointsComparator implements Comparator<Player>
           return 1;
         }
       }
-      else if (p1.getStats().getNumGoals() < p2.getStats().getNumGoals())
+      else if (s1.getNumGoals() < s2.getNumGoals())
       {
         return 1;
       }
@@ -46,7 +46,7 @@ public final class PlayerPointsComparator implements Comparator<Player>
         return -1;
       }
     }
-    else if (p1.getStats().getNumPoints() < p2.getStats().getNumPoints())
+    else if (s1.getNumPoints() < s2.getNumPoints())
     {
       return 1;
     }
