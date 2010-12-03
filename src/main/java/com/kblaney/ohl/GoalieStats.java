@@ -39,89 +39,75 @@ public final class GoalieStats
 
     public Builder setGoalsAgainstAverage(final double goalsAgainstAverage)
     {
-      ArgAssert.notNegative(goalsAgainstAverage, "goalsAgainstAverage");
-
-      this.goalsAgainstAverage = goalsAgainstAverage;
+      this.goalsAgainstAverage =
+            ArgAssert.notNegative(goalsAgainstAverage, "goalsAgainstAverage");
       return this;
     }
 
     public Builder setNumGamesPlayed(final int numGamesPlayed)
     {
-      ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
-
-      this.numGamesPlayed = numGamesPlayed;
+      this.numGamesPlayed =
+            ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
       return this;
     }
 
     public Builder setNumGoalsAgainst(final int numGoalsAgainst)
     {
-      ArgAssert.notNegative(numGoalsAgainst, "numGoalsAgainst");
-
-      this.numGoalsAgainst = numGoalsAgainst;
+      this.numGoalsAgainst =
+            ArgAssert.notNegative(numGoalsAgainst, "numGoalsAgainst");
       return this;
     }
 
     public Builder setNumRegulationLosses(final int numRegulationLosses)
     {
-      ArgAssert.notNegative(numRegulationLosses, "numRegulationLosses");
-
-      this.numRegulationLosses = numRegulationLosses;
+      this.numRegulationLosses =
+            ArgAssert.notNegative(numRegulationLosses, "numRegulationLosses");
       return this;
     }
 
     public Builder setNumMinutesPlayed(final int numMinutesPlayed)
     {
-      ArgAssert.notNegative(numMinutesPlayed, "numMinutesPlayed");
-
-      this.numMinutesPlayed = numMinutesPlayed;
+      this.numMinutesPlayed =
+            ArgAssert.notNegative(numMinutesPlayed, "numMinutesPlayed");
       return this;
     }
 
     public Builder setNumSaves(final int numSaves)
     {
-      ArgAssert.notNegative(numSaves, "numSaves");
-
-      this.numSaves = numSaves;
+      this.numSaves = ArgAssert.notNegative(numSaves, "numSaves");
       return this;
     }
 
     public Builder setNumShotsAgainst(final int numShotsAgainst)
     {
-      ArgAssert.notNegative(numShotsAgainst, "numShotsAgainst");
-
-      this.numShotsAgainst = numShotsAgainst;
+      this.numShotsAgainst =
+            ArgAssert.notNegative(numShotsAgainst, "numShotsAgainst");
       return this;
     }
 
     public Builder setNumShutouts(final int numShutouts)
     {
-      ArgAssert.notNegative(numShutouts, "numShutouts");
-
-      this.numShutouts = numShutouts;
+      this.numShutouts = ArgAssert.notNegative(numShutouts, "numShutouts");
       return this;
     }
 
     public Builder setNumOvertimeLosses(final int numOvertimeLosses)
     {
-      ArgAssert.notNegative(numOvertimeLosses, "numOvertimeLosses");
-
-      this.numOvertimeLosses = numOvertimeLosses;
+      this.numOvertimeLosses =
+            ArgAssert.notNegative(numOvertimeLosses, "numOvertimeLosses");
       return this;
     }
 
     public Builder setNumShootoutLosses(final int numShootoutLosses)
     {
-      ArgAssert.notNegative(numShootoutLosses, "numShootoutLosses");
-
-      this.numShootoutLosses = numShootoutLosses;
+      this.numShootoutLosses =
+            ArgAssert.notNegative(numShootoutLosses, "numShootoutLosses");
       return this;
     }
 
     public Builder setNumWins(final int numWins)
     {
-      ArgAssert.notNegative(numWins, "numWins");
-
-      this.numWins = numWins;
+      this.numWins = ArgAssert.notNegative(numWins, "numWins");
       return this;
     }
 

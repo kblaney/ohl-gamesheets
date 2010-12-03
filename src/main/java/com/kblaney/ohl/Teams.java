@@ -14,9 +14,7 @@ public final class Teams
 
   public Teams(final Set<? extends Team> teams)
   {
-    ArgAssert.notNull(teams, "teams");
-
-    this.teams = Sets.newHashSet(teams);
+    this.teams = Sets.newHashSet(ArgAssert.notNull(teams, "teams"));
   }
 
   public List<String> getSortedTeamNames()

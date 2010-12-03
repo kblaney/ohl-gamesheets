@@ -31,64 +31,53 @@ public class PlayerStats
 
     public Builder setNumGamesPlayed(final int numGamesPlayed)
     {
-      ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
-
-      this.numGamesPlayed = numGamesPlayed;
+      this.numGamesPlayed =
+            ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
       return this;
     }
 
     public Builder setNumGoals(final int numGoals)
     {
-      ArgAssert.notNegative(numGoals, "numGoals");
-
-      this.numGoals = numGoals;
+      this.numGoals = ArgAssert.notNegative(numGoals, "numGoals");
       return this;
     }
 
     public Builder setNumAssists(final int numAssists)
     {
-      ArgAssert.notNegative(numAssists, "numAssists");
-
-      this.numAssists = numAssists;
+      this.numAssists = ArgAssert.notNegative(numAssists, "numAssists");
       return this;
     }
 
     public Builder setNumPoints(final int numPoints)
     {
-      ArgAssert.notNegative(numPoints, "numPoints");
-
-      this.numPoints = numPoints;
+      this.numPoints = ArgAssert.notNegative(numPoints, "numPoints");
       return this;
     }
 
     public Builder setPlusMinus(final int plusMinus)
     {
       this.plusMinus = plusMinus;
-
       return this;
     }
 
     public Builder setNumPenaltyMinutes(final int numPenaltyMinutes)
     {
-      ArgAssert.notNegative(numPenaltyMinutes, "numPenaltyMinutes");
-
-      this.numPenaltyMinutes = numPenaltyMinutes;
+      this.numPenaltyMinutes =
+            ArgAssert.notNegative(numPenaltyMinutes, "numPenaltyMinutes");
       return this;
     }
 
     public Builder setNumPowerPlayGoals(final int numPowerPlayGoals)
     {
-      ArgAssert.notNegative(numPowerPlayGoals, "numPowerPlayGoals");
-
-      this.numPowerPlayGoals = numPowerPlayGoals;
+      this.numPowerPlayGoals =
+            ArgAssert.notNegative(numPowerPlayGoals, "numPowerPlayGoals");
       return this;
     }
 
     public Builder setNumShorthandedGoals(final int numShorthandedGoals)
     {
-      ArgAssert.notNegative(numShorthandedGoals, "numShorthandedGoals");
-
-      this.numShorthandedGoals = numShorthandedGoals;
+      this.numShorthandedGoals =
+            ArgAssert.notNegative(numShorthandedGoals, "numShorthandedGoals");
       return this;
     }
   }

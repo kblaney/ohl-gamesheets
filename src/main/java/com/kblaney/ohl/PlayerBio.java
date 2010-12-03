@@ -33,36 +33,31 @@ public final class PlayerBio
 
     public Builder setBirthYear(final String birthYear)
     {
-      ArgAssert.notNull(birthYear, "birthYear");
-      this.birthYear = birthYear;
+      this.birthYear = ArgAssert.notNull(birthYear, "birthYear");
       return this;
     }
 
     public Builder setPosition(final String position)
     {
-      ArgAssert.notNull(position, "position");
-      this.position = position;
+      this.position = ArgAssert.notNull(position, "position");
       return this;
     }
 
     public Builder setHeight(final String height)
     {
-      ArgAssert.notNull(height, "height");
-      this.height = height;
+      this.height = ArgAssert.notNull(height, "height");
       return this;
     }
 
     public Builder setWeight(final String weight)
     {
-      ArgAssert.notNull(weight, "weight");
-      this.weight = weight;
+      this.weight = ArgAssert.notNull(weight, "weight");
       return this;
     }
 
     public Builder setBirthplace(final String birthplace)
     {
-      ArgAssert.notNull(birthplace, "birthplace");
-      this.birthplace = birthplace;
+      this.birthplace = ArgAssert.notNull(birthplace, "birthplace");
       return this;
     }
   }

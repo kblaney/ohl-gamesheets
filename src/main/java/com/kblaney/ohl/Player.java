@@ -15,19 +15,12 @@ public final class Player
         final int sweaterNum, final PlayerStats stats, final PlayerBio bio,
         final PlayerStreaks streaks)
   {
-    ArgAssert.notNull(name, "name");
-    ArgAssert.notNull(playerType, "playerType");
-    ArgAssert.notNegative(sweaterNum, "sweaterNum");
-    ArgAssert.notNull(stats, "stats");
-    ArgAssert.notNull(bio, "bio");
-    ArgAssert.notNull(streaks, "streaks");
-
-    this.name = name;
-    this.playerType = playerType;
-    this.sweaterNum = sweaterNum;
-    this.stats = stats;
-    this.bio = bio;
-    this.streaks = streaks;
+    this.name = ArgAssert.notNull(name, "name");
+    this.playerType = ArgAssert.notNull(playerType, "playerType");
+    this.sweaterNum = ArgAssert.notNegative(sweaterNum, "sweaterNum");
+    this.stats = ArgAssert.notNull(stats, "stats");
+    this.bio = ArgAssert.notNull(bio, "bio");
+    this.streaks = ArgAssert.notNull(streaks, "streaks");
   }
 
   public String getName() { return name; }

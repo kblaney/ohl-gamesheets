@@ -9,11 +9,8 @@ public final class Goalie
 
   public Goalie(final String name, final GoalieStats stats)
   {
-    ArgAssert.notNull(name, "name");
-    ArgAssert.notNull(stats, "stats");
-
-    this.name = name;
-    this.stats = stats;
+    this.name = ArgAssert.notNull(name, "name");
+    this.stats = ArgAssert.notNull(stats, "stats");
   }
 
   public String getName() { return name; }

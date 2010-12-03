@@ -30,22 +30,19 @@ public final class PlayerStreaks
 
     public Builder setGoalStreak(final int goalStreak)
     {
-      ArgAssert.notNegative(goalStreak, "goalStreak");
-      this.goalStreak = goalStreak;
+      this.goalStreak = ArgAssert.notNegative(goalStreak, "goalStreak");
       return this;
     }
 
     public Builder setAssistStreak(final int assistStreak)
     {
-      ArgAssert.notNegative(assistStreak, "assistStreak");
-      this.assistStreak = assistStreak;
+      this.assistStreak = ArgAssert.notNegative(assistStreak, "assistStreak");
       return this;
     }
 
     public Builder setPointStreak(final int pointStreak)
     {
-      ArgAssert.notNegative(pointStreak, "pointStreak");
-      this.pointStreak = pointStreak;
+      this.pointStreak = ArgAssert.notNegative(pointStreak, "pointStreak");
       return this;
     }
   }
