@@ -1,0 +1,100 @@
+package com.kblaney.ohl;
+
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
+
+public final class PlayerTest
+{
+  private String name;
+  private PlayerType playerType;
+  private int sweaterNum;
+  private PlayerStats stats;
+  private PlayerBio bio;
+  private PlayerStreaks streaks;
+  private Player player;
+
+  @Before
+  public void setUp()
+  {
+    name = "PLAYER_NAME";
+    playerType = PlayerType.VETERAN;
+    sweaterNum = 23;
+    stats = new PlayerStats.Builder().build();
+    bio = new PlayerBio.Builder().build();
+    streaks = new PlayerStreaks.Builder().build();
+    player = new Player(name, playerType, sweaterNum, stats, bio, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_nullName()
+  {
+    new Player(null, playerType, sweaterNum, stats, bio, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_nullPlayerType()
+  {
+    new Player(name, null, sweaterNum, stats, bio, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_negativeSweaterNum()
+  {
+    new Player(name, playerType, -1, stats, bio, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_nullStats()
+  {
+    new Player(name, playerType, sweaterNum, null, bio, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_nullBio()
+  {
+    new Player(name, playerType, sweaterNum, stats, null, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_nullStreaks()
+  {
+    new Player(name, playerType, sweaterNum, stats, bio, null);
+  }
+
+  @Test
+  public void getName()
+  {
+    assertEquals(name, player.getName());
+  }
+
+  @Test
+  public void getPlayerType()
+  {
+    assertEquals(playerType, player.getType());
+  }
+
+  @Test
+  public void getSweaterNum()
+  {
+    assertEquals(sweaterNum, player.getSweaterNum());
+  }
+
+  @Test
+  public void getStats()
+  {
+    assertEquals(stats, player.getStats());
+  }
+
+  @Test
+  public void getBio()
+  {
+    assertEquals(bio, player.getBio());
+  }
+
+  @Test
+  public void getStreaks()
+  {
+    assertEquals(streaks, player.getStreaks());
+  }
+}

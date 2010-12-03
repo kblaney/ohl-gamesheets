@@ -56,7 +56,7 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
   private String getTableRow(final Player p)
   {
     final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_ROW_START);
-    s.append(HtmlUtil.getLeftAlignedTdElement(getRookieString(p.getPlayerType())));
+    s.append(HtmlUtil.getLeftAlignedTdElement(getRookieString(p.getType())));
     s.append(HtmlUtil.getRightAlignedTdElement(p.getSweaterNum()));
     s.append(HtmlUtil.getLeftAlignedTdElement(p.getName()));
     s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumGamesPlayed()));
