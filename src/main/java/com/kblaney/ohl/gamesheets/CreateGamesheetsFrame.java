@@ -8,7 +8,6 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,7 +25,6 @@ import javax.swing.SwingUtilities;
 import mseries.Calendar.MDefaultPullDownConstraints;
 import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
-import org.apache.commons.io.FileUtils;
 
 final class CreateGamesheetsFrame extends JFrame
       implements ActionListener, ProgressIndicator
