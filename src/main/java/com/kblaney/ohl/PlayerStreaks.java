@@ -88,6 +88,6 @@ public final class PlayerStreaks
   @Override
   public String toString()
   {
-    return goalStreak + ":" + assistStreak + ":" + pointStreak;
+    return goalStreak + "G:" + assistStreak + "A:" + pointStreak + "P";
   }
 }
