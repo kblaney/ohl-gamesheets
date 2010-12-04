@@ -2,9 +2,12 @@ package com.kblaney.ohl.gamesheets;
 
 import com.google.common.base.Function;
 import com.google.inject.AbstractModule;
+import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
+import com.kblaney.ohl.StatsProvider;
+import com.kblaney.ohl.website.Website;
 import java.util.List;
 
 public final class GuiceGamesheetsModule extends AbstractModule
@@ -12,6 +15,7 @@ public final class GuiceGamesheetsModule extends AbstractModule
   @Override
   protected void configure()
   {
+    bind(StatsProvider.class).to(Website.class).in(Scopes.SINGLETON);
     bind(HtmlGamesheetsGetter.class).to(HtmlGamesheetsGetterImpl.class);
     bind(HtmlGamesheetsWriter.class).to(HtmlGamesheetsFileWriter.class);
     bind(StringWriterToFile.class).to(StringWriterToFileImpl.class);

@@ -1,9 +1,6 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl;
 
-import com.kblaney.ohl.Goalie;
-import com.kblaney.ohl.Player;
-import com.kblaney.ohl.Team;
-import com.kblaney.ohl.Teams;
+import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.kblaney.ohl.StatsProvider;
 import java.util.Set;
 import org.uispec4j.ComboBox;
 import org.uispec4j.Button;

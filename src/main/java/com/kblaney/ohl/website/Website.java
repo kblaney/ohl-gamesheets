@@ -12,7 +12,7 @@ import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
-import com.kblaney.ohl.gamesheets.StatsProvider;
+import com.kblaney.ohl.StatsProvider;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -22,7 +22,7 @@ import org.w3c.dom.NodeList;
 /**
  * The Ontario Hockey League website.
  */
-final class Website implements StatsProvider
+public final class Website implements StatsProvider
 {
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
   private final PlayerSupplier playerSupplier;

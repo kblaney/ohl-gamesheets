@@ -1,5 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.kblaney.ohl.StatsProvider;
 import com.google.inject.Inject;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.Teams;

@@ -1,5 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.kblaney.ohl.StatsProvider;
 import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.kblaney.commons.html.HtmlUtil;
