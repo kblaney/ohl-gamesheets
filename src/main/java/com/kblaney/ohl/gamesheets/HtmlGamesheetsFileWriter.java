@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 
-final class HtmlGamesheetsFileWriter implements HtmlGamesheetsWriter
+final class HtmlGamesheetsFileWriter implements GamesheetsWriter
 {
   private final StringWriterToFile stringWriterToFile;
   private final File directory = new File(System.getProperty("user.home"));
@@ -15,13 +15,13 @@ final class HtmlGamesheetsFileWriter implements HtmlGamesheetsWriter
     this.stringWriterToFile = stringWriterToFile;
   }
 
-  public void write(final HtmlGamesheets htmlGamesheets) throws IOException
+  public void write(final Gamesheets gamesheets) throws IOException
   {
     final File homeTeamGamesheetFile = new File(directory, "home.html");
     final File roadTeamGamesheetFile = new File(directory, "road.html");
-    stringWriterToFile.write(htmlGamesheets.getHomeTeamGamesheet(),
+    stringWriterToFile.write(gamesheets.getHomeTeamGamesheet(),
           homeTeamGamesheetFile);
-    stringWriterToFile.write(htmlGamesheets.getRoadTeamGamesheet(),
+    stringWriterToFile.write(gamesheets.getRoadTeamGamesheet(),
           roadTeamGamesheetFile);
   }
 

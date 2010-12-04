@@ -4,29 +4,29 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public final class HtmlGamesheetsTest
+public final class GamesheetsTest
 {
   private String homeTeamGamesheet;
   private String roadTeamGamesheet;
-  private HtmlGamesheets htmlGamesheets;
+  private Gamesheets gamesheets;
 
   @Before
   public void setUp()
   {
     homeTeamGamesheet = "HOME_TEAM_GAMESHEET";
     roadTeamGamesheet = "ROAD_TEAM_GAMESHEET";
-    htmlGamesheets = new HtmlGamesheets(homeTeamGamesheet, roadTeamGamesheet);
+    gamesheets = new Gamesheets(homeTeamGamesheet, roadTeamGamesheet);
   }
 
   @Test
   public void getHomeTeamGamesheet()
   {
-    assertEquals(homeTeamGamesheet, htmlGamesheets.getHomeTeamGamesheet());
+    assertEquals(homeTeamGamesheet, gamesheets.getHomeTeamGamesheet());
   }
 
   @Test
   public void getRoadTeamGamesheet()
   {
-    assertEquals(roadTeamGamesheet, htmlGamesheets.getRoadTeamGamesheet());
+    assertEquals(roadTeamGamesheet, gamesheets.getRoadTeamGamesheet());
   }
 }

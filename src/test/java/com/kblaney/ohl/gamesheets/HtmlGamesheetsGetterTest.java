@@ -12,12 +12,12 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
 
-public final class HtmlGamesheetsGetterImplTest
+public final class HtmlGamesheetsGetterTest
 {
   private StatsProvider statsProvider;
   private Function<List<Player>, String> playersToHtmlTableFunction;
   private Function<List<Goalie>, String> goaliesToHtmlTableFunction;
-  private HtmlGamesheetsGetter htmlGamesheetsGetter;
+  private GamesheetsGetter htmlGamesheetsGetter;
   private Team homeTeam;
   private Team roadTeam;
   private Calendar gameDate;
@@ -29,7 +29,7 @@ public final class HtmlGamesheetsGetterImplTest
     statsProvider = mock(StatsProvider.class);
     playersToHtmlTableFunction = mock(Function.class);
     goaliesToHtmlTableFunction = mock(Function.class);
-    htmlGamesheetsGetter = new HtmlGamesheetsGetterImpl(statsProvider,
+    htmlGamesheetsGetter = new HtmlGamesheetsGetter(statsProvider,
           playersToHtmlTableFunction, goaliesToHtmlTableFunction);
     homeTeam = getTeamWithName("Belleville Bulls");
     roadTeam = getTeamWithName("Kingston Frontenacs");

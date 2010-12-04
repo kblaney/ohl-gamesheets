@@ -16,8 +16,8 @@ public final class GuiceGamesheetsModule extends AbstractModule
   protected void configure()
   {
     bind(StatsProvider.class).to(Website.class).in(Scopes.SINGLETON);
-    bind(HtmlGamesheetsGetter.class).to(HtmlGamesheetsGetterImpl.class);
-    bind(HtmlGamesheetsWriter.class).to(HtmlGamesheetsFileWriter.class);
+    bind(GamesheetsGetter.class).to(HtmlGamesheetsGetter.class);
+    bind(GamesheetsWriter.class).to(HtmlGamesheetsFileWriter.class);
     bind(StringWriterToFile.class).to(StringWriterToFileImpl.class);
     bind(new TypeLiteral<Function<List<Player>, String>>() {}).
           to(PlayerHtmlTableGetter.class);

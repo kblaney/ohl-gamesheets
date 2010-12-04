@@ -24,8 +24,8 @@ public final class CreateGamesheetsFrameTest
   private Team homeTeam;
   private Team roadTeam;
   private CreateGamesheetsFrame frame;
-  private HtmlGamesheetsWriter htmlGamesheetsWriter;
-  private HtmlGamesheets htmlGamesheets;
+  private GamesheetsWriter htmlGamesheetsWriter;
+  private Gamesheets htmlGamesheets;
   private Window window;
 
   @Before
@@ -44,13 +44,13 @@ public final class CreateGamesheetsFrameTest
 
     final String homeTeamGamesheet = "HOME_TEAM_GAMESHEET";
     final String roadTeamGamesheet = "ROAD_TEAM_GAMESHEET";
-    htmlGamesheets = new HtmlGamesheets(homeTeamGamesheet, roadTeamGamesheet);
-    final HtmlGamesheetsGetter htmlGamesheetsGetter =
-          mock(HtmlGamesheetsGetter.class);
+    htmlGamesheets = new Gamesheets(homeTeamGamesheet, roadTeamGamesheet);
+    final GamesheetsGetter htmlGamesheetsGetter =
+          mock(GamesheetsGetter.class);
     when(htmlGamesheetsGetter.getGamesheets(eq(homeTeam), eq(roadTeam),
           any(Calendar.class), any(ProgressIndicator.class))).
           thenReturn(htmlGamesheets);
-    htmlGamesheetsWriter = mock(HtmlGamesheetsWriter.class);
+    htmlGamesheetsWriter = mock(GamesheetsWriter.class);
     frame = new CreateGamesheetsFrame(statsProvider, htmlGamesheetsGetter,
           htmlGamesheetsWriter);
     window = new Window(frame);

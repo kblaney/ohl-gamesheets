@@ -1,11 +1,11 @@
 package com.kblaney.ohl.gamesheets;
 
-final class HtmlGamesheets
+final class Gamesheets
 {
   private final String homeTeamGamesheet;
   private final String roadTeamGamesheet;
 
-  public HtmlGamesheets(final String homeTeamGamesheet,
+  public Gamesheets(final String homeTeamGamesheet,
         final String roadTeamGamesheet)
   {
     this.homeTeamGamesheet = homeTeamGamesheet;

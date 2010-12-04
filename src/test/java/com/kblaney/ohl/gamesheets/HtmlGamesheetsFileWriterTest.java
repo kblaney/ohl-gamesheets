@@ -9,13 +9,13 @@ import static org.mockito.Mockito.*;
 public final class HtmlGamesheetsFileWriterTest
 {
   private StringWriterToFile stringWriterToFile;
-  private HtmlGamesheetsWriter htmlGamesheetsWriter;
+  private GamesheetsWriter gamesheetsWriter;
 
   @Before
   public void setUp()
   {
     stringWriterToFile = mock(StringWriterToFile.class);
-    htmlGamesheetsWriter = new HtmlGamesheetsFileWriter(stringWriterToFile);
+    gamesheetsWriter = new HtmlGamesheetsFileWriter(stringWriterToFile);
   }
 
   @Test
@@ -23,9 +23,9 @@ public final class HtmlGamesheetsFileWriterTest
   {
     final String homeTeamGamesheet = "HOME_TEAM";
     final String roadTeamGamesheet = "ROAD_TEAM";
-    final HtmlGamesheets htmlGamesheets = new HtmlGamesheets(homeTeamGamesheet,
+    final Gamesheets htmlGamesheets = new Gamesheets(homeTeamGamesheet,
           roadTeamGamesheet);
-    htmlGamesheetsWriter.write(htmlGamesheets);
+    gamesheetsWriter.write(htmlGamesheets);
     verify(stringWriterToFile).write(eq(homeTeamGamesheet), any(File.class));
     verify(stringWriterToFile).write(eq(roadTeamGamesheet), any(File.class));
   }
@@ -33,6 +33,6 @@ public final class HtmlGamesheetsFileWriterTest
   @Test
   public void getDescription()
   {
-    assertNotNull(htmlGamesheetsWriter.getDescription());
+    assertNotNull(gamesheetsWriter.getDescription());
   }
 }

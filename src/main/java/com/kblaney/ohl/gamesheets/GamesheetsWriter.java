@@ -2,8 +2,8 @@ package com.kblaney.ohl.gamesheets;
 
 import java.io.IOException;
 
-interface HtmlGamesheetsWriter
+interface GamesheetsWriter
 {
-  void write(HtmlGamesheets htmlGamesheets) throws IOException;
+  void write(Gamesheets gamesheets) throws IOException;
   String getDescription();
 }

@@ -38,15 +38,15 @@ final class CreateGamesheetsFrame extends JFrame
   private final JComboBox homeTeamComboBox;
   private final MDateEntryField dateEntryField;
   private final JLabel fileLocationLabel;
-  private final HtmlGamesheetsGetter htmlGamesheetsGetter;
-  private final HtmlGamesheetsWriter htmlGamesheetsWriter;
+  private final GamesheetsGetter htmlGamesheetsGetter;
+  private final GamesheetsWriter htmlGamesheetsWriter;
   private final Teams teams;
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
   @Inject
   public CreateGamesheetsFrame(final StatsProvider statsProvider,
-        final HtmlGamesheetsGetter htmlGamesheetsGetter,
-        final HtmlGamesheetsWriter htmlGamesheetsWriter) throws IOException
+        final GamesheetsGetter htmlGamesheetsGetter,
+        final GamesheetsWriter htmlGamesheetsWriter) throws IOException
   {
     super("OHL Gamesheets");
 
@@ -146,7 +146,7 @@ final class CreateGamesheetsFrame extends JFrame
           {
             try
             {
-              final HtmlGamesheets htmlGamesheets =
+              final Gamesheets htmlGamesheets =
                     htmlGamesheetsGetter.getGamesheets(
                     homeTeam, roadTeam, gameDate, CreateGamesheetsFrame.this);
               htmlGamesheetsWriter.write(htmlGamesheets);
