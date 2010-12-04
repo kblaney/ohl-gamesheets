@@ -39,8 +39,13 @@ final class Urls
     }
   }
 
-  public static URL getPlayerScoringUrl(final int teamNum,
-        final boolean isForSkaters) throws IOException
+  public static URL getSkaterStatsUrl(final int teamNum) throws IOException
+  {
+    return getStatsUrl(teamNum, /*isForSkaters=*/true);
+  }
+
+  private static URL getStatsUrl(final int teamNum, final boolean isForSkaters)
+        throws IOException
   {
     final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
           PhpUtil.getKeyValueString(TYPE, getType(isForSkaters)) +
@@ -57,6 +62,11 @@ final class Urls
     {
       throw new IllegalStateException(e);
     }
+  }
+
+  public static URL getGoalieStatsUrl(final int teamNum) throws IOException
+  {
+    return getStatsUrl(teamNum, /*isForSkaters=*/false);
   }
 
   private static String getType(final boolean isForSkaters)

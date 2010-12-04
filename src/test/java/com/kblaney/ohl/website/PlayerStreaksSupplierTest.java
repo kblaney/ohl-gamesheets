@@ -149,4 +149,44 @@ public final class PlayerStreaksSupplierTest
     assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).
           setPointStreak(2).build(), streaksSupplier.get(playerId, position));
   }
+
+  @Test
+  public void apply_zeroGameGoalStreakThreeGamePointStreak() throws Exception
+  {
+    final String fourthMostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/0, /*numAssistsInGame=*/0);
+    final String thirdMostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/1, /*numAssistsInGame=*/1);
+    final String secondMostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/1, /*numAssistsInGame=*/0);
+    final String mostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/0, /*numAssistsInGame=*/1);
+    final NodeList nodeList = getNodeList(fourthMostRecentGameTableRow,
+          thirdMostRecentGameTableRow, secondMostRecentGameTableRow,
+          mostRecentGameTableRow);
+    when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(0).
+          setAssistStreak(1).setPointStreak(3).build(),
+          streaksSupplier.get(playerId, position));
+  }
+
+  @Test
+  public void apply_zeroGameAssistStreakThreeGamePointStreak() throws Exception
+  {
+    final String fourthMostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/0, /*numAssistsInGame=*/0);
+    final String thirdMostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/1, /*numAssistsInGame=*/1);
+    final String secondMostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/0, /*numAssistsInGame=*/1);
+    final String mostRecentGameTableRow = getGameTableRow(
+          /*numGoalsInGame=*/1, /*numAssistsInGame=*/0);
+    final NodeList nodeList = getNodeList(fourthMostRecentGameTableRow,
+          thirdMostRecentGameTableRow, secondMostRecentGameTableRow,
+          mostRecentGameTableRow);
+    when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).
+          setAssistStreak(0).setPointStreak(3).build(),
+          streaksSupplier.get(playerId, position));
+  }
 }

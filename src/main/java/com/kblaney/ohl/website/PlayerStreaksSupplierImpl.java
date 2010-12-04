@@ -53,19 +53,19 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
       {
         goalStreak++;
       }
-      onGoalStreak = (numGoalsInGame > 0);
+      onGoalStreak = onGoalStreak && (numGoalsInGame > 0);
 
       if (onAssistStreak && (numAssistsInGame > 0))
       {
         assistStreak++;
       }
-      onAssistStreak = (numAssistsInGame > 0);
+      onAssistStreak = onAssistStreak && (numAssistsInGame > 0);
 
       if (numPointsInGame > 0)
       {
         pointStreak++;
       }
-      onPointStreak = (numPointsInGame > 0);
+      onPointStreak = onPointStreak && (numPointsInGame > 0);
 
       i--;
     }

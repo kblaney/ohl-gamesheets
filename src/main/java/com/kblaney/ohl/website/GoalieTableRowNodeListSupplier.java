@@ -13,15 +13,14 @@ final class GoalieTableRowNodeListSupplier
 {
   public NodeList get(final int teamNum) throws IOException
   {
-    final Document document = getDocument(teamNum, /*isForSkaters=*/false);
+    final Document document = getDocument(teamNum);
     final Node tableNode = getTableNode(document);
     return getNodeList(tableNode);
   }
 
-  private Document getDocument(final int teamNum, final boolean isForSkaters)
-        throws IOException
+  private Document getDocument(final int teamNum)throws IOException
   {
-    final URL url = Urls.getPlayerScoringUrl(teamNum, isForSkaters);
+    final URL url = Urls.getGoalieStatsUrl(teamNum);
     return XmlUtil.getXmlDocument(url);
   }
 

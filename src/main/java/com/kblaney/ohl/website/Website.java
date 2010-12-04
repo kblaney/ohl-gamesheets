@@ -60,7 +60,7 @@ public final class Website implements StatsProvider
     ArgAssert.notNull(progressIndicator, "progressIndicator");
 
     final NodeList tableRowNodeList = new PlayerTableRowNodeListSupplier().get(
-          getTeamNum(team), /*isForSkaters=*/true);
+          getTeamNum(team));
 
     final List<Player> players = Lists.newArrayList();
     for (int i = 0; i < tableRowNodeList.getLength(); i++)

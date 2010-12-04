@@ -11,18 +11,16 @@ import org.w3c.dom.NodeList;
 
 final class PlayerTableRowNodeListSupplier
 {
-  public NodeList get(final int teamNum, final boolean isForSkaters)
-        throws IOException
+  public NodeList get(final int teamNum) throws IOException
   {
-    final Document document = getDocument(teamNum, isForSkaters);
+    final Document document = getDocument(teamNum);
     final Node tableNode = getTableNode(document);
     return getNodeList(tableNode);
   }
 
-  private Document getDocument(final int teamNum, final boolean isForSkaters)
-        throws IOException
+  private Document getDocument(final int teamNum) throws IOException
   {
-    final URL url = Urls.getPlayerScoringUrl(teamNum, isForSkaters);
+    final URL url = Urls.getSkaterStatsUrl(teamNum);
     return XmlUtil.getXmlDocument(url);
   }
 
