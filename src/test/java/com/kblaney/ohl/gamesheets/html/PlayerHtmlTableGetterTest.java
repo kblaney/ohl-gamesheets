@@ -1,12 +1,12 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.gamesheets.html;
 
-import com.kblaney.ohl.PlayerBio;
-import com.kblaney.ohl.PlayerType;
-import com.kblaney.ohl.Player;
-import com.google.common.collect.Lists;
 import com.google.common.base.Function;
+import com.google.common.collect.Lists;
+import com.kblaney.ohl.Player;
+import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerStreaks;
+import com.kblaney.ohl.PlayerType;
 import java.util.Collections;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;

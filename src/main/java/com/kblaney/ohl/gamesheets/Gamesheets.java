@@ -1,6 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
-final class Gamesheets
+public final class Gamesheets
 {
   private final String homeTeamGamesheet;
   private final String roadTeamGamesheet;

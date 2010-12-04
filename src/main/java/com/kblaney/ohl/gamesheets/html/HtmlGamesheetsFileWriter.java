@@ -1,10 +1,13 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.gamesheets.html;
 
 import com.google.inject.Inject;
+import com.kblaney.ohl.gamesheets.Gamesheets;
+import com.kblaney.ohl.gamesheets.GamesheetsWriter;
+import com.kblaney.ohl.gamesheets.StringWriterToFile;
 import java.io.File;
 import java.io.IOException;
 
-final class HtmlGamesheetsFileWriter implements GamesheetsWriter
+public final class HtmlGamesheetsFileWriter implements GamesheetsWriter
 {
   private final StringWriterToFile stringWriterToFile;
   private final File directory = new File(System.getProperty("user.home"));

@@ -1,4 +1,4 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.gamesheets.html;
 
 import com.google.common.base.Function;
 import com.kblaney.commons.html.HtmlUtil;

@@ -1,5 +1,8 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.gamesheets.html;
 
+import com.kblaney.ohl.gamesheets.Gamesheets;
+import com.kblaney.ohl.gamesheets.GamesheetsWriter;
+import com.kblaney.ohl.gamesheets.StringWriterToFile;
 import java.io.File;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.gamesheets.html;
 
 import com.kblaney.ohl.StatsProvider;
 import com.google.common.base.Function;
@@ -9,6 +9,9 @@ import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerPointsComparator;
 import com.kblaney.ohl.Team;
+import com.kblaney.ohl.gamesheets.Gamesheets;
+import com.kblaney.ohl.gamesheets.GamesheetsGetter;
+import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
@@ -16,7 +19,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-final class HtmlGamesheetsGetter implements GamesheetsGetter
+public final class HtmlGamesheetsGetter implements GamesheetsGetter
 {
   private final StatsProvider statsProvider;
   private final Function<List<Player>, String> playersToHtmlTableFunction;
