@@ -24,7 +24,7 @@ public final class PlayerBioDivNodeToPositionFunctionTest
   private Element getElementWithPosition(final String birthdate)
         throws Exception
   {
-    return new XmlToElementFunction().apply(
+    return new XmlToDomElementFunction().apply(
           "<div><table><tr><td>Position</td><td>" + birthdate +
           "</td></tr></table></div>");
   }

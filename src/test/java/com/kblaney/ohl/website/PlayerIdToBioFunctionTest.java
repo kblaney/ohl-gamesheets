@@ -13,7 +13,7 @@ public final class PlayerIdToBioFunctionTest
   @Test
   public void apply() throws Exception
   {
-    final Element bioDivElement = new XmlToElementFunction().apply(
+    final Element bioDivElement = new XmlToDomElementFunction().apply(
           "<div><table>" +
           "<tr><td>Position</td><td>Centre</td></tr>" +
           "<tr><td>Height</td><td>6'03\"</td></tr>" +

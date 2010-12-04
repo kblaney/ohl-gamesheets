@@ -21,7 +21,7 @@ public final class PlayerBioDivNodeToWeightFunctionTest
   @Test
   public void apply_noWeightPresent() throws Exception
   {
-    final Element element = new XmlToElementFunction().apply(
+    final Element element = new XmlToDomElementFunction().apply(
           "<div><table><tr><td>Weight</td><td/></tr></table></div>");
     assertEquals(StringUtils.EMPTY, function.apply(element));
   }
@@ -29,7 +29,7 @@ public final class PlayerBioDivNodeToWeightFunctionTest
   @Test
   public void apply_weightPresent() throws Exception
   {
-    final Element element = new XmlToElementFunction().apply(
+    final Element element = new XmlToDomElementFunction().apply(
           "<div><table><tr><td>Weight</td><td>218</td></tr></table></div>");
     assertEquals("218", function.apply(element));
   }

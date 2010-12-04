@@ -7,12 +7,12 @@ import static org.junit.Assert.*;
 
 public final class PlayerTableRowNodeToIdFunctionTest
 {
-  private XmlToElementFunction toElementFunction;
+  private XmlToDomElementFunction toElementFunction;
 
   @Before
   public void setUp() throws Exception
   {
-    toElementFunction = new XmlToElementFunction();
+    toElementFunction = new XmlToDomElementFunction();
   }
 
   @Test

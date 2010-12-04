@@ -45,7 +45,7 @@ public final class PlayerStreaksSupplierTest
   @Test
   public void apply_notEnoughTableCellsInOnlyGameRow() throws Exception
   {
-    final NodeList nodeList = new XmlToElementFunction().apply(
+    final NodeList nodeList = new XmlToDomElementFunction().apply(
           "<tbody><tr><td/></tr></tbody>").getChildNodes();
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
     assertEquals(notOnAStreak, streaksSupplier.get(playerId, position));
@@ -54,7 +54,7 @@ public final class PlayerStreaksSupplierTest
   @Test
   public void apply_noPointsInOnlyGameEmptyTableCells() throws Exception
   {
-    final NodeList nodeList = new XmlToElementFunction().apply(
+    final NodeList nodeList = new XmlToDomElementFunction().apply(
           "<tbody><tr><td/><td/><td/><td/><td/><td/><td/></tr></tbody>").
           getChildNodes();
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
@@ -80,7 +80,7 @@ public final class PlayerStreaksSupplierTest
   {
     final String gameTableRowsXml = "<tbody>" +
           StringUtils.join(gameTableRows) + "</tbody>";
-    return new XmlToElementFunction().apply(gameTableRowsXml).getChildNodes();
+    return new XmlToDomElementFunction().apply(gameTableRowsXml).getChildNodes();
   }
 
   private String getGameTableRow(final int numGoalsInGame,

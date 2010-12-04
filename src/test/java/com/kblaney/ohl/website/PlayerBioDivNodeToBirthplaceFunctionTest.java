@@ -21,7 +21,7 @@ public final class PlayerBioDivNodeToBirthplaceFunctionTest
   @Test
   public void apply_noBirthplace() throws Exception
   {
-    final Element element = new XmlToElementFunction().apply(
+    final Element element = new XmlToDomElementFunction().apply(
           "<div><table><tr><td>Birthplace</td><td/></tr></table></div>");
     assertEquals(StringUtils.EMPTY, function.apply(element));
   }
@@ -43,7 +43,7 @@ public final class PlayerBioDivNodeToBirthplaceFunctionTest
   private Element getElementWithBirthplace(final String birthplace)
         throws Exception
   {
-    return new XmlToElementFunction().apply(
+    return new XmlToDomElementFunction().apply(
           "<div><table><tr><td>Birthplace</td><td>" + birthplace +
           "</td></tr></table></div>");
   }

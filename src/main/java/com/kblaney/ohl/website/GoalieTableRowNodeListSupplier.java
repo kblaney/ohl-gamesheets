@@ -36,13 +36,15 @@ final class GoalieTableRowNodeListSupplier
 
   private Node getTableNode(final Document document)
   {
+    final String xpath = "//table[tr[th='SVS']]";
     try
     {
       final Node tableNode = XPathAPI.selectSingleNode(
-            document.getDocumentElement(), "//table[tr[th='SVS']]");
+            document.getDocumentElement(), xpath);
       if (tableNode == null)
       {
-        throw new IllegalStateException("Can not find goalies table");
+        throw new IllegalStateException(
+              "Can not find goalies table using xpath: " + xpath);
       }
       else
       {
@@ -52,20 +54,21 @@ final class GoalieTableRowNodeListSupplier
     catch (final TransformerException e)
     {
       throw new IllegalStateException(
-            "Can't get player scoring table node: " + document, e);
+            "Invalid goalies table xpath: " + xpath, e);
     }
   }
 
   private NodeList getNodeList(final Node tableNode)
   {
+    final String xpath = "tr[td[position()=3][a]]";
     try
     {
-      return XPathAPI.selectNodeList(tableNode, "tr[td[position()=3][a]]");
+      return XPathAPI.selectNodeList(tableNode, xpath);
     }
     catch (final TransformerException e)
     {
       throw new IllegalStateException(
-            "Can't get goalie node list: " + tableNode, e);
+            "Can't get goalie node list using xpath: " + xpath, e);
     }
   }
 }
