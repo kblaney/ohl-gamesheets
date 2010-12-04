@@ -1,17 +1,10 @@
 package com.kblaney.ohl.gamesheets;
 
-import com.google.common.collect.Lists;
-import com.kblaney.ohl.Player;
-import java.util.List;
 import java.util.Set;
 import org.uispec4j.ComboBox;
 import org.uispec4j.Button;
 import org.uispec4j.UISpec4J;
 import com.google.common.collect.Sets;
-import com.kblaney.ohl.PlayerBio;
-import com.kblaney.ohl.PlayerStats;
-import com.kblaney.ohl.PlayerStreaks;
-import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.Teams;
 import java.awt.event.ActionEvent;

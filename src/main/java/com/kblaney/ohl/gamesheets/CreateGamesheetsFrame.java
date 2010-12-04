@@ -155,7 +155,6 @@ final class CreateGamesheetsFrame extends JFrame
             }
             catch (final Exception e)
             {
-              e.printStackTrace();
               JOptionPane.showMessageDialog(CreateGamesheetsFrame.this,
                     e.getMessage());
             }

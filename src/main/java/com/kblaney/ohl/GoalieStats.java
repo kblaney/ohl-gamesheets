@@ -1,6 +1,7 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgAssert;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public final class GoalieStats
 {
@@ -123,29 +124,85 @@ public final class GoalieStats
 
   private int numGamesPlayed;
   private int numMinutesPlayed;
-  private int numGoalsAgainst;
-  private int numShutouts;
-  private double goalsAgainstAverage;
   private int numWins;
   private int numRegulationLosses;
   private int numOvertimeLosses;
   private int numShootoutLosses;
+  private int numShutouts;
   private int numShotsAgainst;
   private int numSaves;
+  private int numGoalsAgainst;
+  private double goalsAgainstAverage;
   private double savePercentage;
 
   private GoalieStats() {}
 
-  public double getGoalsAgainstAverage() { return goalsAgainstAverage; }
   public int getNumGamesPlayed() { return numGamesPlayed; }
-  public int getNumGoalsAgainst() { return numGoalsAgainst; }
-  public int getNumRegulationLosses() { return numRegulationLosses; }
   public int getNumMinutesPlayed() { return numMinutesPlayed; }
-  public int getNumSaves() { return numSaves; }
-  public int getNumShotsAgainst() { return numShotsAgainst; }
-  public int getNumShutouts() { return numShutouts; }
+  public int getNumWins() { return numWins; }
+  public int getNumRegulationLosses() { return numRegulationLosses; }
   public int getNumOvertimeLosses() { return numOvertimeLosses; }
   public int getNumShootoutLosses() { return numShootoutLosses; }
-  public int getNumWins() { return numWins; }
+  public int getNumShutouts() { return numShutouts; }
+  public int getNumShotsAgainst() { return numShotsAgainst; }
+  public int getNumGoalsAgainst() { return numGoalsAgainst; }
+  public int getNumSaves() { return numSaves; }
+  public double getGoalsAgainstAverage() { return goalsAgainstAverage; }
   public double getSavePercentage() { return savePercentage; }
+
+  @Override
+  public boolean equals(final Object thatObject)
+  {
+    if (thatObject == null)
+    {
+      return false;
+    }
+    if (thatObject.getClass().equals(getClass()))
+    {
+      final GoalieStats that = (GoalieStats) thatObject;
+      return ((numGamesPlayed == that.numGamesPlayed) &&
+            (numMinutesPlayed == that.numMinutesPlayed) &&
+            (numWins == that.numWins) &&
+            (numRegulationLosses == that.numRegulationLosses) &&
+            (numOvertimeLosses == that.numOvertimeLosses) &&
+            (numShootoutLosses == that.numShootoutLosses) &&
+            (numShutouts == that.numShutouts) &&
+            (numShotsAgainst == that.numShotsAgainst) &&
+            (numSaves == that.numSaves) &&
+            (numGoalsAgainst == that.numGoalsAgainst) &&
+            (goalsAgainstAverage == that.goalsAgainstAverage) &&
+            (savePercentage == that.savePercentage));
+    }
+    return false;
+  }
+
+  @Override
+  public int hashCode()
+  {
+    return new HashCodeBuilder().append(numGamesPlayed).append(numWins).
+          append(numRegulationLosses).append(numOvertimeLosses).
+          append(numShootoutLosses).append(numShutouts).append(numShotsAgainst).
+          append(numSaves).append(numGoalsAgainst).append(goalsAgainstAverage).
+          append(savePercentage).toHashCode();
+  }
+
+  @Override
+  public String toString()
+  {
+    final StringBuilder s = new StringBuilder();
+    final char separator = ';';
+    s.append("GP:").append(numGamesPlayed).append(separator);
+    s.append("MIN:").append(numMinutesPlayed).append(separator);
+    s.append("W:").append(numWins).append(separator);
+    s.append("RL:").append(numRegulationLosses).append(separator);
+    s.append("OTL:").append(numOvertimeLosses).append(separator);
+    s.append("SOL:").append(numShootoutLosses).append(separator);
+    s.append("SO:").append(numShutouts).append(separator);
+    s.append("SA:").append(numShotsAgainst).append(separator);
+    s.append("S:").append(numSaves).append(separator);
+    s.append("GA:").append(numGoalsAgainst).append(separator);
+    s.append("GAA:").append(goalsAgainstAverage).append(separator);
+    s.append("SP:").append(savePercentage);
+    return s.toString();
+  }
 }

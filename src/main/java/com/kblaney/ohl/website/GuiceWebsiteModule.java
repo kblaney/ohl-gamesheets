@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.TypeLiteral;
+import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerType;
@@ -19,6 +20,8 @@ public final class GuiceWebsiteModule extends AbstractModule
     bind(StatsProvider.class).to(Website.class).in(Scopes.SINGLETON);
     bind(PlayerSupplier.class).to(PlayerSupplierImpl.class);
     bind(GoalieSupplier.class).to(GoalieSupplierImpl.class);
+    bind(new TypeLiteral<Function<Node, GoalieStats>>() {}).
+          to(GoalieTableRowNodeToStatsFunction.class);
     bind(new TypeLiteral<Function<Node, PlayerType>>() {}).
           to(PlayerTableRowNodeToPlayerTypeFunction.class);
     bind(new TypeLiteral<Function<Node, Integer>>() {}).
