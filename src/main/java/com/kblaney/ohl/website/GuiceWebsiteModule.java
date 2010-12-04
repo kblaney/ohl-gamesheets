@@ -2,7 +2,10 @@ package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
+import com.kblaney.commons.xml.JtidyUrlToDomDocumentFunction;
+import com.kblaney.commons.xml.UrlToDomDocumentFunction;
 import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
@@ -34,5 +37,12 @@ public final class GuiceWebsiteModule extends AbstractModule
           to(PlayerIdToGameByGameRowNodeListFunction.class);
     bind(new TypeLiteral<Function<Node, String>>() {}).
           to(PlayerTableRowNodeToNameFunction.class);
+  }
+
+  @Provides
+  private UrlToDomDocumentFunction provideUrlToDomDocumentFunction()
+  {
+    final int maxNumAttempts = 10;
+    return new JtidyUrlToDomDocumentFunction(maxNumAttempts);
   }
 }
