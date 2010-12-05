@@ -1,7 +1,9 @@
 package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
-import com.kblaney.commons.xml.XmlUtil;
+import com.google.inject.Inject;
+import com.kblaney.commons.xml.UrlToDomDocumentFunction;
+import java.io.IOException;
 import java.net.URL;
 import javax.xml.transform.TransformerException;
 import org.apache.xpath.XPathAPI;
@@ -11,24 +13,41 @@ import org.w3c.dom.NodeList;
 final class PlayerIdToGameByGameRowNodeListFunction
       implements Function<String, NodeList>
 {
+  private final UrlToDomDocumentFunction urlToDomDocumentFunction;
+
+  @Inject
+  public PlayerIdToGameByGameRowNodeListFunction(
+        final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  {
+    this.urlToDomDocumentFunction = urlToDomDocumentFunction;
+  }
+
   public NodeList apply(final String playerId)
   {
-      final URL gameByGameUrl = Urls.getPlayerGameByGameUrl(playerId);
-      final Document gameByGameDocument = XmlUtil.getXmlDocument(gameByGameUrl);
-      if (gameByGameDocument == null)
-      {
-        throw new IllegalStateException(
-              "<html>Game-by-game URL not found: " + gameByGameUrl);
-      }
+    final Document document = getDocument(playerId);
+    final String xpath =
+          "//div[@id='gamebygameBlock']/table[@class='statsTable']/tr[td[a]]";
+    try
+    {
+      return XPathAPI.selectNodeList(document.getDocumentElement(), xpath);
+    }
+    catch (final TransformerException e)
+    {
+      throw new IllegalStateException(
+            "Invalid xpath for game-by-game document: " + xpath, e);
+    }
+  }
 
-      try
-      {
-        return XPathAPI.selectNodeList(gameByGameDocument.getDocumentElement(),
-              "//div[@id='gamebygameBlock']/table[@class='statsTable']/tr[td[a]]");
-      }
-      catch (final TransformerException e)
-      {
-        throw new IllegalStateException(e);
+  private Document getDocument(final String playerId)
+  {
+    final URL url = Urls.getPlayerGameByGameUrl(playerId);
+    try
+    {
+      return urlToDomDocumentFunction.apply(url);
+    }
+    catch (final IOException e)
+    {
+      throw new IllegalStateException("Can't get game-by-game URL: " + url, e);
     }
   }
 }
