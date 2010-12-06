@@ -44,7 +44,7 @@ final class GoalieTableRowNodeListSupplier
       if (tableNode == null)
       {
         throw new IllegalStateException(
-              "Can not find goalies table using xpath: " + xpath);
+              "Can't find goalies table using xpath: " + xpath);
       }
       else
       {

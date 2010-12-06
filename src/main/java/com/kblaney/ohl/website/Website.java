@@ -27,6 +27,7 @@ public final class Website implements StatsProvider
   private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
   private final PlayerSupplier playerSupplier;
   private final GoalieSupplier goalieSupplier;
+  private final PlayerTableRowNodeListSupplier playerTableRowNodeListSupplier;
   private final GoalieTableRowNodeListSupplier goalieTableRowNodeListSupplier;
   private Function<String, Set<NumberedTeam>> toTeamsFunction =
         new PlayerStatsHtmlToTeamsFunction();
@@ -35,10 +36,12 @@ public final class Website implements StatsProvider
   @Inject
   Website(final PlayerSupplier playerSupplier,
         final GoalieSupplier goalieSupplier,
+        final PlayerTableRowNodeListSupplier playerTableRowNodeListSupplier,
         final GoalieTableRowNodeListSupplier goalieTableRowNodeListSupplier)
   {
     this.playerSupplier = playerSupplier;
     this.goalieSupplier = goalieSupplier;
+    this.playerTableRowNodeListSupplier = playerTableRowNodeListSupplier;
     this.goalieTableRowNodeListSupplier = goalieTableRowNodeListSupplier;
   }
 
@@ -62,7 +65,7 @@ public final class Website implements StatsProvider
     ArgAssert.notNull(team, "team");
     ArgAssert.notNull(progressIndicator, "progressIndicator");
 
-    final NodeList tableRowNodeList = new PlayerTableRowNodeListSupplier().get(
+    final NodeList tableRowNodeList = playerTableRowNodeListSupplier.get(
           getTeamNum(team));
 
     final List<Player> players = Lists.newArrayList();

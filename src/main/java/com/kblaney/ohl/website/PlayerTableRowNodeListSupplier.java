@@ -1,6 +1,7 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.commons.xml.XmlUtil;
+import com.google.inject.Inject;
+import com.kblaney.commons.xml.UrlToDomDocumentFunction;
 import java.io.IOException;
 import java.net.URL;
 import javax.xml.transform.TransformerException;
@@ -11,6 +12,15 @@ import org.w3c.dom.NodeList;
 
 final class PlayerTableRowNodeListSupplier
 {
+  private final UrlToDomDocumentFunction urlToDomDocumentFunction;
+
+  @Inject
+  public PlayerTableRowNodeListSupplier(
+        final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  {
+    this.urlToDomDocumentFunction = urlToDomDocumentFunction;
+  }
+
   public NodeList get(final int teamNum) throws IOException
   {
     final Document document = getDocument(teamNum);
@@ -21,18 +31,20 @@ final class PlayerTableRowNodeListSupplier
   private Document getDocument(final int teamNum) throws IOException
   {
     final URL url = Urls.getSkaterStatsUrl(teamNum);
-    return XmlUtil.getXmlDocument(url);
+    return urlToDomDocumentFunction.apply(url);
   }
 
   private Node getTableNode(final Document document) throws IOException
   {
+    final String xpath = "//table[tr[th='PIMPG']]";
     try
     {
       final Node tableNode = XPathAPI.selectSingleNode(
-            document.getDocumentElement(), "//table[tr[th='PIMPG']]");
+            document.getDocumentElement(), xpath);
       if (tableNode == null)
       {
-        throw new IOException("Can not find player scoring table");
+        throw new IllegalStateException(
+              "Can't find players scoring table using xpath: " + xpath);
       }
       else
       {
@@ -42,20 +54,21 @@ final class PlayerTableRowNodeListSupplier
     catch (final TransformerException e)
     {
       throw new IllegalStateException(
-            "Can't get player scoring table node: " + document, e);
+            "Invalid players table xpath: " + xpath, e);
     }
   }
 
   private NodeList getNodeList(final Node tableNode)
   {
+    final String xpath = "tr[td[position()=3][a]]";
     try
     {
-      return XPathAPI.selectNodeList(tableNode, "tr[td[position()=3][a]]");
+      return XPathAPI.selectNodeList(tableNode, xpath);
     }
     catch (final TransformerException e)
     {
       throw new IllegalStateException(
-            "Can't get player scoring node list: " + tableNode, e);
+            "Can't get player node list using xpath: " + xpath, e);
     }
   }
 }
