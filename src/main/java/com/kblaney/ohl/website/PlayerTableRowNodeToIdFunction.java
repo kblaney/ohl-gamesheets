@@ -5,7 +5,7 @@ import org.w3c.dom.Node;
 
 final class PlayerTableRowNodeToIdFunction implements Function<Node, String>
 {
-  public String apply(Node node)
+  public String apply(final Node node)
   {
     final String hrefAttrValue = getHrefAttrValue(node);
     return hrefAttrValue.substring(hrefAttrValue.indexOf("?") + 1);
