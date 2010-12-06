@@ -9,16 +9,13 @@ final class PlayerTableRowNodeToPlayerTypeFunction
 {
   public PlayerType apply(final Node tableRowNode)
   {
-    final String isRookie = "*";
-    // Veterans have a non-breaking space in the player type column.
-    final String isVeteran = "\u00A0";
-
-    final String nodeValue = Nodes.getChildNodeValue(tableRowNode, 0);
-    if (isRookie.equals(nodeValue))
+    final String nonBreakingSpace = "\u00A0";
+    final String playerTypeCellValue = Nodes.getChildNodeValue(tableRowNode, 0);
+    if ("*".equals(playerTypeCellValue))
     {
       return PlayerType.ROOKIE;
     }
-    else if (isVeteran.equals(nodeValue))
+    else if (nonBreakingSpace.equals(playerTypeCellValue))
     {
       return PlayerType.VETERAN;
     }
