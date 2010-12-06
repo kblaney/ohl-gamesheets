@@ -2,6 +2,7 @@ package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
@@ -14,7 +15,7 @@ final class GoalieSupplierImpl implements GoalieSupplier
 
   @Inject
   public GoalieSupplierImpl(
-        final Function<Node, String> tableRowNodeToNameFunction,
+        @Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
         final Function<Node, GoalieStats> tableRowNodeToStatsFunction)
   {
     this.tableRowNodeToNameFunction = tableRowNodeToNameFunction;

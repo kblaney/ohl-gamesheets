@@ -2,6 +2,7 @@ package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
@@ -14,6 +15,7 @@ import org.w3c.dom.Node;
 final class PlayerSupplierImpl implements PlayerSupplier
 {
   private final Function<Node, String> tableRowNodeToNameFunction;
+  private final Function<Node, String> tableRowNodeToIdFunction;
   private final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction;
   private final Function<Node, Integer> tableRowNodeToSweaterNumFunction;
   private final Function<Node, PlayerStats> tableRowNodeToStatsFunction;
@@ -22,7 +24,8 @@ final class PlayerSupplierImpl implements PlayerSupplier
 
   @Inject
   public PlayerSupplierImpl(
-        final Function<Node, String> tableRowNodeToNameFunction,
+        @Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
+        @Named("ToIdFunction") final Function<Node, String> tableRowNodeToIdFunction,
         final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction,
         final Function<Node, Integer> tableRowNodeToSweaterNumFunction,
         final Function<Node, PlayerStats> tableRowNodeToStatsFunction,
@@ -30,6 +33,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
         final PlayerStreaksSupplier streaksSupplier)
   {
     this.tableRowNodeToNameFunction = tableRowNodeToNameFunction;
+    this.tableRowNodeToIdFunction = tableRowNodeToIdFunction;
     this.tableRowNodeToPlayerTypeFunction = tableRowNodeToPlayerTypeFunction;
     this.tableRowNodeToSweaterNumFunction = tableRowNodeToSweaterNumFunction;
     this.tableRowNodeToStatsFunction = tableRowNodeToStatsFunction;
@@ -57,7 +61,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
 
   private String getPlayerId(final Node tableRowNode)
   {
-    return new PlayerTableRowNodeToIdFunction().apply(tableRowNode);
+    return tableRowNodeToIdFunction.apply(tableRowNode);
   }
 
   private String getPlayerName(final Node tableRowNode)

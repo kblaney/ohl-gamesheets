@@ -4,6 +4,7 @@ import com.google.common.base.Function;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
+import com.google.inject.name.Names;
 import com.kblaney.commons.xml.JtidyUrlToDomDocumentFunction;
 import com.kblaney.commons.xml.UrlToDomDocumentFunction;
 import com.kblaney.ohl.GoalieStats;
@@ -36,7 +37,11 @@ public final class GuiceWebsiteModule extends AbstractModule
     bind(new TypeLiteral<Function<String, NodeList>>() {}).
           to(PlayerIdToGameByGameRowNodeListFunction.class);
     bind(new TypeLiteral<Function<Node, String>>() {}).
+          annotatedWith(Names.named("ToNameFunction")).
           to(PlayerTableRowNodeToNameFunction.class);
+    bind(new TypeLiteral<Function<Node, String>>() {}).
+          annotatedWith(Names.named("ToIdFunction")).
+          to(PlayerTableRowNodeToIdFunction.class);
   }
 
   @Provides
