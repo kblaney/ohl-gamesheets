@@ -2,13 +2,14 @@ package com.kblaney.ohl.website;
 
 final class PhpUtil
 {
-  private static final String KEY_VALUE_SEPARATOR = "=";
-  public static final String PAIRS_SEPARATOR = "?";
+  public static final String FILE_PAIRS_SEPARATOR = "?";
+  public static final String PAIR_SEPARATOR = "&";
 
   private PhpUtil() {}
 
-  public static String getKeyValueString(final String key, final String value)
+  public static String getPair(final String key, final String value)
   {
-    return key + KEY_VALUE_SEPARATOR + value;
+    final String separator = "=";
+    return key + separator + value;
   }
 }

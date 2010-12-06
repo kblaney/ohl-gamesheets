@@ -8,6 +8,6 @@ public final class PhpUtilTest
   @Test
   public void getKeyValueString()
   {
-    assertEquals("key=value", PhpUtil.getKeyValueString("key", "value"));
+    assertEquals("key=value", PhpUtil.getPair("key", "value"));
   }
 }

@@ -1,37 +1,47 @@
 package com.kblaney.ohl.website;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
 final class Urls
 {
-  private static final String PROTOCOL = "http";
-  private static final String HOST = "www.ontariohockeyleague.com";
-  private static final String STATS = "/stats/";
-  private static final String TEAM_STATS_DISPLAY_PHP =
-        STATS + "statdisplay.php";
-  private static final String PLAYER_STATS_PHP = STATS + "player.php";
-  private static final String PLAYER_GAME_BY_GAME_PHP =
-        STATS + "gamebygame.php";
   private static final String SKATERS_TYPE = "skaters";
-  private static final String TYPE = "type";
-  private static final String TEAM_NUM = "subType";
-  private static final String PAIR_SEPARATOR = "&";
-  private static final String SEASON_ID_KEY = "season_id";
-  private static final String SEASON_ID = "42";
-  private static final String PLAYER_STATS_FILE =
-        TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
-        PhpUtil.getKeyValueString(TYPE, SKATERS_TYPE) + PAIR_SEPARATOR +
-        PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
+  private static final String TYPE_KEY = "type";
 
   private Urls() {}
 
   public static URL getPlayerStatsUrl()
   {
+    final String file = getTeamStatsPhpFile() + PhpUtil.FILE_PAIRS_SEPARATOR +
+        PhpUtil.getPair(TYPE_KEY, SKATERS_TYPE) +
+        PhpUtil.PAIR_SEPARATOR + getSeasonPair();
+    return getUrl(file);
+  }
+
+  private static String getTeamStatsPhpFile()
+  {
+    return getPhpFile("statdisplay.php");
+  }
+
+  private static String getPhpFile(final String phpFile)
+  {
+    return "/stats/" + phpFile;
+  }
+
+  private static String getSeasonPair()
+  {
+    final String key = "season_id";
+    final String value = "42";
+    return PhpUtil.getPair(key, value);
+  }
+
+  private static URL getUrl(final String file)
+  {
     try
     {
-      return new URL(PROTOCOL, HOST, PLAYER_STATS_FILE);
+      final String protocol = "http";
+      final String host = "www.ontariohockeyleague.com";
+      return new URL(protocol, host, file);
     }
     catch (final MalformedURLException e)
     {
@@ -39,32 +49,23 @@ final class Urls
     }
   }
 
-  public static URL getSkaterStatsUrl(final int teamNum) throws IOException
+  public static URL getSkaterStatsUrl(final int teamNum)
   {
     return getStatsUrl(teamNum, /*isForSkaters=*/true);
   }
 
   private static URL getStatsUrl(final int teamNum, final boolean isForSkaters)
-        throws IOException
   {
-    final String file = TEAM_STATS_DISPLAY_PHP + PhpUtil.PAIRS_SEPARATOR +
-          PhpUtil.getKeyValueString(TYPE, getType(isForSkaters)) +
-          PAIR_SEPARATOR +
-          PhpUtil.getKeyValueString(TEAM_NUM, Integer.toString(teamNum)) +
-          PAIR_SEPARATOR +
-          PhpUtil.getKeyValueString(SEASON_ID_KEY, SEASON_ID);
-
-    try
-    {
-      return new URL(PROTOCOL, HOST, file);
-    }
-    catch (final MalformedURLException e)
-    {
-      throw new IllegalStateException(e);
-    }
+    final String teamNumKey = "subType";
+    final String file = getTeamStatsPhpFile() + PhpUtil.FILE_PAIRS_SEPARATOR +
+          PhpUtil.getPair(TYPE_KEY, getType(isForSkaters)) +
+          PhpUtil.PAIR_SEPARATOR +
+          PhpUtil.getPair(teamNumKey, Integer.toString(teamNum)) +
+          PhpUtil.PAIR_SEPARATOR + getSeasonPair();
+    return getUrl(file);
   }
 
-  public static URL getGoalieStatsUrl(final int teamNum) throws IOException
+  public static URL getGoalieStatsUrl(final int teamNum)
   {
     return getStatsUrl(teamNum, /*isForSkaters=*/false);
   }
@@ -83,27 +84,13 @@ final class Urls
 
   public static URL getPlayerBioUrl(final String playerId)
   {
-    try
-    {
-      return new URL(PROTOCOL, HOST,
-            PLAYER_STATS_PHP + PhpUtil.PAIRS_SEPARATOR + playerId);
-    }
-    catch (final MalformedURLException e)
-    {
-      throw new IllegalStateException(e);
-    }
+    final String phpFile = getPhpFile("player.php");
+    return getUrl(phpFile + PhpUtil.FILE_PAIRS_SEPARATOR + playerId);
   }
 
   public static URL getPlayerGameByGameUrl(final String playerId)
   {
-    try
-    {
-      return new URL(PROTOCOL, HOST,
-            PLAYER_GAME_BY_GAME_PHP + PhpUtil.PAIRS_SEPARATOR + playerId);
-    }
-    catch (final MalformedURLException e)
-    {
-      throw new IllegalStateException(e);
-    }
+    final String phpFile = getPhpFile("gamebygame.php");
+    return getUrl(phpFile + PhpUtil.FILE_PAIRS_SEPARATOR + playerId);
   }
 }
