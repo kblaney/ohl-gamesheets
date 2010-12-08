@@ -50,14 +50,18 @@ public final class Website implements StatsProvider
   /** {@inheritDoc} */
   public Teams getTeams() throws IOException
   {
+    return new Teams(getNumberedTeams());
+  }
+
+  private Set<NumberedTeam> getNumberedTeams() throws IOException
+  {
     if (numberedTeams == null)
     {
       final String playerStatsHtml =
             urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
       numberedTeams = toTeamsFunction.apply(playerStatsHtml);
     }
-
-    return new Teams(numberedTeams);
+    return numberedTeams;
   }
 
   /** {@inheritDoc} */
@@ -83,16 +87,16 @@ public final class Website implements StatsProvider
     return players;
   }
 
-  private int getTeamNum(final Team team)
+  private int getTeamNum(final Team team) throws IOException
   {
-    for (final NumberedTeam numberedTeam : numberedTeams)
+    for (final NumberedTeam numberedTeam : getNumberedTeams())
     {
       if (numberedTeam.getName().equals(team.getName()))
       {
         return numberedTeam.getNum();
       }
     }
-    throw new IllegalArgumentException("Team num not found: " + team);
+    throw new IllegalArgumentException("Team not found: " + team);
   }
 
   private Player getPlayer(final Node tableRowNode,
