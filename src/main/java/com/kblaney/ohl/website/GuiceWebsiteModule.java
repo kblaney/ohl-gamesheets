@@ -5,12 +5,15 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
+import com.kblaney.commons.io.UrlContentsGetter;
+import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
 import com.kblaney.commons.xml.JtidyUrlToDomDocumentFunction;
 import com.kblaney.commons.xml.UrlToDomDocumentFunction;
 import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerType;
+import java.util.Set;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -19,6 +22,9 @@ public final class GuiceWebsiteModule extends AbstractModule
   @Override
   protected void configure()
   {
+    bind(UrlContentsGetter.class).to(UsAsciiUrlContentsGetter.class);
+    bind(new TypeLiteral<Function<String, Set<NumberedTeam>>>() {}).
+          to(PlayerStatsHtmlToTeamsFunction.class);
     bind(PlayerSupplier.class).to(PlayerSupplierImpl.class);
     bind(GoalieSupplier.class).to(GoalieSupplierImpl.class);
     bind(new TypeLiteral<Function<Node, GoalieStats>>() {}).

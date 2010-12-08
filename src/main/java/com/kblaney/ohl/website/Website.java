@@ -19,26 +19,26 @@ import java.util.Set;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/**
- * The Ontario Hockey League website.
- */
 public final class Website implements StatsProvider
 {
-  private UrlContentsGetter urlContentsGetter = new UsAsciiUrlContentsGetter();
+  private final UrlContentsGetter urlContentsGetter;
   private final PlayerSupplier playerSupplier;
   private final GoalieSupplier goalieSupplier;
   private final PlayerTableRowNodeListSupplier playerTableRowNodeListSupplier;
   private final GoalieTableRowNodeListSupplier goalieTableRowNodeListSupplier;
-  private Function<String, Set<NumberedTeam>> toTeamsFunction =
-        new PlayerStatsHtmlToTeamsFunction();
+  private final Function<String, Set<NumberedTeam>> toTeamsFunction;
   private Set<NumberedTeam> numberedTeams;
 
   @Inject
-  Website(final PlayerSupplier playerSupplier,
+  Website(final UrlContentsGetter urlContentsGetter,
+        final Function<String, Set<NumberedTeam>> toTeamsFunction,
+        final PlayerSupplier playerSupplier,
         final GoalieSupplier goalieSupplier,
         final PlayerTableRowNodeListSupplier playerTableRowNodeListSupplier,
         final GoalieTableRowNodeListSupplier goalieTableRowNodeListSupplier)
   {
+    this.urlContentsGetter = urlContentsGetter;
+    this.toTeamsFunction = toTeamsFunction;
     this.playerSupplier = playerSupplier;
     this.goalieSupplier = goalieSupplier;
     this.playerTableRowNodeListSupplier = playerTableRowNodeListSupplier;
