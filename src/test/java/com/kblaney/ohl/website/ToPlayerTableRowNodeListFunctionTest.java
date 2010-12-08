@@ -7,12 +7,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public final class PlayerTableRowNodeListSupplierTest
+public final class ToPlayerTableRowNodeListFunctionTest
 {
   private int teamNum;
   private URL url;
   private UrlToDomDocumentFunction urlToDomDocumentFunction;
-  private PlayerTableRowNodeListSupplier supplier;
+  private TeamNumToNodeListFunction function;
 
   @Before
   public void setUp() throws Exception
@@ -20,16 +20,16 @@ public final class PlayerTableRowNodeListSupplierTest
     teamNum = 9;
     url = Urls.getSkaterStatsUrl(teamNum);
     urlToDomDocumentFunction = mock(UrlToDomDocumentFunction.class);
-    supplier = new PlayerTableRowNodeListSupplier(urlToDomDocumentFunction);
+    function = new ToPlayerTableRowNodeListFunction(urlToDomDocumentFunction);
   }
 
   @Test(expected = IllegalStateException.class)
-  public void get_noTableNode() throws Exception
+  public void apply_noTableNode() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
           new XmlToDomDocumentFunction().apply(
           "<a>" + getTableHeaderRow() + getPlayerTableRow() + "</a>"));
-    supplier.get(teamNum).getLength();
+    function.apply(teamNum).getLength();
   }
 
   private String getTableHeaderRow()
@@ -43,22 +43,22 @@ public final class PlayerTableRowNodeListSupplierTest
   }
 
   @Test
-  public void get_zeroPlayers() throws Exception
+  public void apply_zeroPlayers() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
           new XmlToDomDocumentFunction().apply(
           "<table>" + getTableHeaderRow() + "</table>"));
-    assertEquals(0, supplier.get(teamNum).getLength());
+    assertEquals(0, function.apply(teamNum).getLength());
   }
 
   @Test
-  public void get_twoPlayers() throws Exception
+  public void apply_twoPlayers() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
           new XmlToDomDocumentFunction().apply(
           "<table>" + getTableHeaderRow() +
           getPlayerTableRow() + getPlayerTableRow() +
           "</table>"));
-    assertEquals(2, supplier.get(teamNum).getLength());
+    assertEquals(2, function.apply(teamNum).getLength());
   }
 }

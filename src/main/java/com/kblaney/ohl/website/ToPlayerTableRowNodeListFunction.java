@@ -10,18 +10,19 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-final class PlayerTableRowNodeListSupplier
+final class ToPlayerTableRowNodeListFunction
+      implements TeamNumToNodeListFunction
 {
   private final UrlToDomDocumentFunction urlToDomDocumentFunction;
 
   @Inject
-  public PlayerTableRowNodeListSupplier(
+  public ToPlayerTableRowNodeListFunction(
         final UrlToDomDocumentFunction urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
 
-  public NodeList get(final int teamNum) throws IOException
+  public NodeList apply(final int teamNum) throws IOException
   {
     final Document document = getDocument(teamNum);
     final Node tableNode = getTableNode(document);

@@ -42,6 +42,10 @@ public final class GuiceWebsiteModule extends AbstractModule
           to(PlayerIdToBioDivNodeFunction.class);
     bind(new TypeLiteral<Function<String, NodeList>>() {}).
           to(PlayerIdToGameByGameRowNodeListFunction.class);
+    bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Players")).
+          to(ToPlayerTableRowNodeListFunction.class);
+    bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Goalies")).
+          to(ToGoalieTableRowNodeListFunction.class);
     bind(new TypeLiteral<Function<Node, String>>() {}).
           annotatedWith(Names.named("ToNameFunction")).
           to(PlayerTableRowNodeToNameFunction.class);

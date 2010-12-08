@@ -4,8 +4,8 @@ import com.kblaney.ohl.Teams;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
+import com.google.inject.name.Named;
 import com.kblaney.commons.io.UrlContentsGetter;
-import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
@@ -22,11 +22,11 @@ import org.w3c.dom.NodeList;
 public final class Website implements StatsProvider
 {
   private final UrlContentsGetter urlContentsGetter;
+  private final Function<String, Set<NumberedTeam>> toTeamsFunction;
   private final PlayerSupplier playerSupplier;
   private final GoalieSupplier goalieSupplier;
-  private final PlayerTableRowNodeListSupplier playerTableRowNodeListSupplier;
-  private final GoalieTableRowNodeListSupplier goalieTableRowNodeListSupplier;
-  private final Function<String, Set<NumberedTeam>> toTeamsFunction;
+  private final TeamNumToNodeListFunction playerTableRowNodeListSupplier;
+  private final TeamNumToNodeListFunction goalieTableRowNodeListSupplier;
   private Set<NumberedTeam> numberedTeams;
 
   @Inject
@@ -34,8 +34,10 @@ public final class Website implements StatsProvider
         final Function<String, Set<NumberedTeam>> toTeamsFunction,
         final PlayerSupplier playerSupplier,
         final GoalieSupplier goalieSupplier,
-        final PlayerTableRowNodeListSupplier playerTableRowNodeListSupplier,
-        final GoalieTableRowNodeListSupplier goalieTableRowNodeListSupplier)
+        @Named("Players")
+        final TeamNumToNodeListFunction playerTableRowNodeListSupplier,
+        @Named("Goalies")
+        final TeamNumToNodeListFunction goalieTableRowNodeListSupplier)
   {
     this.urlContentsGetter = urlContentsGetter;
     this.toTeamsFunction = toTeamsFunction;
@@ -65,7 +67,7 @@ public final class Website implements StatsProvider
     ArgAssert.notNull(team, "team");
     ArgAssert.notNull(progressIndicator, "progressIndicator");
 
-    final NodeList tableRowNodeList = playerTableRowNodeListSupplier.get(
+    final NodeList tableRowNodeList = playerTableRowNodeListSupplier.apply(
           getTeamNum(team));
 
     final List<Player> players = Lists.newArrayList();
@@ -105,7 +107,7 @@ public final class Website implements StatsProvider
   {
     ArgAssert.notNull(team, "team");
 
-    final NodeList tableRowNodeList = goalieTableRowNodeListSupplier.get(
+    final NodeList tableRowNodeList = goalieTableRowNodeListSupplier.apply(
           getTeamNum(team));
 
     final List<Goalie> goalies = Lists.newArrayList();
