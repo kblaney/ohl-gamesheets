@@ -1,5 +1,6 @@
 package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import org.w3c.dom.Node;
@@ -11,6 +12,7 @@ import com.google.common.collect.Sets;
 import java.net.URL;
 import com.google.common.base.Function;
 import com.kblaney.commons.io.UrlContentsGetter;
+import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
@@ -172,5 +174,23 @@ public final class WebsiteTest
     when(playerSupplier.getPlayer(node, progressIndicator)).thenReturn(player);
     when(team.getName()).thenReturn(teamName);
     assertEquals(1, website.getPlayers(team, progressIndicator).size());
+  }
+
+  @Test
+  public void getGoalie_twoTeamsOneGoaliePerTeam() throws Exception
+  {
+    final String teamName = "TEAM_A";
+    final int teamNum = 1;
+    when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
+          Sets.newHashSet(new NumberedTeam(teamName, teamNum),
+          new NumberedTeam("TEAM_B", 2)));
+    final NodeList nodeList = getNodeListOfLength(1);
+    when(goalieTableRowNodeListSupplier.apply(teamNum)).thenReturn(nodeList);
+    final String goalieName = "GOALIE_NAME";
+    final Goalie goalie = new Goalie(goalieName,
+          new GoalieStats.Builder().build());
+    when(goalieSupplier.get(node, progressIndicator)).thenReturn(goalie);
+    when(team.getName()).thenReturn(teamName);
+    assertEquals(1, website.getGoalies(team, progressIndicator).size());
   }
 }
