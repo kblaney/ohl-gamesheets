@@ -138,7 +138,7 @@ public final class WebsiteTest
     final Player player = getPlayer(playerName, PlayerType.NOT_ACTIVE);
     when(playerSupplier.getPlayer(node, progressIndicator)).thenReturn(player);
     when(team.getName()).thenReturn(teamName);
-    assertTrue(website.getPlayers(team, progressIndicator).isEmpty());
+    assertEquals(1, website.getPlayers(team, progressIndicator).size());
   }
 
   private NodeList getNodeListOfLength(final int length)
