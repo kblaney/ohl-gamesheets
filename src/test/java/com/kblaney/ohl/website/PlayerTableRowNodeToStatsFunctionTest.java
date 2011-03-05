@@ -24,6 +24,22 @@ public final class PlayerTableRowNodeToStatsFunctionTest
   }
 
   @Test
+  public void apply_someTableElementsEmpty() throws Exception
+  {
+    final PlayerStats stats = function.apply(new XmlToDomElementFunction().
+          apply("<tr><td/><td/><td/><td/><td>29</td><td>11</td><td>10</td>" +
+          "<td>21</td><td>-7</td><td></td><td>4</td><td></td></tr>"));
+    assertEquals(29, stats.getNumGamesPlayed());
+    assertEquals(11, stats.getNumGoals());
+    assertEquals(10, stats.getNumAssists());
+    assertEquals(21, stats.getNumPoints());
+    assertEquals(-7, stats.getPlusMinus());
+    assertEquals(0, stats.getNumPenaltyMinutes());
+    assertEquals(4, stats.getNumPowerPlayGoals());
+    assertEquals(0, stats.getNumShorthandedGoals());
+  }
+
+  @Test
   public void apply() throws Exception
   {
     final PlayerStats stats = function.apply(new XmlToDomElementFunction().

@@ -2,6 +2,8 @@ package com.kblaney.ohl.gamesheets.html;
 
 import com.kblaney.ohl.StatsProvider;
 import com.google.common.base.Function;
+import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.SystemUtil;
@@ -60,18 +62,25 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
   {
     final List<Player> players = statsProvider.getPlayers(team,
           progressIndicator);
-    Collections.sort(players, new PlayerPointsComparator());
+    final List<Player> activePlayers = removeInactivePlayers(players);
+    Collections.sort(activePlayers, new PlayerPointsComparator());
     final List<Goalie> goalies = statsProvider.getGoalies(team,
           progressIndicator);
 
     final StringBuilder s = new StringBuilder(getTeamHeading(team));
     s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(playersToHtmlTableFunction.apply(players));
+    s.append(playersToHtmlTableFunction.apply(activePlayers));
     s.append(SystemUtil.LINE_SEPARATOR);
     s.append(HtmlUtil.LINE_BREAK);
     s.append(SystemUtil.LINE_SEPARATOR);
     s.append(goaliesToHtmlTableFunction.apply(goalies));
     return s.toString();
+  }
+
+  private List<Player> removeInactivePlayers(final List<Player> players)
+  {
+    return Lists.newArrayList(Collections2.filter(players,
+          new ActivePlayerPredicate()));
   }
 
   private String getTeamHeading(final Team team)

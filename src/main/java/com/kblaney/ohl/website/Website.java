@@ -78,11 +78,7 @@ public final class Website implements StatsProvider
     for (int i = 0; i < tableRowNodeList.getLength(); i++)
     {
       final Node tableRowNode = tableRowNodeList.item(i);
-      final Player player = getPlayer(tableRowNode, progressIndicator);
-      if (player.getType() != PlayerType.NOT_ACTIVE)
-      {
-        players.add(player);
-      }
+      players.add(getPlayer(tableRowNode, progressIndicator));
     }
     return players;
   }
