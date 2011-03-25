@@ -4,7 +4,7 @@
   <groupId>com.kblaney</groupId>
   <artifactId>OhlGamesheets</artifactId>
   <packaging>jar</packaging>
-  <version>2011Playoffs</version>
+  <version>1.06-SNAPSHOT</version>
   <name>OHL Gamesheets</name>
   <url>http://maven.apache.org</url>
   <build>
