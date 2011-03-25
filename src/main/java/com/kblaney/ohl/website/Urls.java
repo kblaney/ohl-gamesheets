@@ -31,8 +31,8 @@ final class Urls
   private static String getSeasonPair()
   {
     final String key = "season_id";
-    final String value = "42";
-    return PhpUtil.getPair(key, value);
+    final String playoffs2011 = "43";
+    return PhpUtil.getPair(key, playoffs2011);
   }
 
   private static URL getUrl(final String file)
