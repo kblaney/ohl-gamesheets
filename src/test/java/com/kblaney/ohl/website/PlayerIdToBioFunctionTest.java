@@ -19,7 +19,7 @@ public final class PlayerIdToBioFunctionTest
           "<tr><td>Height</td><td>6'03\"</td></tr>" +
           "<tr><td>Weight</td><td>187</td></tr>" +
           "<tr><td>Birthdate</td><td>March 19, 1993</td></tr>" +
-          "<tr><td>Birthplace</td><td>Belleville, ON, Canada</td></tr>" +
+          "<tr><td>Hometown</td><td>Belleville, ON, Canada</td></tr>" +
           "</table></div>");
     final String playerId = "1234";
     final Function<String, Node> toBioDivNodeFunction = mock(Function.class);
@@ -30,6 +30,6 @@ public final class PlayerIdToBioFunctionTest
     assertEquals("6.03", bio.getHeight());
     assertEquals("187", bio.getWeight());
     assertEquals("1993", bio.getBirthYear());
-    assertEquals("Belleville, ON", bio.getBirthplace());
+    assertEquals("Belleville, ON", bio.getHometown());
   }
 }

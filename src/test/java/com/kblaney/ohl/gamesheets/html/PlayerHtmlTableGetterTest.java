@@ -57,7 +57,7 @@ public final class PlayerHtmlTableGetterTest
     return new Player(name, playerType, /*sweaterNum=*/22,
           new PlayerStats.Builder().build(),
           new PlayerBio.Builder().setBirthYear("1994").
-          setBirthplace("Belleville, ON").setHeight("6.02").setPosition("LW").
+          setHometown("Belleville, ON").setHeight("6.02").setPosition("LW").
           setWeight("195").build(),
           new PlayerStreaks.Builder().build());
   }

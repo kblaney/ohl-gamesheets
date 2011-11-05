@@ -23,7 +23,7 @@ final class PlayerIdToBioFunction implements Function<String, PlayerBio>
           setPosition(getPosition(bioDivNode)).
           setHeight(getHeight(bioDivNode)).
           setWeight(getWeight(bioDivNode)).
-          setBirthplace(getBirthplace(bioDivNode)).build();
+          setHometown(getHometown(bioDivNode)).build();
   }
 
   private String getBirthYear(final Node bioDivNode)
@@ -46,8 +46,8 @@ final class PlayerIdToBioFunction implements Function<String, PlayerBio>
     return new PlayerBioDivNodeToWeightFunction().apply(bioDivNode);
   }
 
-  private String getBirthplace(final Node bioDivNode)
+  private String getHometown(final Node bioDivNode)
   {
-    return new PlayerBioDivNodeToBirthplaceFunction().apply(bioDivNode);
+    return new PlayerBioDivNodeToHometownFunction().apply(bioDivNode);
   }
 }

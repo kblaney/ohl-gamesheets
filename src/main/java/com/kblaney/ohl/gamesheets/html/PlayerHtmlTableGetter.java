@@ -48,7 +48,7 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
     s.append(HtmlUtil.getRightAlignedTdElement("P"));
     s.append(HtmlUtil.getRightAlignedTdElement("H"));
     s.append(HtmlUtil.getRightAlignedTdElement("W"));
-    s.append(HtmlUtil.getLeftAlignedTdElement("Birthplace"));
+    s.append(HtmlUtil.getLeftAlignedTdElement("Hometown"));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }
@@ -74,7 +74,7 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
     s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getPosition()));
     s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getHeight()));
     s.append(HtmlUtil.getRightAlignedTdElement(p.getBio().getWeight()));
-    s.append(HtmlUtil.getLeftAlignedTdElement(p.getBio().getBirthplace()));
+    s.append(HtmlUtil.getLeftAlignedTdElement(p.getBio().getHometown()));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }

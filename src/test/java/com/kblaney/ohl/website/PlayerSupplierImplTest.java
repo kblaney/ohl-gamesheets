@@ -48,7 +48,7 @@ public final class PlayerSupplierImplTest
 
     final String position = "D";
     bio = new PlayerBio.Builder().setBirthYear("1990").
-          setBirthplace("Kingston, ON").setHeight("5.11").setWeight("188").
+          setHometown("Kingston, ON").setHeight("5.11").setWeight("188").
           setPosition(position).build();
     final Function<String, PlayerBio> toBioFunction = mock(Function.class);
     when(toBioFunction.apply(playerId)).thenReturn(bio);

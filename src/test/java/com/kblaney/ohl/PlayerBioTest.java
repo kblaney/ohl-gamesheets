@@ -10,7 +10,7 @@ public final class PlayerBioTest
   private String position;
   private String height;
   private String weight;
-  private String birthplace;
+  private String hometown;
   private PlayerBio bio;
 
   @Before
@@ -20,10 +20,10 @@ public final class PlayerBioTest
     position = "RW";
     height = "5.11";
     weight = "198";
-    birthplace = "Belleville, ON";
+    hometown = "Belleville, ON";
     bio = new PlayerBio.Builder().setBirthYear(birthYear).
           setPosition(position).setHeight(height).setWeight(weight).
-          setBirthplace(birthplace).build();
+          setHometown(hometown).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -51,9 +51,9 @@ public final class PlayerBioTest
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void nullBirthplace()
+  public void nullHometown()
   {
-    new PlayerBio.Builder().setBirthplace(null);
+    new PlayerBio.Builder().setHometown(null);
   }
 
   @Test
@@ -81,8 +81,8 @@ public final class PlayerBioTest
   }
 
   @Test
-  public void getBirthplace()
+  public void getHometown()
   {
-    assertEquals(birthplace, bio.getBirthplace());
+    assertEquals(hometown, bio.getHometown());
   }
 }

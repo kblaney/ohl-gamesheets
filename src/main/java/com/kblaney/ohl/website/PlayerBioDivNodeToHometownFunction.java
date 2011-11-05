@@ -8,7 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 
-final class PlayerBioDivNodeToBirthplaceFunction
+final class PlayerBioDivNodeToHometownFunction
       implements Function<Node, String>
 {
   public String apply(final Node bioDivNode)
@@ -40,7 +40,7 @@ final class PlayerBioDivNodeToBirthplaceFunction
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException("Can't get birthplace", e);
+      throw new IllegalStateException("Can't get hometown", e);
     }
   }
 }

@@ -18,7 +18,7 @@ public final class PlayerBio
     private String position;
     private String height;
     private String weight;
-    private String birthplace;
+    private String hometown;
 
     public PlayerBio build()
     {
@@ -27,7 +27,7 @@ public final class PlayerBio
       playerBio.position = position;
       playerBio.height = height;
       playerBio.weight = weight;
-      playerBio.birthplace = birthplace;
+      playerBio.hometown = hometown;
       return playerBio;
     }
 
@@ -55,9 +55,9 @@ public final class PlayerBio
       return this;
     }
 
-    public Builder setBirthplace(final String birthplace)
+    public Builder setHometown(final String hometown)
     {
-      this.birthplace = ArgAssert.notNull(birthplace, "birthplace");
+      this.hometown = ArgAssert.notNull(hometown, "hometown");
       return this;
     }
   }
@@ -66,13 +66,13 @@ public final class PlayerBio
   private String position;
   private String height;
   private String weight;
-  private String birthplace;
+  private String hometown;
 
   private PlayerBio() {}
 
   public String getBirthYear() { return birthYear; }
   public String getPosition() { return position; }
   public String getHeight() { return height; }
-  public String getBirthplace() { return birthplace; }
+  public String getHometown() { return hometown; }
   public String getWeight() { return weight; }
 }

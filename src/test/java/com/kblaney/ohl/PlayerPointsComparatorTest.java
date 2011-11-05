@@ -21,7 +21,7 @@ public final class PlayerPointsComparatorTest
     type = PlayerType.ROOKIE;
     sweaterNum = 19;
     bio = new PlayerBio.Builder().setBirthYear("1990").
-          setBirthplace("Belleville, ON").setHeight("6.02").setWeight("211").
+          setHometown("Belleville, ON").setHeight("6.02").setWeight("211").
           build();
     streaks = new PlayerStreaks.Builder().build();
     comparator = new PlayerPointsComparator();
