@@ -16,7 +16,7 @@ final class PlayerBioDivNodeToBirthplaceFunction
     try
     {
       final Node rowNode = XPathAPI.selectSingleNode(bioDivNode,
-            "//tr[td='Birthplace']");
+            "//tr[td='Hometown']");
 
       if (rowNode.getLastChild().hasChildNodes())
       {
