@@ -32,6 +32,10 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
 
   private PlayerStreaks getSkaterStreaks(final String playerId)
   {
+    if (playerId.equals("id=6001"))
+    {
+      return new PlayerStreaks.Builder().build();
+    }
     final NodeList gameRowNodeList =
           toGameRowNodeListFunction.apply(playerId);
 

@@ -18,6 +18,10 @@ final class PlayerIdToBioFunction implements Function<String, PlayerBio>
 
   public PlayerBio apply(final String playerId)
   {
+    if (playerId.equals("id=6001"))
+    {
+      return new PlayerBio.Builder().build();
+    }
     final Node bioDivNode = toBioDivNodeFunction.apply(playerId);
     return new PlayerBio.Builder().setBirthYear(getBirthYear(bioDivNode)).
           setPosition(getPosition(bioDivNode)).

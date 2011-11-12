@@ -1,5 +1,6 @@
 package com.kblaney.ohl;
 
+import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -54,6 +55,17 @@ public final class PlayerBioTest
   public void nullHometown()
   {
     new PlayerBio.Builder().setHometown(null);
+  }
+
+  @Test
+  public void noSetMethodsCalled()
+  {
+    final PlayerBio playerBio = new PlayerBio.Builder().build();
+    assertEquals(StringUtils.EMPTY, playerBio.getBirthYear());
+    assertEquals(StringUtils.EMPTY, playerBio.getHeight());
+    assertEquals(StringUtils.EMPTY, playerBio.getHometown());
+    assertEquals(StringUtils.EMPTY, playerBio.getPosition());
+    assertEquals(StringUtils.EMPTY, playerBio.getWeight());
   }
 
   @Test

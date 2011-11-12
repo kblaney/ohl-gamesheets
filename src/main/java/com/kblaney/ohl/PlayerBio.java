@@ -1,6 +1,7 @@
 package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgAssert;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * The biographical information of one player.
@@ -14,11 +15,11 @@ public final class PlayerBio
 {
   public static final class Builder
   {
-    private String birthYear;
-    private String position;
-    private String height;
-    private String weight;
-    private String hometown;
+    private String birthYear = StringUtils.EMPTY;
+    private String position = StringUtils.EMPTY;
+    private String height = StringUtils.EMPTY;
+    private String weight = StringUtils.EMPTY;
+    private String hometown = StringUtils.EMPTY;
 
     public PlayerBio build()
     {
