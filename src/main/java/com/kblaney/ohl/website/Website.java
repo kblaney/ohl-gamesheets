@@ -9,7 +9,6 @@ import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.commons.lang.ArgAssert;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
-import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import com.kblaney.ohl.StatsProvider;

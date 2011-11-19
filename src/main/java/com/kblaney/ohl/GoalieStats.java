@@ -5,7 +5,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public final class GoalieStats
 {
-  public static class Builder
+  public static final class Builder
   {
     private int numGamesPlayed;
     private int numMinutesPlayed;

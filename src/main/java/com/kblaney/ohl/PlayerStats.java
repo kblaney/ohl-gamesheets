@@ -2,9 +2,9 @@ package com.kblaney.ohl;
 
 import com.kblaney.commons.lang.ArgAssert;
 
-public class PlayerStats
+public final class PlayerStats
 {
-  public static class Builder
+  public static final class Builder
   {
     private int numGamesPlayed;
     private int numGoals;
