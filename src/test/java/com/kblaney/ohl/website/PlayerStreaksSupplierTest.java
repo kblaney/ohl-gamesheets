@@ -18,6 +18,7 @@ public final class PlayerStreaksSupplierTest
   private PlayerStreaksSupplierImpl streaksSupplier;
 
   @Before
+  @SuppressWarnings("unchecked")
   public void setUp()
   {
     playerId = "1234";

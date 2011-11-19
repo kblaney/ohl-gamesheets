@@ -39,6 +39,7 @@ public final class WebsiteTest
   private Node node;
 
   @Before
+  @SuppressWarnings("unchecked")
   public void setUp() throws Exception
   {
     url = Urls.getPlayerStatsUrl();

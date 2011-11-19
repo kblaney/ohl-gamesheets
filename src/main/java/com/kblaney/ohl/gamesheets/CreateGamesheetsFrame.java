@@ -27,6 +27,7 @@ import mseries.Calendar.MDefaultPullDownConstraints;
 import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
 
+@SuppressWarnings("serial")
 final class CreateGamesheetsFrame extends JFrame
       implements ActionListener, ProgressIndicator
 {

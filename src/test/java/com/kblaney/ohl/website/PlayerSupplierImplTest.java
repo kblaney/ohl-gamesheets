@@ -25,6 +25,7 @@ public final class PlayerSupplierImplTest
   private PlayerSupplier supplier;
 
   @Before
+  @SuppressWarnings("unchecked")
   public void setUp() throws Exception
   {
     tableRowNode = mock(Node.class);

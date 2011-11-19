@@ -1,6 +1,5 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.ohl.Team;
 import com.google.common.collect.Sets;
 import com.google.common.collect.Lists;
 import com.google.common.base.Function;
@@ -8,7 +7,6 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.List;
 import org.junit.Test;
-import org.junit.Assert.*;
 import org.junit.Before;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -23,6 +21,7 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
   private Function<String, Set<NumberedTeam>> toTeamsFunction;
 
   @Before
+  @SuppressWarnings("unchecked")
   public void setUp()
   {
     playerStatsHtml = "PLAYER_STATS_HTML";

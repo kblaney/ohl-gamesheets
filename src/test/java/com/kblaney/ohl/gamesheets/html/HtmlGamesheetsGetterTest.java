@@ -26,6 +26,7 @@ public final class HtmlGamesheetsGetterTest
   private ProgressIndicator progressIndicator;
 
   @Before
+  @SuppressWarnings("unchecked")
   public void setUp()
   {
     statsProvider = mock(StatsProvider.class);

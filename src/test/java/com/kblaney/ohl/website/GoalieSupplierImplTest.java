@@ -20,6 +20,7 @@ public final class GoalieSupplierImplTest
   private GoalieSupplier supplier;
 
   @Before
+  @SuppressWarnings("unchecked")
   public void setUp()
   {
     final String name = "GOALIE_NAME";

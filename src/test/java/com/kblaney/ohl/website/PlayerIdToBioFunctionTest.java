@@ -11,6 +11,7 @@ import static org.mockito.Mockito.*;
 public final class PlayerIdToBioFunctionTest
 {
   @Test
+  @SuppressWarnings("unchecked")
   public void apply() throws Exception
   {
     final Element bioDivElement = new XmlToDomElementFunction().apply(
