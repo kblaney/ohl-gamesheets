@@ -9,9 +9,9 @@
   <description>Kyle Blaney's program that creates gamesheets for Ontario Hockey League games.</description>
   <url>http://www.assembla.com/spaces/ohl_gamesheets</url>
   <scm>
-    <connection>scm:svn:http://svn.assembla.com/svn/ohl_gamesheets/trunk</connection>
-    <developerConnection>scm:svn:http://svn.assembla.com/svn/ohl_gamesheets/trunk</developerConnection>
-    <url>http://www.assembla.com/code/kblaney_commons/subversion/nodes/ohl_gamesheets/trunk</url>
+    <connection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/trunk</connection>
+    <developerConnection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/trunk</developerConnection>
+    <url>http://www.assembla.com/code/ohl_gamesheets/subversion/nodes</url>
   </scm>
   <build>
     <plugins>
