@@ -12,6 +12,23 @@ public final class PlayerIdToBioFunctionTest
 {
   @Test
   @SuppressWarnings("unchecked")
+  public void apply_failure() throws Exception
+  {
+    final String playerId = "1234";
+    final Function<String, Node> toBioDivNodeFunction = mock(Function.class);
+    when(toBioDivNodeFunction.apply(playerId)).
+          thenThrow(new IllegalStateException());
+    final PlayerBio bio = new PlayerIdToBioFunction(toBioDivNodeFunction).
+          apply(playerId);
+    assertEquals("", bio.getPosition());
+    assertEquals("", bio.getHeight());
+    assertEquals("", bio.getWeight());
+    assertEquals("", bio.getBirthYear());
+    assertEquals("", bio.getHometown());
+  }
+
+  @Test
+  @SuppressWarnings("unchecked")
   public void apply() throws Exception
   {
     final Element bioDivElement = new XmlToDomElementFunction().apply(
