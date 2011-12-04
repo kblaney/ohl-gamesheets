@@ -19,7 +19,7 @@ final class PlayerBioDivNodeToBirthYearFunction
             "//tr[td='Birthdate']");
       final String birthDate = Nodes.getFirstChildNodeValueOrEmpty(
             rowNode.getLastChild());
-      final Pattern p = Pattern.compile("\\d\\d\\d\\d");
+      final Pattern p = Pattern.compile("19\\d\\d");
       final Matcher m = p.matcher(birthDate);
       if (m.find())
       {

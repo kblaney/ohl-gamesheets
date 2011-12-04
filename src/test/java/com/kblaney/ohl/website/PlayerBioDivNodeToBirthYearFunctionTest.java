@@ -39,4 +39,11 @@ public final class PlayerBioDivNodeToBirthYearFunctionTest
     final Element element = getElementWithBirthdate(" January 13, 1994 ");
     assertEquals("1994", function.apply(element));
   }
+
+  @Test
+  public void apply_2011BirthYearPresent() throws Exception
+  {
+    final Element element = getElementWithBirthdate(" January 13, 2011 ");
+    assertEquals(StringUtils.EMPTY, function.apply(element));
+  }
 }
