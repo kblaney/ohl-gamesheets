@@ -4,14 +4,14 @@
   <groupId>com.kblaney</groupId>
   <artifactId>OhlGamesheets</artifactId>
   <packaging>jar</packaging>
-  <version>2012-Playoffs-1-SNAPSHOT</version>
+  <version>2012-Playoffs-1</version>
   <name>OHL Gamesheets</name>
   <description>Kyle Blaney's program that creates gamesheets for Ontario Hockey League games.</description>
   <url>http://www.assembla.com/spaces/ohl_gamesheets</url>
   <scm>
-    <connection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/trunk</connection>
-    <developerConnection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/trunk</developerConnection>
-    <url>http://www.assembla.com/code/ohl_gamesheets/subversion/nodes</url>
+    <connection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/tags/2012-Playoffs-1</connection>
+    <developerConnection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/tags/2012-Playoffs-1</developerConnection>
+    <url>http://www.assembla.com/code/ohl_gamesheets/subversion/nodes/tags/2012-Playoffs-1</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
