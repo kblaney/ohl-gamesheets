@@ -31,7 +31,7 @@ final class Urls
   private static String getSeasonPair()
   {
     final String key = "season_id";
-    final String seasonValue = "45";
+    final String seasonValue = "46";
     return PhpUtil.getPair(key, seasonValue);
   }
 
@@ -56,7 +56,7 @@ final class Urls
 
   private static URL getStatsUrl(final int teamNum, final boolean isForSkaters)
   {
-    final String teamNumKey = "subType";
+    final String teamNumKey = "team_id";
     final String file = getTeamStatsPhpFile() + PhpUtil.FILE_PAIRS_SEPARATOR +
           PhpUtil.getPair(TYPE_KEY, getType(isForSkaters)) +
           PhpUtil.PAIR_SEPARATOR +

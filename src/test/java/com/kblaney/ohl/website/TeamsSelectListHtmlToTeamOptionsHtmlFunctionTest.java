@@ -26,16 +26,16 @@ public final class TeamsSelectListHtmlToTeamOptionsHtmlFunctionTest
   @Test
   public void apply_oneTeamOption()
   {
-    assertEquals(Lists.newArrayList("OPTION valueBLAHBsubType=12BLAH>KYLE<"),
-            function.apply("ABC_OPTION valueBLAHBsubType=12BLAH>KYLE<DEF"));
+    assertEquals(Lists.newArrayList("OPTION valueBLAHBteam_id=12BLAH>KYLE<"),
+            function.apply("ABC_OPTION valueBLAHBteam_id=12BLAH>KYLE<DEF"));
   }
 
   @Test
   public void apply_twoTeamOptions()
   {
-    assertEquals(Lists.newArrayList("OPTION valueBLAHBsubType=12BLAH>KYLE<",
-            "OPTION valueBIGsubType=9BLAH>A>A>B<"),
-            function.apply("ABC_OPTION valueBLAHBsubType=12BLAH>KYLE<DEF\n" +
-            "DEF_OPTION valueBIGsubType=9BLAH>A>A>B<<\n"));
+    assertEquals(Lists.newArrayList("OPTION valueBLAHBteam_id=12BLAH>KYLE<",
+            "OPTION valueBIGteam_id=9BLAH>A>A>B<"),
+            function.apply("ABC_OPTION valueBLAHBteam_id=12BLAH>KYLE<DEF\n" +
+            "DEF_OPTION valueBIGteam_id=9BLAH>A>A>B<<\n"));
   }
 }

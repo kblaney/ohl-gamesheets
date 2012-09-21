@@ -41,7 +41,7 @@ public final class TeamOptionHtmlToTeamFunctionTest
   private String getTeamOptionHtml(final String teamNum)
   {
     return "<OPTION value=\"/stats/statdisplay.php?" +
-          "type=skaters&subType=" + teamNum +
+          "type=skaters&team_id=" + teamNum +
           "&amp;season_id=42&amp;leagueId=1&amp;lastActive=&amp;" +
           "singleSeason=&amp;confId=0\" >Barrie Colts </option>";
   }

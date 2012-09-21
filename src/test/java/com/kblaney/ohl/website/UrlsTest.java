@@ -9,7 +9,7 @@ public final class UrlsTest
   public void getPlayerStatsUrl()
   {
     assertEquals("http://www.ontariohockeyleague.com/stats/statdisplay.php?" +
-          "type=skaters&season_id=45", Urls.getPlayerStatsUrl().toString());
+          "type=skaters&season_id=46", Urls.getPlayerStatsUrl().toString());
   }
 
   @Test
@@ -17,7 +17,7 @@ public final class UrlsTest
   {
     final int teamNum = 17;
     assertEquals("http://www.ontariohockeyleague.com/stats/statdisplay.php?" +
-          "type=skaters&subType=17&season_id=45",
+          "type=skaters&team_id=17&season_id=46",
           Urls.getSkaterStatsUrl(teamNum).toString());
   }
 
@@ -26,7 +26,7 @@ public final class UrlsTest
   {
     final int teamNum = 9;
     assertEquals("http://www.ontariohockeyleague.com/stats/statdisplay.php?" +
-          "type=goalies&subType=9&season_id=45",
+          "type=goalies&team_id=9&season_id=46",
           Urls.getGoalieStatsUrl(teamNum).toString());
   }
 
