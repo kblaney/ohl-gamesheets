@@ -12,6 +12,7 @@ public final class PlayerBioTest
   private String height;
   private String weight;
   private String hometown;
+  private String gameByGameFilePath;
   private PlayerBio bio;
 
   @Before
@@ -22,9 +23,10 @@ public final class PlayerBioTest
     height = "5.11";
     weight = "198";
     hometown = "Belleville, ON";
+    gameByGameFilePath = "roster/show/id/6640";
     bio = new PlayerBio.Builder().setBirthYear(birthYear).
           setPosition(position).setHeight(height).setWeight(weight).
-          setHometown(hometown).build();
+          setHometown(hometown).setGameByGameFilePath(gameByGameFilePath).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -57,6 +59,12 @@ public final class PlayerBioTest
     new PlayerBio.Builder().setHometown(null);
   }
 
+  @Test(expected = IllegalArgumentException.class)
+  public void nullGameByGameFilePath()
+  {
+    new PlayerBio.Builder().setGameByGameFilePath(null);
+  }
+
   @Test
   public void noSetMethodsCalled()
   {
@@ -66,6 +74,7 @@ public final class PlayerBioTest
     assertEquals(StringUtils.EMPTY, playerBio.getHometown());
     assertEquals(StringUtils.EMPTY, playerBio.getPosition());
     assertEquals(StringUtils.EMPTY, playerBio.getWeight());
+    assertEquals(StringUtils.EMPTY, playerBio.getGameByGameFilePath());
   }
 
   @Test
@@ -96,5 +105,11 @@ public final class PlayerBioTest
   public void getHometown()
   {
     assertEquals(hometown, bio.getHometown());
+  }
+
+  @Test
+  public void getGameByGameFilePath()
+  {
+    assertEquals(gameByGameFilePath, bio.getGameByGameFilePath());
   }
 }

@@ -1,5 +1,6 @@
 package com.kblaney.ohl.website;
 
+import org.w3c.dom.Document;
 import com.google.common.base.Function;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -37,11 +38,15 @@ public final class GuiceWebsiteModule extends AbstractModule
           to(PlayerTableRowNodeToStatsFunction.class);
     bind(new TypeLiteral<Function<String, PlayerBio>>() {}).
           to(PlayerIdToBioFunction.class);
+    bind(new TypeLiteral<Function<String, Document>>() {}).
+          to(PlayerIdToBioDocumentFunction.class);
+    bind(new TypeLiteral<Function<Document, Node>>() {}).
+          to(PlayerBioDocumentToBioDivNodeFunction.class);
+    bind(new TypeLiteral<Function<Document, String>>() {}).
+          to(PlayerBioDocumentToGameByGameFilePath.class);
     bind(PlayerStreaksSupplier.class).to(PlayerStreaksSupplierImpl.class);
-    bind(new TypeLiteral<Function<String, Node>>() {}).
-          to(PlayerIdToBioDivNodeFunction.class);
     bind(new TypeLiteral<Function<String, NodeList>>() {}).
-          to(PlayerIdToGameByGameRowNodeListFunction.class);
+          to(PlayerGameByGameFilePathToGameByGameRowNodeListFunction.class);
     bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Players")).
           to(ToPlayerTableRowNodeListFunction.class);
     bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Goalies")).

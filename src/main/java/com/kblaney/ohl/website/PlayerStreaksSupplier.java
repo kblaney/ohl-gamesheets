@@ -4,5 +4,5 @@ import com.kblaney.ohl.PlayerStreaks;
 
 interface PlayerStreaksSupplier
 {
-  PlayerStreaks get(String playerId, String position);
+  PlayerStreaks get(String gameByGameFilePath, String position);
 }

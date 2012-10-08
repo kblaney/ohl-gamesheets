@@ -21,7 +21,7 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   public void setUp()
   {
     urlToDomDocumentFunction = mock(UrlToDomDocumentFunction.class);
-    function = new PlayerIdToGameByGameRowNodeListFunction(
+    function = new PlayerGameByGameFilePathToGameByGameRowNodeListFunction(
           urlToDomDocumentFunction);
     playerId = "PLAYER_ID";
     url = Urls.getPlayerGameByGameUrl(playerId);

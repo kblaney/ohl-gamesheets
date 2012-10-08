@@ -41,8 +41,8 @@ public final class UrlsTest
   @Test
   public void getPlayerGameByGameUrl()
   {
-    final String playerId = "5678";
-    assertEquals("http://www.ontariohockeyleague.com/stats/gamebygame.php?5678",
-          Urls.getPlayerGameByGameUrl(playerId).toString());
+    final String gameByGameFilePath = "/roster/show/id/6640";
+    assertEquals("http://www.ontariohockeyleague.com/roster/show/id/6640",
+          Urls.getPlayerGameByGameUrl(gameByGameFilePath).toString());
   }
 }

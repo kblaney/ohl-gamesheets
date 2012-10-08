@@ -48,9 +48,10 @@ public final class PlayerSupplierImplTest
     when(toSweaterNumFunction.apply(tableRowNode)).thenReturn(sweaterNum);
 
     final String position = "D";
+    final String gameByGameFilePath = "roster/show/id/6640";
     bio = new PlayerBio.Builder().setBirthYear("1990").
           setHometown("Kingston, ON").setHeight("5.11").setWeight("188").
-          setPosition(position).build();
+          setPosition(position).setGameByGameFilePath(gameByGameFilePath).build();
     final Function<String, PlayerBio> toBioFunction = mock(Function.class);
     when(toBioFunction.apply(playerId)).thenReturn(bio);
 
@@ -62,7 +63,7 @@ public final class PlayerSupplierImplTest
           build();
     final PlayerStreaksSupplier streaksSupplier =
           mock(PlayerStreaksSupplier.class);
-    when(streaksSupplier.get(playerId, position)).thenReturn(streaks);
+    when(streaksSupplier.get(gameByGameFilePath, position)).thenReturn(streaks);
 
     supplier = new PlayerSupplierImpl(toNameFunction, toIdFunction,
           toPlayerTypeFunction, toSweaterNumFunction, toStatsFunction,
@@ -70,10 +71,10 @@ public final class PlayerSupplierImplTest
   }
 
   @Test
-  public void get() throws Exception
+  public void getPlayer() throws Exception
   {
     final ProgressIndicator progressIndicator = mock(ProgressIndicator.class);
-    final Player player = supplier.getPlayer(tableRowNode,progressIndicator);
+    final Player player = supplier.getPlayer(tableRowNode, progressIndicator);
     assertEquals(playerName, player.getName());
     assertEquals(playerType, player.getType());
     assertEquals(sweaterNum, player.getSweaterNum());

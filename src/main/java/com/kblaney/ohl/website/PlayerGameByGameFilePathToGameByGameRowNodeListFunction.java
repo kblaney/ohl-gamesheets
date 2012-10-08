@@ -10,21 +10,21 @@ import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-final class PlayerIdToGameByGameRowNodeListFunction
+final class PlayerGameByGameFilePathToGameByGameRowNodeListFunction
       implements Function<String, NodeList>
 {
   private final UrlToDomDocumentFunction urlToDomDocumentFunction;
 
   @Inject
-  public PlayerIdToGameByGameRowNodeListFunction(
+  public PlayerGameByGameFilePathToGameByGameRowNodeListFunction(
         final UrlToDomDocumentFunction urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
 
-  public NodeList apply(final String playerId)
+  public NodeList apply(final String gameByGameFilePath)
   {
-    final Document document = getDocument(playerId);
+    final Document document = getDocument(gameByGameFilePath);
     final String xpath =
           "//div[@id='gamebygameBlock']/table[@class='statsTable']/tr[td[a]]";
     try
@@ -38,9 +38,9 @@ final class PlayerIdToGameByGameRowNodeListFunction
     }
   }
 
-  private Document getDocument(final String playerId)
+  private Document getDocument(final String gameByGameFilePath)
   {
-    final URL url = Urls.getPlayerGameByGameUrl(playerId);
+    final URL url = Urls.getPlayerGameByGameUrl(gameByGameFilePath);
     try
     {
       return urlToDomDocumentFunction.apply(url);

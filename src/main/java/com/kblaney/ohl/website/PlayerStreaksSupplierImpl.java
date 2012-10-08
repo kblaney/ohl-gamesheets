@@ -18,7 +18,7 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
     this.toGameRowNodeListFunction = toGameRowNodeListFunction;
   }
 
-  public PlayerStreaks get(final String playerId, final String position)
+  public PlayerStreaks get(final String gameByGameFilePath, final String position)
   {
     if (position.equals("G"))
     {
@@ -26,18 +26,14 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
     }
     else
     {
-      return getSkaterStreaks(playerId);
+      return getSkaterStreaks(gameByGameFilePath);
     }
   }
 
-  private PlayerStreaks getSkaterStreaks(final String playerId)
+  private PlayerStreaks getSkaterStreaks(final String gameByGameFilePath)
   {
-    if (playerId.equals("id=6001"))
-    {
-      return new PlayerStreaks.Builder().build();
-    }
     final NodeList gameRowNodeList =
-          toGameRowNodeListFunction.apply(playerId);
+          toGameRowNodeListFunction.apply(gameByGameFilePath);
 
     int goalStreak = 0;
     int assistStreak = 0;

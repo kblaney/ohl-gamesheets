@@ -88,9 +88,8 @@ final class Urls
     return getUrl(phpFile + PhpUtil.FILE_PAIRS_SEPARATOR + playerId);
   }
 
-  public static URL getPlayerGameByGameUrl(final String playerId)
+  public static URL getPlayerGameByGameUrl(final String gameByGameFilePath)
   {
-    final String phpFile = getPhpFile("gamebygame.php");
-    return getUrl(phpFile + PhpUtil.FILE_PAIRS_SEPARATOR + playerId);
+    return getUrl(gameByGameFilePath);
   }
 }

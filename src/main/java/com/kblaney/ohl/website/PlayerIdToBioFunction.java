@@ -3,29 +3,39 @@ package com.kblaney.ohl.website;
 import com.google.common.base.Function;
 import com.google.inject.Inject;
 import com.kblaney.ohl.PlayerBio;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 final class PlayerIdToBioFunction implements Function<String, PlayerBio>
 {
-  private final Function<String, Node> toBioDivNodeFunction;
+  private final Function<String, Document> toBioDocumentFunction;
+  private final Function<Document, Node> bioDocumentToBioDivNodeFunction;
+  private final Function<Document, String> bioDocumentToGameByGameFilePathFunction;
 
   @Inject
   public PlayerIdToBioFunction(
-        final Function<String, Node> toBioDivNodeFunction)
+        final Function<String, Document> toBioDocumentFunction,
+        final Function<Document, Node> bioDocumentToBioDivNodeFunction,
+        final Function<Document, String> bioDocumentToGameByGameFilePathFunction)
   {
-    this.toBioDivNodeFunction = toBioDivNodeFunction;
+    this.toBioDocumentFunction = toBioDocumentFunction;
+    this.bioDocumentToBioDivNodeFunction = bioDocumentToBioDivNodeFunction;
+    this.bioDocumentToGameByGameFilePathFunction = bioDocumentToGameByGameFilePathFunction;
   }
 
   public PlayerBio apply(final String playerId)
   {
     try
     {
-      final Node bioDivNode = toBioDivNodeFunction.apply(playerId);
+      final Document bioDocument = toBioDocumentFunction.apply(playerId);
+      final Node bioDivNode = bioDocumentToBioDivNodeFunction.apply(bioDocument);
+      final String gameByGameFilePath = bioDocumentToGameByGameFilePathFunction.apply(bioDocument);
       return new PlayerBio.Builder().setBirthYear(getBirthYear(bioDivNode)).
             setPosition(getPosition(bioDivNode)).
             setHeight(getHeight(bioDivNode)).
             setWeight(getWeight(bioDivNode)).
-            setHometown(getHometown(bioDivNode)).build();
+            setHometown(getHometown(bioDivNode)).
+            setGameByGameFilePath(gameByGameFilePath).build();
     }
     catch (final IllegalStateException e)
     {

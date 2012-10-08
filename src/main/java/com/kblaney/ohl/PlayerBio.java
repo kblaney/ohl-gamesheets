@@ -20,6 +20,7 @@ public final class PlayerBio
     private String height = StringUtils.EMPTY;
     private String weight = StringUtils.EMPTY;
     private String hometown = StringUtils.EMPTY;
+    private String gameByGameFilePath = StringUtils.EMPTY;
 
     public PlayerBio build()
     {
@@ -29,6 +30,7 @@ public final class PlayerBio
       playerBio.height = height;
       playerBio.weight = weight;
       playerBio.hometown = hometown;
+      playerBio.gameByGameFilePath = gameByGameFilePath;
       return playerBio;
     }
 
@@ -61,6 +63,12 @@ public final class PlayerBio
       this.hometown = ArgAssert.notNull(hometown, "hometown");
       return this;
     }
+
+    public Builder setGameByGameFilePath(final String gameByGameFilePath)
+    {
+      this.gameByGameFilePath = ArgAssert.notNull(gameByGameFilePath, "gameByGameFilePath");
+      return this;
+    }
   }
 
   private String birthYear;
@@ -68,12 +76,14 @@ public final class PlayerBio
   private String height;
   private String weight;
   private String hometown;
+  private String gameByGameFilePath;
 
   private PlayerBio() {}
 
   public String getBirthYear() { return birthYear; }
   public String getPosition() { return position; }
   public String getHeight() { return height; }
-  public String getHometown() { return hometown; }
   public String getWeight() { return weight; }
+  public String getHometown() { return hometown; }
+  public String getGameByGameFilePath() { return gameByGameFilePath; }
 }

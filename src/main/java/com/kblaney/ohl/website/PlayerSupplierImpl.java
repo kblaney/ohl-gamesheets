@@ -53,8 +53,8 @@ final class PlayerSupplierImpl implements PlayerSupplier
     final int sweaterNum = getSweaterNum(tableRowNode);
     final PlayerStats playerStats = getPlayerStats(tableRowNode);
     final PlayerBio playerBio = getPlayerBio(playerId);
-    final PlayerStreaks playerStreaks = getPlayerStreaks(playerId,
-          playerBio.getPosition());
+    final PlayerStreaks playerStreaks = getPlayerStreaks(
+          playerBio.getGameByGameFilePath(), playerBio.getPosition());
     return new Player(playerName, playerType, sweaterNum, playerStats,
           playerBio, playerStreaks);
   }
@@ -89,9 +89,9 @@ final class PlayerSupplierImpl implements PlayerSupplier
     return playerIdToBioFunction.apply(playerId);
   }
 
-  private PlayerStreaks getPlayerStreaks(final String playerId,
+  private PlayerStreaks getPlayerStreaks(final String gameByGameFilePath,
         final String position)
   {
-    return streaksSupplier.get(playerId, position);
+    return streaksSupplier.get(gameByGameFilePath, position);
   }
 }
