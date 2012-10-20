@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite failures="0" time="0.079" errors="0" skipped="0" tests="3" name="com.kblaney.ohl.website.PlayerIdToGameByGameRowNodeListFunctionTest">
+  <properties>
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
+    <property name="sun.boot.library.path" value="C:\Program Files\Java\jdk1.6.0_25\jre\bin"/>
+    <property name="java.vm.version" value="20.0-b11"/>
+    <property name="java.vm.vendor" value="Sun Microsystems Inc."/>
+    <property name="java.vendor.url" value="http://java.sun.com/"/>
+    <property name="path.separator" value=";"/>
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM"/>
+    <property name="file.encoding.pkg" value="sun.io"/>
+    <property name="user.country" value="CA"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.os.patch.level" value="Service Pack 1"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="C:\git\ohl-gamesheets"/>
+    <property name="java.runtime.version" value="1.6.0_25-b06"/>
+    <property name="java.awt.graphicsenv" value="sun.awt.Win32GraphicsEnvironment"/>
+    <property name="basedir" value="C:\git\ohl-gamesheets"/>
+    <property name="java.endorsed.dirs" value="C:\Program Files\Java\jdk1.6.0_25\jre\lib\endorsed"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="surefire.real.class.path" value="C:\git\ohl-gamesheets\target\surefire\surefirebooter1330934931969600800.jar"/>
+    <property name="java.io.tmpdir" value="C:\Users\Kyle\AppData\Local\Temp\"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.variant" value=""/>
+    <property name="os.name" value="Windows 7"/>
+    <property name="sun.jnu.encoding" value="Cp1252"/>
+    <property name="java.library.path" value="C:\Program Files\Java\jdk1.6.0_25\jre\bin;.;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Users\Kyle\AppData\Local\GitHub\PortableGit_8810fd5c2c79c73adcc73fd0825f3b32fdb816e7\cmd;C:\Users\Kyle\AppData\Local\GitHub\PortableGit_8810fd5c2c79c73adcc73fd0825f3b32fdb816e7\bin;C:\Users\Kyle\AppData\Local\GitHub\PortableGit_8810fd5c2c79c73adcc73fd0825f3b32fdb816e7\mingw\bin;C:\Users\Kyle\AppData\Local\Apps\2.0\QJD8HKCR.DLP\NJC3CC8T.HKZ\gith..tion_8f45a2159c87c850_0001.0000_1719aba0cf517580;C:\Windows\Microsoft.NET\Framework\v4.0.30319;C:\Users\Kyle\AppData\Local\Apps\2.0\QJD8HKCR.DLP\NJC3CC8T.HKZ\gith..tion_8f45a2159c87c850_0001.0000_1719aba0cf517580\NativeBinaries/x86;C:\Program Files (x86)\Mozilla Firefox;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;c:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\Program Files (x86)\Windows Live\Shared;C:\Program Files (x86)\Common Files\Roxio Shared\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\DLLShared\;C:\Program Files (x86)\Common Files\Roxio Shared\OEM\12.0\DLLShared\;C:\Program Files (x86)\Roxio\OEM\AudioCore\;C:\apache-maven-3.0.3\bin;C:\Program Files\Java\jdk1.6.0_25\bin;C:\Program Files\TortoiseSVN\bin;C:\Program Files\SlikSvn\bin;C:\Program Files (x86)\QuickTime\QTSystem\"/>
+    <property name="surefire.test.class.path" value="C:\git\ohl-gamesheets\target\test-classes;C:\git\ohl-gamesheets\target\classes;C:\Users\Kyle\.m2\repository\com\kblaney\commons\kblaney-commons-lang\1.0\kblaney-commons-lang-1.0.jar;C:\Users\Kyle\.m2\repository\com\kblaney\commons\kblaney-commons-io\1.0\kblaney-commons-io-1.0.jar;C:\Users\Kyle\.m2\repository\com\kblaney\commons\kblaney-commons-xml\1.0\kblaney-commons-xml-1.0.jar;C:\Users\Kyle\.m2\repository\jtidy\jtidy\4aug2000r7-dev\jtidy-4aug2000r7-dev.jar;C:\Users\Kyle\.m2\repository\mdateselector\mdateselector\0.347\mdateselector-0.347.jar;C:\Users\Kyle\.m2\repository\com\google\guava\guava\10.0.1\guava-10.0.1.jar;C:\Users\Kyle\.m2\repository\com\google\code\findbugs\jsr305\1.3.9\jsr305-1.3.9.jar;C:\Users\Kyle\.m2\repository\com\google\inject\guice\3.0\guice-3.0.jar;C:\Users\Kyle\.m2\repository\javax\inject\javax.inject\1\javax.inject-1.jar;C:\Users\Kyle\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\Kyle\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\Kyle\.m2\repository\commons-io\commons-io\2.1\commons-io-2.1.jar;C:\Users\Kyle\.m2\repository\xalan\xalan\2.7.1\xalan-2.7.1.jar;C:\Users\Kyle\.m2\repository\xalan\serializer\2.7.1\serializer-2.7.1.jar;C:\Users\Kyle\.m2\repository\xml-apis\xml-apis\1.4.01\xml-apis-1.4.01.jar;C:\Users\Kyle\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\Kyle\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;C:\Users\Kyle\.m2\repository\org\mockito\mockito-core\1.8.5\mockito-core-1.8.5.jar;C:\Users\Kyle\.m2\repository\org\objenesis\objenesis\1.0\objenesis-1.0.jar;C:\Users\Kyle\.m2\repository\org\uispec4j\uispec4j\2.4\uispec4j-2.4.jar;"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="java.class.version" value="50.0"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="6.1"/>
+    <property name="user.home" value="C:\Users\Kyle"/>
+    <property name="user.timezone" value="America/New_York"/>
+    <property name="java.awt.printerjob" value="sun.awt.windows.WPrinterJob"/>
+    <property name="java.specification.version" value="1.6"/>
+    <property name="file.encoding" value="Cp1252"/>
+    <property name="user.name" value="Kyle"/>
+    <property name="java.class.path" value="C:\git\ohl-gamesheets\target\test-classes;C:\git\ohl-gamesheets\target\classes;C:\Users\Kyle\.m2\repository\com\kblaney\commons\kblaney-commons-lang\1.0\kblaney-commons-lang-1.0.jar;C:\Users\Kyle\.m2\repository\com\kblaney\commons\kblaney-commons-io\1.0\kblaney-commons-io-1.0.jar;C:\Users\Kyle\.m2\repository\com\kblaney\commons\kblaney-commons-xml\1.0\kblaney-commons-xml-1.0.jar;C:\Users\Kyle\.m2\repository\jtidy\jtidy\4aug2000r7-dev\jtidy-4aug2000r7-dev.jar;C:\Users\Kyle\.m2\repository\mdateselector\mdateselector\0.347\mdateselector-0.347.jar;C:\Users\Kyle\.m2\repository\com\google\guava\guava\10.0.1\guava-10.0.1.jar;C:\Users\Kyle\.m2\repository\com\google\code\findbugs\jsr305\1.3.9\jsr305-1.3.9.jar;C:\Users\Kyle\.m2\repository\com\google\inject\guice\3.0\guice-3.0.jar;C:\Users\Kyle\.m2\repository\javax\inject\javax.inject\1\javax.inject-1.jar;C:\Users\Kyle\.m2\repository\aopalliance\aopalliance\1.0\aopalliance-1.0.jar;C:\Users\Kyle\.m2\repository\commons-lang\commons-lang\2.6\commons-lang-2.6.jar;C:\Users\Kyle\.m2\repository\commons-io\commons-io\2.1\commons-io-2.1.jar;C:\Users\Kyle\.m2\repository\xalan\xalan\2.7.1\xalan-2.7.1.jar;C:\Users\Kyle\.m2\repository\xalan\serializer\2.7.1\serializer-2.7.1.jar;C:\Users\Kyle\.m2\repository\xml-apis\xml-apis\1.4.01\xml-apis-1.4.01.jar;C:\Users\Kyle\.m2\repository\junit\junit\4.10\junit-4.10.jar;C:\Users\Kyle\.m2\repository\org\hamcrest\hamcrest-core\1.1\hamcrest-core-1.1.jar;C:\Users\Kyle\.m2\repository\org\mockito\mockito-core\1.8.5\mockito-core-1.8.5.jar;C:\Users\Kyle\.m2\repository\org\objenesis\objenesis\1.0\objenesis-1.0.jar;C:\Users\Kyle\.m2\repository\org\uispec4j\uispec4j\2.4\uispec4j-2.4.jar;"/>
+    <property name="java.vm.specification.version" value="1.0"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.home" value="C:\Program Files\Java\jdk1.6.0_25\jre"/>
+    <property name="sun.java.command" value="C:\git\ohl-gamesheets\target\surefire\surefirebooter1330934931969600800.jar C:\git\ohl-gamesheets\target\surefire\surefire5521553299561526440tmp C:\git\ohl-gamesheets\target\surefire\surefire8911391406429154918tmp"/>
+    <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
+    <property name="user.language" value="en"/>
+    <property name="awt.toolkit" value="org.uispec4j.interception.toolkit.UISpecToolkit"/>
+    <property name="java.vm.info" value="mixed mode"/>
+    <property name="java.version" value="1.6.0_25"/>
+    <property name="java.ext.dirs" value="C:\Program Files\Java\jdk1.6.0_25\jre\lib\ext;C:\Windows\Sun\Java\lib\ext"/>
+    <property name="sun.boot.class.path" value="C:\Program Files\Java\jdk1.6.0_25\jre\lib\resources.jar;C:\Program Files\Java\jdk1.6.0_25\jre\lib\rt.jar;C:\Program Files\Java\jdk1.6.0_25\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.6.0_25\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.6.0_25\jre\lib\jce.jar;C:\Program Files\Java\jdk1.6.0_25\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.6.0_25\jre\lib\modules\jdk.boot.jar;C:\Program Files\Java\jdk1.6.0_25\jre\classes"/>
+    <property name="java.vendor" value="Sun Microsystems Inc."/>
+    <property name="localRepository" value="C:\Users\Kyle\.m2\repository"/>
+    <property name="file.separator" value="\"/>
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.desktop" value="windows"/>
+    <property name="sun.cpu.isalist" value="amd64"/>
+  </properties>
+  <testcase time="0.055" classname="com.kblaney.ohl.website.PlayerIdToGameByGameRowNodeListFunctionTest" name="apply_getUrlContentsFailure"/>
+  <testcase time="0.007" classname="com.kblaney.ohl.website.PlayerIdToGameByGameRowNodeListFunctionTest" name="apply_noGamesPlayed"/>
+  <testcase time="0.015" classname="com.kblaney.ohl.website.PlayerIdToGameByGameRowNodeListFunctionTest" name="apply_twoGamesPlayed"/>
+</testsuite>
