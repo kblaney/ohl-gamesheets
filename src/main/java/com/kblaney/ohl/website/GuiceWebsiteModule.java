@@ -60,7 +60,6 @@ public final class GuiceWebsiteModule extends AbstractModule
   }
 
   @Provides
-  @SuppressWarnings("unused")
   private UrlToDomDocumentFunction provideUrlToDomDocumentFunction()
   {
     final int maxNumAttempts = 10;
