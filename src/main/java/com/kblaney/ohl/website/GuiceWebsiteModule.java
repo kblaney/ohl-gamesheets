@@ -59,6 +59,7 @@ public final class GuiceWebsiteModule extends AbstractModule
           to(PlayerTableRowNodeToIdFunction.class);
   }
 
+  @SuppressWarnings("unused")
   @Provides
   private UrlToDomDocumentFunction provideUrlToDomDocumentFunction()
   {
