@@ -1,6 +1,9 @@
 package com.kblaney.ohl.gamesheets.html;
 
+import static org.junit.Assert.*;
+
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerBio;
@@ -12,7 +15,6 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public final class PlayerHtmlTableGetterTest
 {
@@ -27,34 +29,35 @@ public final class PlayerHtmlTableGetterTest
   @Test
   public void apply_zeroPlayers()
   {
-    assertNumPlayersInTable(Collections.<Player>emptyList());
+    final String table = tableGetter.apply(Collections.<Player>emptyList());
+    assertNumPlayersInTable(table, 0);
   }
 
-  private void assertNumPlayersInTable(final List<Player> players)
+  private void assertNumPlayersInTable(final String table, final int expectedNumPlayers)
   {
     final int numHeaderRows = 1;
-    final int expectedNumTableRows = players.size() + numHeaderRows;
-    final String table = tableGetter.apply(players);
+    final int expectedNumTableRows = expectedNumPlayers + numHeaderRows;
     assertEquals(expectedNumTableRows, StringUtils.countMatches(table, "<tr>"));
     assertEquals(expectedNumTableRows, StringUtils.countMatches(table,
           "</tr>"));
   }
 
   @Test
-  public void apply_onePlayer()
+  public void apply_oneVeteranPlayerWithKnownSweaterNum()
   {
-    assertNumPlayersInTable(Lists.newArrayList(
-          getVeteranPlayer("PLAYER_NAME")));
+    final Optional<Integer> sweaterNum = Optional.of(19);
+    final Player player = getPlayer(PlayerType.VETERAN, sweaterNum); 
+    final String table = tableGetter.apply(Lists.newArrayList(player));
+
+    assertOnePlayerInTable(table);
+    assertZeroRookiesInTable(table);
+    // We only expect one empty cell (in the rookie column).
+    assertOneEmptyTableCell(table);
   }
 
-  private Player getVeteranPlayer(final String name)
+  private Player getPlayer(final PlayerType playerType, final Optional<Integer> sweaterNum)
   {
-    return getPlayer(name, PlayerType.VETERAN);
-  }
-
-  private Player getPlayer(final String name, final PlayerType playerType)
-  {
-    return new Player(name, playerType, /*sweaterNum=*/22,
+    return new Player("Wayne Gretzky", playerType, sweaterNum,
           new PlayerStats.Builder().build(),
           new PlayerBio.Builder().setBirthYear("1994").
           setHometown("Belleville, ON").setHeight("6.02").setPosition("LW").
@@ -62,11 +65,95 @@ public final class PlayerHtmlTableGetterTest
           new PlayerStreaks.Builder().build());
   }
 
-  @Test
-  public void apply_oneVeteranAndOneRookie()
+  private void assertOnePlayerInTable(final String table)
   {
-    final Player veteran = getVeteranPlayer("VETERAN");
-    final Player rookie = getPlayer("ROOKIE", PlayerType.ROOKIE);
-    assertNumPlayersInTable(Lists.newArrayList(veteran, rookie));
+    final int expectedNumPlayers = 1;
+    assertNumPlayersInTable(table, expectedNumPlayers);
+  }
+
+  private void assertOneEmptyTableCell(final String table)
+  {
+    final int expectedNumEmptyTableCells = 1;
+    assertNumEmptyTableCells(table, expectedNumEmptyTableCells);
+  }
+
+  private void assertZeroRookiesInTable(final String table)
+  {
+    assertFalse(table.contains(PlayerHtmlTableGetter.ROOKIE_TABLE_CELL));
+  }
+
+  private void assertNumEmptyTableCells(final String table, final int expectedNumEmptyTableCells)
+  {
+    assertEquals(expectedNumEmptyTableCells, StringUtils.countMatches(table, PlayerHtmlTableGetter.EMPTY_TABLE_CELL));
+  }
+
+  @Test
+  public void apply_oneVeteranPlayerWithUnknownSweaterNum()
+  {
+    final Optional<Integer> sweaterNum = Optional.absent();
+    final Player player = getPlayer(PlayerType.VETERAN, sweaterNum); 
+    final String table = tableGetter.apply(Lists.newArrayList(player));
+
+    assertOnePlayerInTable(table);
+    assertZeroRookiesInTable(table);
+    // We expect two empty cells (in the rookie and sweater number columns).
+    assertTwoEmptyTableCells(table);
+  }
+
+  private void assertTwoEmptyTableCells(final String table)
+  {
+    final int expectedNumEmptyTableCells = 2;
+    assertNumEmptyTableCells(table, expectedNumEmptyTableCells);
+  }
+
+  @Test
+  public void apply_oneRookieWithKnownSweaterNum()
+  {
+    final Optional<Integer> sweaterNum = Optional.of(12);
+    final Player player = getPlayer(PlayerType.ROOKIE, sweaterNum); 
+    final String table = tableGetter.apply(Lists.newArrayList(player));
+
+    assertOnePlayerInTable(table);
+    assertOneRookieInTable(table);
+    assertZeroEmptyTableCells(table);
+  }
+
+  private void assertZeroEmptyTableCells(final String table)
+  {
+    final int expectedNumEmptyTableCells = 0;
+    assertNumEmptyTableCells(table, expectedNumEmptyTableCells);
+  }
+
+  @Test
+  public void apply_oneRookieWithUnknownSweaterNum()
+  {
+    final Optional<Integer> sweaterNum = Optional.absent();
+    final Player player = getPlayer(PlayerType.ROOKIE, sweaterNum); 
+    final String table = tableGetter.apply(Lists.newArrayList(player));
+
+    assertOnePlayerInTable(table);
+    assertOneRookieInTable(table);
+    // We expect one empty cell (in the sweater number columns).
+    assertOneEmptyTableCell(table);
+  }
+
+  private void assertOneRookieInTable(final String table)
+  {
+    final int expectedNumRookieTableCells = 1;
+    assertEquals(expectedNumRookieTableCells, StringUtils.countMatches(table, PlayerHtmlTableGetter.ROOKIE_TABLE_CELL));
+  }
+
+  @Test
+  public void apply_fourPlayers()
+  {
+    final List<Player> players = Lists.newArrayList(
+          getPlayer(PlayerType.ROOKIE, Optional.of(9)),
+          getPlayer(PlayerType.ROOKIE, Optional.<Integer>absent()),
+          getPlayer(PlayerType.VETERAN, Optional.of(10)),
+          getPlayer(PlayerType.VETERAN, Optional.<Integer>absent()));
+    final String table = tableGetter.apply(players);
+
+    final int expectedNumPlayers = 4;
+    assertNumPlayersInTable(table, expectedNumPlayers);
   }
 }

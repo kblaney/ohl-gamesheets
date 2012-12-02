@@ -1,14 +1,15 @@
 package com.kblaney.ohl;
 
+import static org.junit.Assert.assertEquals;
+import com.google.common.base.Optional;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public final class PlayerTest
 {
   private String name;
   private PlayerType playerType;
-  private int sweaterNum;
+  private Optional<Integer> sweaterNum;
   private PlayerStats stats;
   private PlayerBio bio;
   private PlayerStreaks streaks;
@@ -19,7 +20,7 @@ public final class PlayerTest
   {
     name = "PLAYER_NAME";
     playerType = PlayerType.VETERAN;
-    sweaterNum = 23;
+    sweaterNum = Optional.of(23);
     stats = new PlayerStats.Builder().build();
     bio = new PlayerBio.Builder().build();
     streaks = new PlayerStreaks.Builder().build();
@@ -41,7 +42,13 @@ public final class PlayerTest
   @Test(expected = IllegalArgumentException.class)
   public void constructor_negativeSweaterNum()
   {
-    new Player(name, playerType, -1, stats, bio, streaks);
+    new Player(name, playerType, Optional.of(-1), stats, bio, streaks);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void constructor_sweaterNumOfZero()
+  {
+    new Player(name, playerType, Optional.of(0), stats, bio, streaks);
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -75,9 +82,17 @@ public final class PlayerTest
   }
 
   @Test
-  public void getSweaterNum()
+  public void getSweaterNum_knownSweaterNum()
   {
     assertEquals(sweaterNum, player.getSweaterNum());
+  }
+
+  @Test
+  public void getSweaterNum_unknownSweaterNum()
+  {
+    final Optional<Integer> unknownSweaterNum = Optional.absent();
+    player = new Player(name, playerType, unknownSweaterNum, stats, bio, streaks);
+    assertEquals(unknownSweaterNum, player.getSweaterNum());
   }
 
   @Test

@@ -1,5 +1,8 @@
 package com.kblaney.ohl.gamesheets.html;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import com.google.common.base.Optional;
 import com.google.common.base.Predicate;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerBio;
@@ -8,12 +11,11 @@ import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public final class ActivePlayerPredicateTest
 {
   private String playerName;
-  private int sweaterNum;
+  private Optional<Integer> sweaterNum;
   private PlayerBio bio;
   private PlayerStreaks streaks;
   private PlayerStats statsWithZeroGamesPlayed;
@@ -24,7 +26,7 @@ public final class ActivePlayerPredicateTest
   public void setUp()
   {
     playerName = "WAYNE GRETZKY";
-    sweaterNum = 99;
+    sweaterNum = Optional.of(99);
     bio = new PlayerBio.Builder().build();
     streaks = new PlayerStreaks.Builder().build();
     statsWithZeroGamesPlayed = new PlayerStats.Builder().build();

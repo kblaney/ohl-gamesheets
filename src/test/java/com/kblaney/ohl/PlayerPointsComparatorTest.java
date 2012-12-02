@@ -1,15 +1,17 @@
 package com.kblaney.ohl;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import com.google.common.base.Optional;
 import java.util.Comparator;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public final class PlayerPointsComparatorTest
 {
   private String name;
   private PlayerType type;
-  private int sweaterNum;
+  private Optional<Integer> sweaterNum;
   private PlayerBio bio;
   private PlayerStreaks streaks;
   private Comparator<Player> comparator;
@@ -19,7 +21,7 @@ public final class PlayerPointsComparatorTest
   {
     name = "PLAYER_NAME";
     type = PlayerType.ROOKIE;
-    sweaterNum = 19;
+    sweaterNum = Optional.of(19);
     bio = new PlayerBio.Builder().setBirthYear("1990").
           setHometown("Belleville, ON").setHeight("6.02").setWeight("211").
           build();

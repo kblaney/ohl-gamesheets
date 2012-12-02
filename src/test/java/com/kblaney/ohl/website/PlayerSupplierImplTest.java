@@ -1,24 +1,27 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.ohl.Player;
-import com.kblaney.ohl.PlayerStreaks;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
+import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public final class PlayerSupplierImplTest
 {
   private Node tableRowNode;
   private String playerName;
   private PlayerType playerType;
-  private int sweaterNum = 29;
+  private Optional<Integer> sweaterNum;
   private PlayerBio bio;
   private PlayerStats stats;
   private PlayerStreaks streaks;
@@ -43,8 +46,8 @@ public final class PlayerSupplierImplTest
           mock(Function.class);
     when(toPlayerTypeFunction.apply(tableRowNode)).thenReturn(playerType);
 
-    sweaterNum = 29;
-    final Function<Node, Integer> toSweaterNumFunction = mock(Function.class);
+    sweaterNum = Optional.of(29);
+    final Function<Node, Optional<Integer>> toSweaterNumFunction = mock(Function.class);
     when(toSweaterNumFunction.apply(tableRowNode)).thenReturn(sweaterNum);
 
     final String position = "D";

@@ -1,7 +1,7 @@
 package com.kblaney.ohl.website;
 
-import org.w3c.dom.Document;
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
@@ -15,6 +15,7 @@ import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerType;
 import java.util.Set;
+import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -32,7 +33,7 @@ public final class GuiceWebsiteModule extends AbstractModule
           to(GoalieTableRowNodeToStatsFunction.class);
     bind(new TypeLiteral<Function<Node, PlayerType>>() {}).
           to(PlayerTableRowNodeToPlayerTypeFunction.class);
-    bind(new TypeLiteral<Function<Node, Integer>>() {}).
+    bind(new TypeLiteral<Function<Node, Optional<Integer>>>() {}).
           to(PlayerTableRowNodeToSweaterNumFunction.class);
     bind(new TypeLiteral<Function<Node, PlayerStats>>() {}).
           to(PlayerTableRowNodeToStatsFunction.class);

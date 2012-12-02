@@ -1,6 +1,7 @@
 package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.kblaney.ohl.Player;
@@ -17,7 +18,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
   private final Function<Node, String> tableRowNodeToNameFunction;
   private final Function<Node, String> tableRowNodeToIdFunction;
   private final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction;
-  private final Function<Node, Integer> tableRowNodeToSweaterNumFunction;
+  private final Function<Node, Optional<Integer>> tableRowNodeToSweaterNumFunction;
   private final Function<Node, PlayerStats> tableRowNodeToStatsFunction;
   private final Function<String, PlayerBio> playerIdToBioFunction;
   private final PlayerStreaksSupplier streaksSupplier;
@@ -27,7 +28,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
         @Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
         @Named("ToIdFunction") final Function<Node, String> tableRowNodeToIdFunction,
         final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction,
-        final Function<Node, Integer> tableRowNodeToSweaterNumFunction,
+        final Function<Node, Optional<Integer>> tableRowNodeToSweaterNumFunction,
         final Function<Node, PlayerStats> tableRowNodeToStatsFunction,
         final Function<String, PlayerBio> playerIdToBioFunction,
         final PlayerStreaksSupplier streaksSupplier)
@@ -50,7 +51,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
     progressIndicator.setPlayerInProgress(playerName);
 
     final PlayerType playerType = getPlayerType(tableRowNode);
-    final int sweaterNum = getSweaterNum(tableRowNode);
+    final Optional<Integer> sweaterNum = getSweaterNum(tableRowNode);
     final PlayerStats playerStats = getPlayerStats(tableRowNode);
     final PlayerBio playerBio = getPlayerBio(playerId);
     final PlayerStreaks playerStreaks = getPlayerStreaks(
@@ -74,7 +75,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
     return tableRowNodeToPlayerTypeFunction.apply(tableRowNode);
   }
 
-  private int getSweaterNum(final Node tableRowNode)
+  private Optional<Integer> getSweaterNum(final Node tableRowNode)
   {
     return tableRowNodeToSweaterNumFunction.apply(tableRowNode);
   }

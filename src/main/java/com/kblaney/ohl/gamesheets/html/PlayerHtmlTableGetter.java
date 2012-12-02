@@ -1,6 +1,7 @@
 package com.kblaney.ohl.gamesheets.html;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import com.kblaney.commons.html.HtmlUtil;
 import com.kblaney.commons.lang.SystemUtil;
 import com.kblaney.ohl.Player;
@@ -9,6 +10,9 @@ import java.util.List;
 
 final class PlayerHtmlTableGetter implements Function<List<Player>, String>
 {
+  static final String EMPTY_TABLE_CELL = "&nbsp;";
+  static final String ROOKIE_TABLE_CELL = "*";
+
   public String apply(final List<Player> players)
   {
     final StringBuilder s = new StringBuilder();
@@ -57,7 +61,7 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
   {
     final StringBuilder s = new StringBuilder(HtmlUtil.TABLE_ROW_START);
     s.append(HtmlUtil.getLeftAlignedTdElement(getRookieString(p.getType())));
-    s.append(HtmlUtil.getRightAlignedTdElement(p.getSweaterNum()));
+    s.append(HtmlUtil.getRightAlignedTdElement(getSweaterNumString(p.getSweaterNum())));
     s.append(HtmlUtil.getLeftAlignedTdElement(p.getName()));
     s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumGamesPlayed()));
     s.append(HtmlUtil.getRightAlignedTdElement(p.getStats().getNumGoals()));
@@ -83,11 +87,23 @@ final class PlayerHtmlTableGetter implements Function<List<Player>, String>
   {
     if (playerType == PlayerType.ROOKIE)
     {
-      return "*";
+      return ROOKIE_TABLE_CELL;
     }
     else
     {
-      return "&nbsp;";
+      return EMPTY_TABLE_CELL;
+    }
+  }
+
+  private String getSweaterNumString(final Optional<Integer> sweaterNum)
+  {
+    if (sweaterNum.isPresent())
+    {
+      return Integer.toString(sweaterNum.get());
+    }
+    else
+    {
+      return EMPTY_TABLE_CELL;
     }
   }
 }
