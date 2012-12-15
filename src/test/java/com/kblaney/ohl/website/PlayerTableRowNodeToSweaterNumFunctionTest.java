@@ -17,6 +17,16 @@ public final class PlayerTableRowNodeToSweaterNumFunctionTest
   }
 
   @Test
+  public void apply_sweaterNumIsZero() throws Exception
+  {
+    final Optional<Integer> expected = Optional.absent();
+    final Optional<Integer> actual = new PlayerTableRowNodeToSweaterNumFunction()
+          .apply(new XmlToDomElementFunction()
+                .apply("<tr><td/><td>0</td></tr>"));
+    assertEquals(expected, actual);
+  }
+
+  @Test
   public void apply_noSweaterNum() throws Exception
   {
     final Optional<Integer> expected = Optional.absent();

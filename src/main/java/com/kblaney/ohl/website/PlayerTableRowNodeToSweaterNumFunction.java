@@ -12,7 +12,13 @@ final class PlayerTableRowNodeToSweaterNumFunction
     try
     {
       final String sweaterNumString = Nodes.getChildNodeValue(tableRowNode, 1);
-      return Optional.of(Integer.parseInt(sweaterNumString));
+      final int sweaterNum = Integer.parseInt(sweaterNumString);
+      final int minSweaterNum = 1;
+      if (sweaterNum >= minSweaterNum)
+      {
+        return Optional.of(sweaterNum);
+      }
+      return Optional.absent();
     }
     catch (final NumberFormatException e)
     {
