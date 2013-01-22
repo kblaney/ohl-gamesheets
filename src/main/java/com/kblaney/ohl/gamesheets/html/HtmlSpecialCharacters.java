@@ -1,0 +1,11 @@
+package com.kblaney.ohl.gamesheets.html;
+
+public class HtmlSpecialCharacters
+{
+  public static final String LINE_BREAK = "<br>";
+  public static final String NON_BREAKING_SPACE = "&nbsp;";
+
+  private HtmlSpecialCharacters()
+  {
+  }
+}
