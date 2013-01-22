@@ -78,7 +78,7 @@
     </dependency>
     <dependency>
       <groupId>com.kblaney</groupId>
-      <artifactId>kblaney-xml</artifactId>
+      <artifactId>kblaney-url</artifactId>
       <version>0.1-SNAPSHOT</version>
     </dependency>
     <dependency>

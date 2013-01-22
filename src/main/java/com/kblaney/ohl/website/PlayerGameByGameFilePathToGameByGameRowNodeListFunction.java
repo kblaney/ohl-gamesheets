@@ -2,7 +2,7 @@ package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
-import com.kblaney.xml.UrlReader;
+import com.kblaney.url.UrlFunction;
 import java.io.IOException;
 import java.net.URL;
 import javax.xml.transform.TransformerException;
@@ -12,10 +12,10 @@ import org.w3c.dom.NodeList;
 
 final class PlayerGameByGameFilePathToGameByGameRowNodeListFunction implements Function<String, NodeList>
 {
-  private final UrlReader<Document> urlToDomDocumentFunction;
+  private final UrlFunction<Document> urlToDomDocumentFunction;
 
   @Inject
-  public PlayerGameByGameFilePathToGameByGameRowNodeListFunction(final UrlReader<Document> urlToDomDocumentFunction)
+  public PlayerGameByGameFilePathToGameByGameRowNodeListFunction(final UrlFunction<Document> urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -39,7 +39,7 @@ final class PlayerGameByGameFilePathToGameByGameRowNodeListFunction implements F
     final URL url = Urls.getPlayerGameByGameUrl(gameByGameFilePath);
     try
     {
-      return urlToDomDocumentFunction.readFrom(url);
+      return urlToDomDocumentFunction.convert(url);
     }
     catch (final IOException e)
     {

@@ -1,7 +1,7 @@
 package com.kblaney.ohl.website;
 
 import com.google.inject.Inject;
-import com.kblaney.xml.UrlReader;
+import com.kblaney.url.UrlFunction;
 import java.io.IOException;
 import java.net.URL;
 import javax.xml.transform.TransformerException;
@@ -12,10 +12,10 @@ import org.w3c.dom.NodeList;
 
 final class ToGoalieTableRowNodeListFunction implements TeamNumToNodeListFunction
 {
-  private final UrlReader<Document> urlToDomDocumentFunction;
+  private final UrlFunction<Document> urlToDomDocumentFunction;
 
   @Inject
-  public ToGoalieTableRowNodeListFunction(final UrlReader<Document> urlToDomDocumentFunction)
+  public ToGoalieTableRowNodeListFunction(final UrlFunction<Document> urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -30,7 +30,7 @@ final class ToGoalieTableRowNodeListFunction implements TeamNumToNodeListFunctio
   private Document getDocument(final int teamNum) throws IOException
   {
     final URL url = Urls.getGoalieStatsUrl(teamNum);
-    return urlToDomDocumentFunction.readFrom(url);
+    return urlToDomDocumentFunction.convert(url);
   }
 
   private Node getTableNode(final Document document)

@@ -2,7 +2,7 @@ package com.kblaney.ohl.website;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import com.kblaney.xml.UrlReader;
+import com.kblaney.url.UrlFunction;
 import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ public final class ToPlayerTableRowNodeListFunctionTest
 {
   private int teamNum;
   private URL url;
-  private UrlReader<Document> urlToDomDocumentFunction;
+  private UrlFunction<Document> urlToDomDocumentFunction;
   private TeamNumToNodeListFunction function;
 
   @Before
@@ -21,14 +21,14 @@ public final class ToPlayerTableRowNodeListFunctionTest
   {
     teamNum = 9;
     url = Urls.getSkaterStatsUrl(teamNum);
-    urlToDomDocumentFunction = mock(UrlReader.class);
+    urlToDomDocumentFunction = mock(UrlFunction.class);
     function = new ToPlayerTableRowNodeListFunction(urlToDomDocumentFunction);
   }
 
   @Test(expected = IllegalStateException.class)
   public void apply_noTableNode() throws Exception
   {
-    when(urlToDomDocumentFunction.readFrom(url)).thenReturn(
+    when(urlToDomDocumentFunction.convert(url)).thenReturn(
           new XmlToDomDocumentFunction().apply("<a>" + getTableHeaderRow() + getPlayerTableRow() + "</a>"));
     function.apply(teamNum).getLength();
   }
@@ -46,7 +46,7 @@ public final class ToPlayerTableRowNodeListFunctionTest
   @Test
   public void apply_zeroPlayers() throws Exception
   {
-    when(urlToDomDocumentFunction.readFrom(url)).thenReturn(
+    when(urlToDomDocumentFunction.convert(url)).thenReturn(
           new XmlToDomDocumentFunction().apply("<table>" + getTableHeaderRow() + "</table>"));
     assertEquals(0, function.apply(teamNum).getLength());
   }
@@ -54,7 +54,7 @@ public final class ToPlayerTableRowNodeListFunctionTest
   @Test
   public void apply_twoPlayers() throws Exception
   {
-    when(urlToDomDocumentFunction.readFrom(url)).thenReturn(
+    when(urlToDomDocumentFunction.convert(url)).thenReturn(
           new XmlToDomDocumentFunction().apply("<table>" + getTableHeaderRow() + getPlayerTableRow() +
                 getPlayerTableRow() + "</table>"));
     assertEquals(2, function.apply(teamNum).getLength());

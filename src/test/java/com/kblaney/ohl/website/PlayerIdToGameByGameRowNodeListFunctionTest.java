@@ -3,7 +3,7 @@ package com.kblaney.ohl.website;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 import com.google.common.base.Function;
-import com.kblaney.xml.UrlReader;
+import com.kblaney.url.UrlFunction;
 import java.io.IOException;
 import java.net.URL;
 import org.junit.Before;
@@ -13,7 +13,7 @@ import org.w3c.dom.NodeList;
 
 public final class PlayerIdToGameByGameRowNodeListFunctionTest
 {
-  private UrlReader<Document> urlToDomDocumentFunction;
+  private UrlFunction<Document> urlToDomDocumentFunction;
   private Function<String, NodeList> function;
   private String playerId;
   private URL url;
@@ -22,7 +22,7 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   @SuppressWarnings("unchecked")
   public void setUp()
   {
-    urlToDomDocumentFunction = mock(UrlReader.class);
+    urlToDomDocumentFunction = mock(UrlFunction.class);
     function = new PlayerGameByGameFilePathToGameByGameRowNodeListFunction(urlToDomDocumentFunction);
     playerId = "PLAYER_ID";
     url = Urls.getPlayerGameByGameUrl(playerId);
@@ -32,7 +32,7 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   public void apply_getUrlContentsFailure() throws Exception
   {
     final Throwable failure = new IOException();
-    when(urlToDomDocumentFunction.readFrom(url)).thenThrow(failure);
+    when(urlToDomDocumentFunction.convert(url)).thenThrow(failure);
     try
     {
       function.apply(playerId);
@@ -48,14 +48,14 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   @Test
   public void apply_noGamesPlayed() throws Exception
   {
-    when(urlToDomDocumentFunction.readFrom(url)).thenReturn(new XmlToDomDocumentFunction().apply("<a/>"));
+    when(urlToDomDocumentFunction.convert(url)).thenReturn(new XmlToDomDocumentFunction().apply("<a/>"));
     assertEquals(0, function.apply(playerId).getLength());
   }
 
   @Test
   public void apply_twoGamesPlayed() throws Exception
   {
-    when(urlToDomDocumentFunction.readFrom(url)).thenReturn(
+    when(urlToDomDocumentFunction.convert(url)).thenReturn(
           new XmlToDomDocumentFunction().apply("<a><div id=\"gamebygameBlock\"><table class=\"statsTable\">" +
                 getOneGameTableRow() + getOneGameTableRow() + "</table></div></a>"));
     assertEquals(2, function.apply(playerId).getLength());
