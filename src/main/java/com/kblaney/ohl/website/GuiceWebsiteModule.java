@@ -23,7 +23,9 @@ public final class GuiceWebsiteModule extends AbstractModule
   @Override
   protected void configure()
   {
-    bind(UrlFunction.class).to(UrlToContentFunction.class);
+    bind(new TypeLiteral<UrlFunction<String>>()
+    {
+    }).to(UrlToContentFunction.class);
     bind(new TypeLiteral<Function<String, Set<NumberedTeam>>>()
     {
     }).to(PlayerStatsHtmlToTeamsFunction.class);
