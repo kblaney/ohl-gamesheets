@@ -6,13 +6,13 @@
    <artifactId>ohl-gamesheets</artifactId>
    <packaging>jar</packaging>
    <version>2012-13-RegularSeason-4-SNAPSHOT</version>
-   <name>OHL Gamesheets</name>
-   <description>Kyle Blaney's program that creates gamesheets for Ontario Hockey League games.</description>
-   <url>http://www.assembla.com/spaces/ohl_gamesheets</url>
+   <name>Kyle Blaney's OHL Gamesheets</name>
+   <description>Kyle Blaney's OHL Gamesheets</description>
+   <url>https://github.com/kblaney/ohl-gamesheets</url>
    <scm>
-      <connection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/trunk</connection>
-      <developerConnection>scm:svn:http://svn.assembla.com/svn/OhlGamesheets/trunk</developerConnection>
-      <url>http://www.assembla.com/code/ohl_gamesheets/subversion/nodes</url>
+      <connection>scm:git:git@github.com:kblaney/ohl-gamesheets.git</connection>
+      <developerConnection>scm:git:git@github.com:kblaney/ohl-gamesheets.git</developerConnection>
+      <url>scm:git:git@github.com:kblaney/ohl-gamesheets.git</url>
    </scm>
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
