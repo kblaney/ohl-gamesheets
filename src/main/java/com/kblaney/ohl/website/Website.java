@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
 
 public final class Website implements StatsProvider
 {
-  private final UrlFunction<String> urlContentsGetter;
+  private final UrlFunction<String> urlToContentFunction;
   private final Function<String, Set<NumberedTeam>> toTeamsFunction;
   private final PlayerSupplier playerSupplier;
   private final GoalieSupplier goalieSupplier;
@@ -29,12 +29,12 @@ public final class Website implements StatsProvider
   private Set<NumberedTeam> numberedTeams;
 
   @Inject
-  Website(final UrlFunction<String> urlContentsGetter, final Function<String, Set<NumberedTeam>> toTeamsFunction,
+  Website(final UrlFunction<String> urlToContentFunction, final Function<String, Set<NumberedTeam>> toTeamsFunction,
         final PlayerSupplier playerSupplier, final GoalieSupplier goalieSupplier,
         @Named("Players") final TeamNumToNodeListFunction playerTableRowNodeListSupplier,
         @Named("Goalies") final TeamNumToNodeListFunction goalieTableRowNodeListSupplier)
   {
-    this.urlContentsGetter = urlContentsGetter;
+    this.urlToContentFunction = urlToContentFunction;
     this.toTeamsFunction = toTeamsFunction;
     this.playerSupplier = playerSupplier;
     this.goalieSupplier = goalieSupplier;
@@ -52,7 +52,7 @@ public final class Website implements StatsProvider
   {
     if (numberedTeams == null)
     {
-      final String playerStatsHtml = urlContentsGetter.convert(Urls.getPlayerStatsUrl());
+      final String playerStatsHtml = urlToContentFunction.convert(Urls.getPlayerStatsUrl());
       numberedTeams = toTeamsFunction.apply(playerStatsHtml);
     }
     return numberedTeams;

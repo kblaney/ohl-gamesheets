@@ -28,7 +28,7 @@ public final class WebsiteTest
 {
   private URL url;
   private String playerStatsHtml;
-  private UrlFunction<String> urlContentsGetter;
+  private UrlFunction<String> urlToContentFunction;
   private Function<String, Set<NumberedTeam>> toTeamsFunction;
   private PlayerSupplier playerSupplier;
   private GoalieSupplier goalieSupplier;
@@ -45,14 +45,14 @@ public final class WebsiteTest
   {
     url = Urls.getPlayerStatsUrl();
     playerStatsHtml = "PLAYER_STATS_HTML";
-    urlContentsGetter = mock(UrlFunction.class);
-    when(urlContentsGetter.convert(url)).thenReturn(playerStatsHtml);
+    urlToContentFunction = mock(UrlFunction.class);
+    when(urlToContentFunction.convert(url)).thenReturn(playerStatsHtml);
     toTeamsFunction = mock(Function.class);
     playerSupplier = mock(PlayerSupplier.class);
     goalieSupplier = mock(GoalieSupplier.class);
     playerTableRowNodeListSupplier = mock(TeamNumToNodeListFunction.class);
     goalieTableRowNodeListSupplier = mock(TeamNumToNodeListFunction.class);
-    website = new Website(urlContentsGetter, toTeamsFunction, playerSupplier, goalieSupplier,
+    website = new Website(urlToContentFunction, toTeamsFunction, playerSupplier, goalieSupplier,
           playerTableRowNodeListSupplier, goalieTableRowNodeListSupplier);
     team = mock(Team.class);
     progressIndicator = mock(ProgressIndicator.class);
