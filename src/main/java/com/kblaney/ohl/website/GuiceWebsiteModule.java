@@ -12,8 +12,8 @@ import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerType;
-import com.kblaney.xml.JtidyUrlToDomDocumentFunction;
 import com.kblaney.xml.UrlToDomDocumentFunction;
+import com.kblaney.xml.UrlReader;
 import java.util.Set;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -72,9 +72,9 @@ public final class GuiceWebsiteModule extends AbstractModule
 
   @SuppressWarnings("unused")
   @Provides
-  private UrlToDomDocumentFunction provideUrlToDomDocumentFunction()
+  private UrlReader<Document> provideUrlToDomDocumentFunction()
   {
     final int maxNumAttempts = 10;
-    return new JtidyUrlToDomDocumentFunction(maxNumAttempts);
+    return new UrlToDomDocumentFunction(maxNumAttempts);
   }
 }

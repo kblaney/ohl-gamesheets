@@ -2,17 +2,17 @@ package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
-import com.kblaney.xml.UrlToDomDocumentFunction;
+import com.kblaney.xml.UrlReader;
 import java.io.IOException;
 import java.net.URL;
 import org.w3c.dom.Document;
 
 final class PlayerIdToBioDocumentFunction implements Function<String, Document>
 {
-  private final UrlToDomDocumentFunction urlToDomDocumentFunction;
+  private final UrlReader<Document> urlToDomDocumentFunction;
 
   @Inject
-  public PlayerIdToBioDocumentFunction(final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  public PlayerIdToBioDocumentFunction(final UrlReader<Document> urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -22,7 +22,7 @@ final class PlayerIdToBioDocumentFunction implements Function<String, Document>
     final URL url = Urls.getPlayerBioUrl(playerId);
     try
     {
-      return urlToDomDocumentFunction.apply(url);
+      return urlToDomDocumentFunction.readFrom(url);
     }
     catch (final IOException e)
     {
