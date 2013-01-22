@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -36,37 +36,37 @@ public final class PlayerBio
 
     public Builder setBirthYear(final String birthYear)
     {
-      this.birthYear = ArgAssert.notNull(birthYear, "birthYear");
+      this.birthYear = ArgAssert.assertNotNull(birthYear, "birthYear");
       return this;
     }
 
     public Builder setPosition(final String position)
     {
-      this.position = ArgAssert.notNull(position, "position");
+      this.position = ArgAssert.assertNotNull(position, "position");
       return this;
     }
 
     public Builder setHeight(final String height)
     {
-      this.height = ArgAssert.notNull(height, "height");
+      this.height = ArgAssert.assertNotNull(height, "height");
       return this;
     }
 
     public Builder setWeight(final String weight)
     {
-      this.weight = ArgAssert.notNull(weight, "weight");
+      this.weight = ArgAssert.assertNotNull(weight, "weight");
       return this;
     }
 
     public Builder setHometown(final String hometown)
     {
-      this.hometown = ArgAssert.notNull(hometown, "hometown");
+      this.hometown = ArgAssert.assertNotNull(hometown, "hometown");
       return this;
     }
 
     public Builder setGameByGameFilePath(final String gameByGameFilePath)
     {
-      this.gameByGameFilePath = ArgAssert.notNull(gameByGameFilePath, "gameByGameFilePath");
+      this.gameByGameFilePath = ArgAssert.assertNotNull(gameByGameFilePath, "gameByGameFilePath");
       return this;
     }
   }

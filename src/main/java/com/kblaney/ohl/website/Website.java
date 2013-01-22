@@ -6,7 +6,7 @@ import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.kblaney.commons.io.UrlContentsGetter;
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.Team;
@@ -67,8 +67,8 @@ public final class Website implements StatsProvider
   public List<Player> getPlayers(final Team team,
         final ProgressIndicator progressIndicator) throws IOException
   {
-    ArgAssert.notNull(team, "team");
-    ArgAssert.notNull(progressIndicator, "progressIndicator");
+    ArgAssert.assertNotNull(team, "team");
+    ArgAssert.assertNotNull(progressIndicator, "progressIndicator");
 
     final NodeList tableRowNodeList = playerTableRowNodeListSupplier.apply(
           getTeamNum(team));
@@ -104,7 +104,7 @@ public final class Website implements StatsProvider
   public List<Goalie> getGoalies(final Team team,
         final ProgressIndicator progressIndicator) throws IOException
   {
-    ArgAssert.notNull(team, "team");
+    ArgAssert.assertNotNull(team, "team");
 
     final NodeList tableRowNodeList = goalieTableRowNodeListSupplier.apply(
           getTeamNum(team));

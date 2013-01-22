@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 public final class GoalieStats
@@ -40,82 +40,76 @@ public final class GoalieStats
 
     public Builder setGoalsAgainstAverage(final double goalsAgainstAverage)
     {
-      this.goalsAgainstAverage =
-            ArgAssert.notNegative(goalsAgainstAverage, "goalsAgainstAverage");
+      ArgAssert.assertTrue(goalsAgainstAverage >= 0, "goalsAgainstAverage >= 0");
+
+      this.goalsAgainstAverage = goalsAgainstAverage;
       return this;
     }
 
     public Builder setNumGamesPlayed(final int numGamesPlayed)
     {
-      this.numGamesPlayed =
-            ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
+      this.numGamesPlayed = ArgAssert.assertNotNegative(numGamesPlayed, "numGamesPlayed");
       return this;
     }
 
     public Builder setNumGoalsAgainst(final int numGoalsAgainst)
     {
-      this.numGoalsAgainst =
-            ArgAssert.notNegative(numGoalsAgainst, "numGoalsAgainst");
+      this.numGoalsAgainst = ArgAssert.assertNotNegative(numGoalsAgainst, "numGoalsAgainst");
       return this;
     }
 
     public Builder setNumRegulationLosses(final int numRegulationLosses)
     {
-      this.numRegulationLosses =
-            ArgAssert.notNegative(numRegulationLosses, "numRegulationLosses");
+      this.numRegulationLosses = ArgAssert.assertNotNegative(numRegulationLosses, "numRegulationLosses");
       return this;
     }
 
     public Builder setNumMinutesPlayed(final int numMinutesPlayed)
     {
-      this.numMinutesPlayed =
-            ArgAssert.notNegative(numMinutesPlayed, "numMinutesPlayed");
+      this.numMinutesPlayed = ArgAssert.assertNotNegative(numMinutesPlayed, "numMinutesPlayed");
       return this;
     }
 
     public Builder setNumSaves(final int numSaves)
     {
-      this.numSaves = ArgAssert.notNegative(numSaves, "numSaves");
+      this.numSaves = ArgAssert.assertNotNegative(numSaves, "numSaves");
       return this;
     }
 
     public Builder setNumShotsAgainst(final int numShotsAgainst)
     {
-      this.numShotsAgainst =
-            ArgAssert.notNegative(numShotsAgainst, "numShotsAgainst");
+      this.numShotsAgainst = ArgAssert.assertNotNegative(numShotsAgainst, "numShotsAgainst");
       return this;
     }
 
     public Builder setNumShutouts(final int numShutouts)
     {
-      this.numShutouts = ArgAssert.notNegative(numShutouts, "numShutouts");
+      this.numShutouts = ArgAssert.assertNotNegative(numShutouts, "numShutouts");
       return this;
     }
 
     public Builder setNumOvertimeLosses(final int numOvertimeLosses)
     {
-      this.numOvertimeLosses =
-            ArgAssert.notNegative(numOvertimeLosses, "numOvertimeLosses");
+      this.numOvertimeLosses = ArgAssert.assertNotNegative(numOvertimeLosses, "numOvertimeLosses");
       return this;
     }
 
     public Builder setNumShootoutLosses(final int numShootoutLosses)
     {
-      this.numShootoutLosses =
-            ArgAssert.notNegative(numShootoutLosses, "numShootoutLosses");
+      this.numShootoutLosses = ArgAssert.assertNotNegative(numShootoutLosses, "numShootoutLosses");
       return this;
     }
 
     public Builder setNumWins(final int numWins)
     {
-      this.numWins = ArgAssert.notNegative(numWins, "numWins");
+      this.numWins = ArgAssert.assertNotNegative(numWins, "numWins");
       return this;
     }
 
     public Builder setSavePercentage(final double savePercentage)
     {
-      ArgAssert.notNegative(savePercentage, "savePercentage");
-      ArgAssert.notTooLarge(savePercentage, 1, "savePercentage");
+      ArgAssert.assertTrue(savePercentage >= 0, "savePercentage >= 0");
+      ArgAssert.assertTrue(savePercentage <= 1, "savePercentage <= 1");
 
       this.savePercentage = savePercentage;
       return this;
@@ -135,20 +129,69 @@ public final class GoalieStats
   private double goalsAgainstAverage;
   private double savePercentage;
 
-  private GoalieStats() {}
+  private GoalieStats()
+  {
+  }
 
-  public int getNumGamesPlayed() { return numGamesPlayed; }
-  public int getNumMinutesPlayed() { return numMinutesPlayed; }
-  public int getNumWins() { return numWins; }
-  public int getNumRegulationLosses() { return numRegulationLosses; }
-  public int getNumOvertimeLosses() { return numOvertimeLosses; }
-  public int getNumShootoutLosses() { return numShootoutLosses; }
-  public int getNumShutouts() { return numShutouts; }
-  public int getNumShotsAgainst() { return numShotsAgainst; }
-  public int getNumGoalsAgainst() { return numGoalsAgainst; }
-  public int getNumSaves() { return numSaves; }
-  public double getGoalsAgainstAverage() { return goalsAgainstAverage; }
-  public double getSavePercentage() { return savePercentage; }
+  public int getNumGamesPlayed()
+  {
+    return numGamesPlayed;
+  }
+
+  public int getNumMinutesPlayed()
+  {
+    return numMinutesPlayed;
+  }
+
+  public int getNumWins()
+  {
+    return numWins;
+  }
+
+  public int getNumRegulationLosses()
+  {
+    return numRegulationLosses;
+  }
+
+  public int getNumOvertimeLosses()
+  {
+    return numOvertimeLosses;
+  }
+
+  public int getNumShootoutLosses()
+  {
+    return numShootoutLosses;
+  }
+
+  public int getNumShutouts()
+  {
+    return numShutouts;
+  }
+
+  public int getNumShotsAgainst()
+  {
+    return numShotsAgainst;
+  }
+
+  public int getNumGoalsAgainst()
+  {
+    return numGoalsAgainst;
+  }
+
+  public int getNumSaves()
+  {
+    return numSaves;
+  }
+
+  public double getGoalsAgainstAverage()
+  {
+    return goalsAgainstAverage;
+  }
+
+  public double getSavePercentage()
+  {
+    return savePercentage;
+  }
 
   @Override
   public boolean equals(final Object thatObject)
@@ -160,18 +203,12 @@ public final class GoalieStats
     if (thatObject.getClass().equals(getClass()))
     {
       final GoalieStats that = (GoalieStats) thatObject;
-      return ((numGamesPlayed == that.numGamesPlayed) &&
-            (numMinutesPlayed == that.numMinutesPlayed) &&
-            (numWins == that.numWins) &&
-            (numRegulationLosses == that.numRegulationLosses) &&
-            (numOvertimeLosses == that.numOvertimeLosses) &&
-            (numShootoutLosses == that.numShootoutLosses) &&
-            (numShutouts == that.numShutouts) &&
-            (numShotsAgainst == that.numShotsAgainst) &&
-            (numSaves == that.numSaves) &&
-            (numGoalsAgainst == that.numGoalsAgainst) &&
-            (goalsAgainstAverage == that.goalsAgainstAverage) &&
-            (savePercentage == that.savePercentage));
+      return ((numGamesPlayed == that.numGamesPlayed) && (numMinutesPlayed == that.numMinutesPlayed) &&
+            (numWins == that.numWins) && (numRegulationLosses == that.numRegulationLosses) &&
+            (numOvertimeLosses == that.numOvertimeLosses) && (numShootoutLosses == that.numShootoutLosses) &&
+            (numShutouts == that.numShutouts) && (numShotsAgainst == that.numShotsAgainst) &&
+            (numSaves == that.numSaves) && (numGoalsAgainst == that.numGoalsAgainst) &&
+            (goalsAgainstAverage == that.goalsAgainstAverage) && (savePercentage == that.savePercentage));
     }
     return false;
   }
@@ -179,11 +216,9 @@ public final class GoalieStats
   @Override
   public int hashCode()
   {
-    return new HashCodeBuilder().append(numGamesPlayed).append(numWins).
-          append(numRegulationLosses).append(numOvertimeLosses).
-          append(numShootoutLosses).append(numShutouts).append(numShotsAgainst).
-          append(numSaves).append(numGoalsAgainst).append(goalsAgainstAverage).
-          append(savePercentage).toHashCode();
+    return new HashCodeBuilder().append(numGamesPlayed).append(numWins).append(numRegulationLosses)
+          .append(numOvertimeLosses).append(numShootoutLosses).append(numShutouts).append(numShotsAgainst)
+          .append(numSaves).append(numGoalsAgainst).append(goalsAgainstAverage).append(savePercentage).toHashCode();
   }
 
   @Override

@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 
 public final class PlayerStats
 {
@@ -31,26 +31,25 @@ public final class PlayerStats
 
     public Builder setNumGamesPlayed(final int numGamesPlayed)
     {
-      this.numGamesPlayed =
-            ArgAssert.notNegative(numGamesPlayed, "numGamesPlayed");
+      this.numGamesPlayed = ArgAssert.assertNotNegative(numGamesPlayed, "numGamesPlayed");
       return this;
     }
 
     public Builder setNumGoals(final int numGoals)
     {
-      this.numGoals = ArgAssert.notNegative(numGoals, "numGoals");
+      this.numGoals = ArgAssert.assertNotNegative(numGoals, "numGoals");
       return this;
     }
 
     public Builder setNumAssists(final int numAssists)
     {
-      this.numAssists = ArgAssert.notNegative(numAssists, "numAssists");
+      this.numAssists = ArgAssert.assertNotNegative(numAssists, "numAssists");
       return this;
     }
 
     public Builder setNumPoints(final int numPoints)
     {
-      this.numPoints = ArgAssert.notNegative(numPoints, "numPoints");
+      this.numPoints = ArgAssert.assertNotNegative(numPoints, "numPoints");
       return this;
     }
 
@@ -62,22 +61,19 @@ public final class PlayerStats
 
     public Builder setNumPenaltyMinutes(final int numPenaltyMinutes)
     {
-      this.numPenaltyMinutes =
-            ArgAssert.notNegative(numPenaltyMinutes, "numPenaltyMinutes");
+      this.numPenaltyMinutes = ArgAssert.assertNotNegative(numPenaltyMinutes, "numPenaltyMinutes");
       return this;
     }
 
     public Builder setNumPowerPlayGoals(final int numPowerPlayGoals)
     {
-      this.numPowerPlayGoals =
-            ArgAssert.notNegative(numPowerPlayGoals, "numPowerPlayGoals");
+      this.numPowerPlayGoals = ArgAssert.assertNotNegative(numPowerPlayGoals, "numPowerPlayGoals");
       return this;
     }
 
     public Builder setNumShorthandedGoals(final int numShorthandedGoals)
     {
-      this.numShorthandedGoals =
-            ArgAssert.notNegative(numShorthandedGoals, "numShorthandedGoals");
+      this.numShorthandedGoals = ArgAssert.assertNotNegative(numShorthandedGoals, "numShorthandedGoals");
       return this;
     }
   }
@@ -91,14 +87,47 @@ public final class PlayerStats
   private int numPowerPlayGoals;
   private int numShorthandedGoals;
 
-  private PlayerStats() {}
+  private PlayerStats()
+  {
+  }
 
-  public int getNumGamesPlayed() { return numGamesPlayed; }
-  public int getNumGoals() { return numGoals; }
-  public int getNumAssists() { return numAssists; }
-  public int getNumPoints() { return numPoints; }
-  public int getPlusMinus() { return plusMinus; }
-  public int getNumPenaltyMinutes() { return numPenaltyMinutes; }
-  public int getNumPowerPlayGoals() { return numPowerPlayGoals; }
-  public int getNumShorthandedGoals() { return numShorthandedGoals; }
+  public int getNumGamesPlayed()
+  {
+    return numGamesPlayed;
+  }
+
+  public int getNumGoals()
+  {
+    return numGoals;
+  }
+
+  public int getNumAssists()
+  {
+    return numAssists;
+  }
+
+  public int getNumPoints()
+  {
+    return numPoints;
+  }
+
+  public int getPlusMinus()
+  {
+    return plusMinus;
+  }
+
+  public int getNumPenaltyMinutes()
+  {
+    return numPenaltyMinutes;
+  }
+
+  public int getNumPowerPlayGoals()
+  {
+    return numPowerPlayGoals;
+  }
+
+  public int getNumShorthandedGoals()
+  {
+    return numShorthandedGoals;
+  }
 }

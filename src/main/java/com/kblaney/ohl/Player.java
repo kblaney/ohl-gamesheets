@@ -1,7 +1,7 @@
 package com.kblaney.ohl;
 
 import com.google.common.base.Optional;
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 
 public final class Player
 {
@@ -16,17 +16,17 @@ public final class Player
         final Optional<Integer> sweaterNum, final PlayerStats stats, final PlayerBio bio,
         final PlayerStreaks streaks)
   {
-    this.name = ArgAssert.notNull(name, "name");
-    this.type = ArgAssert.notNull(type, "playerType");
+    this.name = ArgAssert.assertNotNull(name, "name");
+    this.type = ArgAssert.assertNotNull(type, "playerType");
     this.sweaterNum = sweaterNum;
-    this.stats = ArgAssert.notNull(stats, "stats");
-    this.bio = ArgAssert.notNull(bio, "bio");
-    this.streaks = ArgAssert.notNull(streaks, "streaks");
+    this.stats = ArgAssert.assertNotNull(stats, "stats");
+    this.bio = ArgAssert.assertNotNull(bio, "bio");
+    this.streaks = ArgAssert.assertNotNull(streaks, "streaks");
 
     if (sweaterNum.isPresent())
     {
       final int minSweaterNum = 1;
-      ArgAssert.notTooSmall(sweaterNum.get(), minSweaterNum, "Sweater number must be positive: " + sweaterNum);
+      ArgAssert.assertGreaterThanOrEqual(sweaterNum.get(), minSweaterNum, "sweaterNum");
     }
   }
 

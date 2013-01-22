@@ -1,6 +1,6 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -11,8 +11,8 @@ public final class Goalie
 
   public Goalie(final String name, final GoalieStats stats)
   {
-    this.name = ArgAssert.notNull(name, "name");
-    this.stats = ArgAssert.notNull(stats, "stats");
+    this.name = ArgAssert.assertNotNull(name, "name");
+    this.stats = ArgAssert.assertNotNull(stats, "stats");
   }
 
   public String getName() { return name; }

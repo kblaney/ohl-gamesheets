@@ -1,14 +1,14 @@
 package com.kblaney.ohl;
 
-import com.kblaney.commons.lang.ArgAssert;
+import com.kblaney.assertions.ArgAssert;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * One player's streaks.
- *
+ * 
  * <p>
- * Note that this class does not have a public constructor.  Rather, instances
- * are created using the PlayerStreaks.Builder class.
+ * Note that this class does not have a public constructor. Rather, instances are created using the
+ * PlayerStreaks.Builder class.
  * </p>
  */
 public final class PlayerStreaks
@@ -30,19 +30,19 @@ public final class PlayerStreaks
 
     public Builder setGoalStreak(final int goalStreak)
     {
-      this.goalStreak = ArgAssert.notNegative(goalStreak, "goalStreak");
+      this.goalStreak = ArgAssert.assertNotNegative(goalStreak, "goalStreak");
       return this;
     }
 
     public Builder setAssistStreak(final int assistStreak)
     {
-      this.assistStreak = ArgAssert.notNegative(assistStreak, "assistStreak");
+      this.assistStreak = ArgAssert.assertNotNegative(assistStreak, "assistStreak");
       return this;
     }
 
     public Builder setPointStreak(final int pointStreak)
     {
-      this.pointStreak = ArgAssert.notNegative(pointStreak, "pointStreak");
+      this.pointStreak = ArgAssert.assertNotNegative(pointStreak, "pointStreak");
       return this;
     }
   }
@@ -51,11 +51,24 @@ public final class PlayerStreaks
   private int assistStreak;
   private int pointStreak;
 
-  private PlayerStreaks() {}
+  private PlayerStreaks()
+  {
+  }
 
-  public int getGoalStreak() { return goalStreak; }
-  public int getAssistStreak() { return assistStreak; }
-  public int getPointStreak() { return pointStreak; }
+  public int getGoalStreak()
+  {
+    return goalStreak;
+  }
+
+  public int getAssistStreak()
+  {
+    return assistStreak;
+  }
+
+  public int getPointStreak()
+  {
+    return pointStreak;
+  }
 
   @Override
   public boolean equals(final Object thatObject)
@@ -68,9 +81,7 @@ public final class PlayerStreaks
     if (thatObject.getClass().equals(getClass()))
     {
       final PlayerStreaks that = (PlayerStreaks) thatObject;
-      return ((goalStreak == that.goalStreak) &&
-            (assistStreak == that.assistStreak) &&
-            (pointStreak == that.pointStreak));
+      return ((goalStreak == that.goalStreak) && (assistStreak == that.assistStreak) && (pointStreak == that.pointStreak));
     }
     else
     {
@@ -81,8 +92,7 @@ public final class PlayerStreaks
   @Override
   public int hashCode()
   {
-    return new HashCodeBuilder().append(goalStreak).append(assistStreak).
-          append(pointStreak).toHashCode();
+    return new HashCodeBuilder().append(goalStreak).append(assistStreak).append(pointStreak).toHashCode();
   }
 
   @Override

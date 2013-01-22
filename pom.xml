@@ -67,9 +67,9 @@
   </reporting>
   <dependencies>
     <dependency>
-      <groupId>com.kblaney.commons</groupId>
-      <artifactId>kblaney-commons-lang</artifactId>
-      <version>1.0</version>
+       <groupId>com.kblaney</groupId>
+       <artifactId>kblaney-assert</artifactId>
+       <version>0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.kblaney.commons</groupId>
