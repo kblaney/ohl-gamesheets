@@ -1,13 +1,12 @@
 package com.kblaney.ohl.website;
 
+import com.kblaney.url.UrlToContentFunction;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import com.kblaney.commons.io.UrlContentsGetter;
-import com.kblaney.commons.io.UsAsciiUrlContentsGetter;
 import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
@@ -24,7 +23,7 @@ public final class GuiceWebsiteModule extends AbstractModule
   @Override
   protected void configure()
   {
-    bind(UrlContentsGetter.class).to(UsAsciiUrlContentsGetter.class);
+    bind(UrlFunction.class).to(UrlToContentFunction.class);
     bind(new TypeLiteral<Function<String, Set<NumberedTeam>>>()
     {
     }).to(PlayerStatsHtmlToTeamsFunction.class);

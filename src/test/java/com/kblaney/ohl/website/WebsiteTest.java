@@ -1,14 +1,11 @@
 package com.kblaney.ohl.website;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.GoalieStats;
 import com.kblaney.ohl.Player;
@@ -19,6 +16,7 @@ import com.kblaney.ohl.PlayerType;
 import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.ProgressIndicator;
+import com.kblaney.url.UrlFunction;
 import java.net.URL;
 import java.util.Set;
 import org.junit.Before;
@@ -30,7 +28,7 @@ public final class WebsiteTest
 {
   private URL url;
   private String playerStatsHtml;
-  private UrlContentsGetter urlContentsGetter;
+  private UrlFunction<String> urlContentsGetter;
   private Function<String, Set<NumberedTeam>> toTeamsFunction;
   private PlayerSupplier playerSupplier;
   private GoalieSupplier goalieSupplier;
@@ -47,8 +45,8 @@ public final class WebsiteTest
   {
     url = Urls.getPlayerStatsUrl();
     playerStatsHtml = "PLAYER_STATS_HTML";
-    urlContentsGetter = mock(UrlContentsGetter.class);
-    when(urlContentsGetter.getContentsOf(url)).thenReturn(playerStatsHtml);
+    urlContentsGetter = mock(UrlFunction.class);
+    when(urlContentsGetter.convert(url)).thenReturn(playerStatsHtml);
     toTeamsFunction = mock(Function.class);
     playerSupplier = mock(PlayerSupplier.class);
     goalieSupplier = mock(GoalieSupplier.class);

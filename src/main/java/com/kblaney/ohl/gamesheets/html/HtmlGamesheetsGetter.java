@@ -1,15 +1,13 @@
 package com.kblaney.ohl.gamesheets.html;
 
-import com.kblaney.ohl.StatsProvider;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
-import com.kblaney.commons.html.HtmlUtil;
-import com.kblaney.commons.lang.SystemUtil;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
 import com.kblaney.ohl.PlayerPointsComparator;
+import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.Gamesheets;
 import com.kblaney.ohl.gamesheets.GamesheetsGetter;
@@ -62,11 +60,11 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
     final List<Goalie> goalies = statsProvider.getGoalies(team, progressIndicator);
 
     final StringBuilder s = new StringBuilder(getTeamHeading(team));
-    s.append(SystemUtil.LINE_SEPARATOR);
+    s.append(Systems.LINE_SEPARATOR);
     s.append(playersToHtmlTableFunction.apply(activePlayers));
-    s.append(SystemUtil.LINE_SEPARATOR);
-    s.append(HtmlUtil.LINE_BREAK);
-    s.append(SystemUtil.LINE_SEPARATOR);
+    s.append(Systems.LINE_SEPARATOR);
+    s.append(HtmlSpecialCharacters.LINE_BREAK);
+    s.append(Systems.LINE_SEPARATOR);
     s.append(goaliesToHtmlTableFunction.apply(goalies));
     return s.toString();
   }
@@ -78,14 +76,14 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
 
   private String getTeamHeading(final Team team)
   {
-    return HtmlUtil.getH3Heading(team.getName());
+    return HtmlHeadings.getH3Heading(team.getName());
   }
 
   private String getHomeTeamGamesheet(final Team homeTeam, final Team roadTeam, final Calendar gameDate,
         final ProgressIndicator progressIndicator) throws IOException
   {
     final StringBuilder s = new StringBuilder(getGameHeading(homeTeam, roadTeam, gameDate));
-    s.append(SystemUtil.LINE_SEPARATOR);
+    s.append(Systems.LINE_SEPARATOR);
     s.append(getGamesheet(homeTeam, progressIndicator));
 
     return s.toString();
@@ -98,6 +96,6 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
     final StringBuffer bufferToAppendTo = new StringBuffer();
     final StringBuffer formattedGameDate = simpleDateFormat.format(gameDate.getTime(), bufferToAppendTo, fieldPosition);
 
-    return HtmlUtil.getH3Heading(roadTeam.getName() + " @ " + homeTeam.getName() + " - " + formattedGameDate);
+    return HtmlHeadings.getH3Heading(roadTeam.getName() + " @ " + homeTeam.getName() + " - " + formattedGameDate);
   }
 }

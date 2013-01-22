@@ -1,17 +1,17 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.ohl.Teams;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.kblaney.commons.io.UrlContentsGetter;
 import com.kblaney.assertions.ArgAssert;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
-import com.kblaney.ohl.Team;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import com.kblaney.ohl.StatsProvider;
+import com.kblaney.ohl.Team;
+import com.kblaney.ohl.Teams;
+import com.kblaney.ohl.gamesheets.ProgressIndicator;
+import com.kblaney.url.UrlFunction;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +20,7 @@ import org.w3c.dom.NodeList;
 
 public final class Website implements StatsProvider
 {
-  private final UrlContentsGetter urlContentsGetter;
+  private final UrlFunction<String> urlContentsGetter;
   private final Function<String, Set<NumberedTeam>> toTeamsFunction;
   private final PlayerSupplier playerSupplier;
   private final GoalieSupplier goalieSupplier;
@@ -29,7 +29,7 @@ public final class Website implements StatsProvider
   private Set<NumberedTeam> numberedTeams;
 
   @Inject
-  Website(final UrlContentsGetter urlContentsGetter, final Function<String, Set<NumberedTeam>> toTeamsFunction,
+  Website(final UrlFunction<String> urlContentsGetter, final Function<String, Set<NumberedTeam>> toTeamsFunction,
         final PlayerSupplier playerSupplier, final GoalieSupplier goalieSupplier,
         @Named("Players") final TeamNumToNodeListFunction playerTableRowNodeListSupplier,
         @Named("Goalies") final TeamNumToNodeListFunction goalieTableRowNodeListSupplier)
@@ -52,7 +52,7 @@ public final class Website implements StatsProvider
   {
     if (numberedTeams == null)
     {
-      final String playerStatsHtml = urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
+      final String playerStatsHtml = urlContentsGetter.convert(Urls.getPlayerStatsUrl());
       numberedTeams = toTeamsFunction.apply(playerStatsHtml);
     }
     return numberedTeams;

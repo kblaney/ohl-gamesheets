@@ -4,6 +4,17 @@ import com.kblaney.assertions.ArgAssert;
 
 final class HtmlTables
 {
+  public static final String TABLE_START =
+        "<table border=\"1\" cellspacing=\"0\" cellpadding=\"1\">";
+  public static final String TABLE_END = "</table>";
+  public static final String TABLE_ROW_START = "<tr>";
+  public static final String TABLE_ROW_END = "</tr>";
+
+  public static String getRightAlignedTdElement(final int value)
+  {
+    return getRightAlignedTdElement(Integer.toString(value));
+  }
+
   public static String getRightAlignedTdElement(final String value)
   {
     return getTableElement(value, /* isRightAligned= */true);
@@ -25,8 +36,7 @@ final class HtmlTables
 
     if (value.equals(""))
     {
-      final String nonBreakingSpace = "&nbsp;";
-      s.append(nonBreakingSpace);
+      s.append(HtmlSpecialCharacters.NON_BREAKING_SPACE);
     }
     else
     {
