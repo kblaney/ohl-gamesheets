@@ -1,11 +1,11 @@
 package com.kblaney.ohl.website;
 
-import java.net.URL;
-import com.kblaney.commons.xml.UrlToDomDocumentFunction;
-import org.junit.Before;
-import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
+import com.kblaney.xml.UrlToDomDocumentFunction;
+import java.net.URL;
+import org.junit.Before;
+import org.junit.Test;
 
 public final class ToPlayerTableRowNodeListFunctionTest
 {

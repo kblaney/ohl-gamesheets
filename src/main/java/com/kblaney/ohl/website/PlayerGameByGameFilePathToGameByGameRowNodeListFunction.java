@@ -2,7 +2,7 @@ package com.kblaney.ohl.website;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;
-import com.kblaney.commons.xml.UrlToDomDocumentFunction;
+import com.kblaney.xml.UrlToDomDocumentFunction;
 import java.io.IOException;
 import java.net.URL;
 import javax.xml.transform.TransformerException;

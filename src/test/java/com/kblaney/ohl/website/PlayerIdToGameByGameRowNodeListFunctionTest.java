@@ -1,14 +1,14 @@
 package com.kblaney.ohl.website;
 
-import java.net.URL;
-import java.io.IOException;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import com.google.common.base.Function;
-import com.kblaney.commons.xml.UrlToDomDocumentFunction;
+import com.kblaney.xml.UrlToDomDocumentFunction;
+import java.io.IOException;
+import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.NodeList;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public final class PlayerIdToGameByGameRowNodeListFunctionTest
 {
