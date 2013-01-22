@@ -12,9 +12,11 @@ public final class GuiceHtmlGamesheetsModule extends AbstractModule
   @Override
   protected void configure()
   {
-    bind(new TypeLiteral<Function<List<Player>, String>>() {}).
-          to(PlayerHtmlTableGetter.class);
-    bind(new TypeLiteral<Function<List<Goalie>, String>>() {}).
-          to(GoalieHtmlTableGetter.class);
+    bind(new TypeLiteral<Function<List<Player>, String>>()
+    {
+    }).to(PlayerHtmlTableGetter.class);
+    bind(new TypeLiteral<Function<List<Goalie>, String>>()
+    {
+    }).to(GoalieHtmlTableGetter.class);
   }
 }

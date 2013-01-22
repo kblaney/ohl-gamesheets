@@ -6,17 +6,14 @@ import javax.xml.transform.TransformerException;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 
-final class PlayerBioDivNodeToWeightFunction
-      implements Function<Node, String>
+final class PlayerBioDivNodeToWeightFunction implements Function<Node, String>
 {
   public String apply(final Node bioDivNode)
   {
     try
     {
-      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode,
-            "//tr[td='Weight']");
-      final String weight =
-            Nodes.getFirstChildNodeValueOrEmpty(rowNode.getLastChild());
+      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode, "//tr[td='Weight']");
+      final String weight = Nodes.getFirstChildNodeValueOrEmpty(rowNode.getLastChild());
       if (weight.equals("0"))
       {
         return StringUtils.EMPTY;

@@ -20,21 +20,18 @@ public final class PlayerTableRowNodeToPlayerTypeFunctionTest
   @Test
   public void apply_rookie() throws Exception
   {
-    assertEquals(PlayerType.ROOKIE, function.apply(
-          new XmlToDomElementFunction().apply("<tr><td>*</td></tr>")));
+    assertEquals(PlayerType.ROOKIE, function.apply(new XmlToDomElementFunction().apply("<tr><td>*</td></tr>")));
   }
 
   @Test
   public void apply_veteran() throws Exception
   {
-    assertEquals(PlayerType.VETERAN, function.apply(
-          new XmlToDomElementFunction().apply("<tr><td>\u00A0</td></tr>")));
+    assertEquals(PlayerType.VETERAN, function.apply(new XmlToDomElementFunction().apply("<tr><td>\u00A0</td></tr>")));
   }
 
   @Test
   public void apply_notActive() throws Exception
   {
-    assertEquals(PlayerType.NOT_ACTIVE, function.apply(
-          new XmlToDomElementFunction().apply("<tr><td><img/></td></tr>")));
+    assertEquals(PlayerType.NOT_ACTIVE, function.apply(new XmlToDomElementFunction().apply("<tr><td><img/></td></tr>")));
   }
 }

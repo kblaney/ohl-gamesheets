@@ -12,9 +12,8 @@ public final class Player
   private final PlayerBio bio;
   private final PlayerStreaks streaks;
 
-  public Player(final String name, final PlayerType type,
-        final Optional<Integer> sweaterNum, final PlayerStats stats, final PlayerBio bio,
-        final PlayerStreaks streaks)
+  public Player(final String name, final PlayerType type, final Optional<Integer> sweaterNum, final PlayerStats stats,
+        final PlayerBio bio, final PlayerStreaks streaks)
   {
     this.name = ArgAssert.assertNotNull(name, "name");
     this.type = ArgAssert.assertNotNull(type, "playerType");
@@ -30,10 +29,33 @@ public final class Player
     }
   }
 
-  public String getName() { return name; }
-  public PlayerType getType() { return type; }
-  public Optional<Integer> getSweaterNum() { return sweaterNum; }
-  public PlayerStats getStats() { return stats; }
-  public PlayerBio getBio() { return bio; }
-  public PlayerStreaks getStreaks() { return streaks; }
+  public String getName()
+  {
+    return name;
+  }
+
+  public PlayerType getType()
+  {
+    return type;
+  }
+
+  public Optional<Integer> getSweaterNum()
+  {
+    return sweaterNum;
+  }
+
+  public PlayerStats getStats()
+  {
+    return stats;
+  }
+
+  public PlayerBio getBio()
+  {
+    return bio;
+  }
+
+  public PlayerStreaks getStreaks()
+  {
+    return streaks;
+  }
 }

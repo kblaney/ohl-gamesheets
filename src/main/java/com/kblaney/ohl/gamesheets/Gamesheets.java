@@ -5,8 +5,7 @@ public final class Gamesheets
   private final String homeTeamGamesheet;
   private final String roadTeamGamesheet;
 
-  public Gamesheets(final String homeTeamGamesheet,
-        final String roadTeamGamesheet)
+  public Gamesheets(final String homeTeamGamesheet, final String roadTeamGamesheet)
   {
     this.homeTeamGamesheet = homeTeamGamesheet;
     this.roadTeamGamesheet = roadTeamGamesheet;

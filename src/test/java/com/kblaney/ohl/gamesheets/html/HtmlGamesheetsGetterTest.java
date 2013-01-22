@@ -32,8 +32,8 @@ public final class HtmlGamesheetsGetterTest
     statsProvider = mock(StatsProvider.class);
     playersToHtmlTableFunction = mock(Function.class);
     goaliesToHtmlTableFunction = mock(Function.class);
-    htmlGamesheetsGetter = new HtmlGamesheetsGetter(statsProvider,
-          playersToHtmlTableFunction, goaliesToHtmlTableFunction);
+    htmlGamesheetsGetter = new HtmlGamesheetsGetter(statsProvider, playersToHtmlTableFunction,
+          goaliesToHtmlTableFunction);
     homeTeam = getTeamWithName("Belleville Bulls");
     roadTeam = getTeamWithName("Kingston Frontenacs");
     gameDate = mock(Calendar.class);
@@ -43,12 +43,9 @@ public final class HtmlGamesheetsGetterTest
   @Test
   public void getGamesheets_zeroPlayers() throws Exception
   {
-    when(statsProvider.getPlayers(any(Team.class), eq(progressIndicator))).
-          thenReturn(Collections.<Player>emptyList());
-    when(statsProvider.getGoalies(any(Team.class), eq(progressIndicator))).
-          thenReturn(Collections.<Goalie>emptyList());
-    htmlGamesheetsGetter.getGamesheets(homeTeam, roadTeam, gameDate,
-          progressIndicator);
+    when(statsProvider.getPlayers(any(Team.class), eq(progressIndicator))).thenReturn(Collections.<Player> emptyList());
+    when(statsProvider.getGoalies(any(Team.class), eq(progressIndicator))).thenReturn(Collections.<Goalie> emptyList());
+    htmlGamesheetsGetter.getGamesheets(homeTeam, roadTeam, gameDate, progressIndicator);
   }
 
   Team getTeamWithName(final String name)

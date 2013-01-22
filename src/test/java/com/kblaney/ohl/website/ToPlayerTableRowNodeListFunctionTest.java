@@ -27,8 +27,7 @@ public final class ToPlayerTableRowNodeListFunctionTest
   public void apply_noTableNode() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<a>" + getTableHeaderRow() + getPlayerTableRow() + "</a>"));
+          new XmlToDomDocumentFunction().apply("<a>" + getTableHeaderRow() + getPlayerTableRow() + "</a>"));
     function.apply(teamNum).getLength();
   }
 
@@ -46,8 +45,7 @@ public final class ToPlayerTableRowNodeListFunctionTest
   public void apply_zeroPlayers() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<table>" + getTableHeaderRow() + "</table>"));
+          new XmlToDomDocumentFunction().apply("<table>" + getTableHeaderRow() + "</table>"));
     assertEquals(0, function.apply(teamNum).getLength());
   }
 
@@ -55,10 +53,8 @@ public final class ToPlayerTableRowNodeListFunctionTest
   public void apply_twoPlayers() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<table>" + getTableHeaderRow() +
-          getPlayerTableRow() + getPlayerTableRow() +
-          "</table>"));
+          new XmlToDomDocumentFunction().apply("<table>" + getTableHeaderRow() + getPlayerTableRow() +
+                getPlayerTableRow() + "</table>"));
     assertEquals(2, function.apply(teamNum).getLength());
   }
 }

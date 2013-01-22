@@ -14,16 +14,14 @@ final class GoalieSupplierImpl implements GoalieSupplier
   private final Function<Node, GoalieStats> tableRowNodeToStatsFunction;
 
   @Inject
-  public GoalieSupplierImpl(
-        @Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
+  public GoalieSupplierImpl(@Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
         final Function<Node, GoalieStats> tableRowNodeToStatsFunction)
   {
     this.tableRowNodeToNameFunction = tableRowNodeToNameFunction;
     this.tableRowNodeToStatsFunction = tableRowNodeToStatsFunction;
   }
 
-  public Goalie get(final Node tableRowNode,
-        final ProgressIndicator progressIndicator)
+  public Goalie get(final Node tableRowNode, final ProgressIndicator progressIndicator)
   {
     final String name = tableRowNodeToNameFunction.apply(tableRowNode);
     progressIndicator.setPlayerInProgress(name);

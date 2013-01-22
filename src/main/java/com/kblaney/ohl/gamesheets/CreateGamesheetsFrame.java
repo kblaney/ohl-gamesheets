@@ -28,8 +28,7 @@ import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
 
 @SuppressWarnings("serial")
-final class CreateGamesheetsFrame extends JFrame
-      implements ActionListener, ProgressIndicator
+final class CreateGamesheetsFrame extends JFrame implements ActionListener, ProgressIndicator
 {
   static final String HOME_TEAM_COMBO_BOX_NAME = "HomeTeam";
   static final String ROAD_TEAM_COMBO_BOX_NAME = "RoadTeam";
@@ -45,8 +44,7 @@ final class CreateGamesheetsFrame extends JFrame
   private static final String CREATE_GAMESHEETS = "CreateGamesheets";
 
   @Inject
-  public CreateGamesheetsFrame(final StatsProvider statsProvider,
-        final GamesheetsGetter htmlGamesheetsGetter,
+  public CreateGamesheetsFrame(final StatsProvider statsProvider, final GamesheetsGetter htmlGamesheetsGetter,
         final GamesheetsWriter htmlGamesheetsWriter) throws IOException
   {
     super("OHL Gamesheets");
@@ -66,11 +64,9 @@ final class CreateGamesheetsFrame extends JFrame
     roadTeamComboBox.setName(ROAD_TEAM_COMBO_BOX_NAME);
     roadTeamComboBox.setMaximumRowCount(sortedTeamNames.length);
 
-    final SimpleDateFormat simpleDateFormat = new MSimpleDateFormat(
-          "EEEE, MMMM d, yyyy");
+    final SimpleDateFormat simpleDateFormat = new MSimpleDateFormat("EEEE, MMMM d, yyyy");
     dateEntryField = new MDateEntryField(simpleDateFormat);
-    final MDefaultPullDownConstraints defaultPullDownConstraints =
-          new MDefaultPullDownConstraints();
+    final MDefaultPullDownConstraints defaultPullDownConstraints = new MDefaultPullDownConstraints();
     defaultPullDownConstraints.firstDay = Calendar.SUNDAY;
     defaultPullDownConstraints.todayBackground = Color.RED;
     dateEntryField.setConstraints(defaultPullDownConstraints);
@@ -82,8 +78,7 @@ final class CreateGamesheetsFrame extends JFrame
     playerLabel = new JLabel();
     playerLabel.setHorizontalAlignment(JLabel.CENTER);
 
-    final JButton createGamesheetsButton = new JButton(
-          "Create gamesheets!");
+    final JButton createGamesheetsButton = new JButton("Create gamesheets!");
     createGamesheetsButton.setActionCommand(CREATE_GAMESHEETS);
     createGamesheetsButton.addActionListener(this);
 
@@ -91,8 +86,7 @@ final class CreateGamesheetsFrame extends JFrame
     final int numColumns = 1;
     final int horizontalGap = 0;
     final int verticalGap = 0;
-    final GridLayout gridLayout = new GridLayout(numRows, numColumns,
-          horizontalGap, verticalGap);
+    final GridLayout gridLayout = new GridLayout(numRows, numColumns, horizontalGap, verticalGap);
     final Container contentPane = getContentPane();
     contentPane.setLayout(gridLayout);
 
@@ -147,18 +141,15 @@ final class CreateGamesheetsFrame extends JFrame
           {
             try
             {
-              final Gamesheets htmlGamesheets =
-                    htmlGamesheetsGetter.getGamesheets(
-                    homeTeam, roadTeam, gameDate, CreateGamesheetsFrame.this);
+              final Gamesheets htmlGamesheets = htmlGamesheetsGetter.getGamesheets(homeTeam, roadTeam, gameDate,
+                    CreateGamesheetsFrame.this);
               htmlGamesheetsWriter.write(htmlGamesheets);
-              CreateGamesheetsFrame.this.fileLocationLabel.setText(
-                    "<html>Gamesheets written to <i>" +
+              CreateGamesheetsFrame.this.fileLocationLabel.setText("<html>Gamesheets written to <i>" +
                     htmlGamesheetsWriter.getDescription());
             }
             catch (final Exception e)
             {
-              JOptionPane.showMessageDialog(CreateGamesheetsFrame.this,
-                    e.getMessage());
+              JOptionPane.showMessageDialog(CreateGamesheetsFrame.this, e.getMessage());
             }
           }
         };
@@ -173,15 +164,13 @@ final class CreateGamesheetsFrame extends JFrame
 
   private Team getSelectedHomeTeam()
   {
-    final String selectedHomeTeamName =
-          (String) homeTeamComboBox.getSelectedItem();
+    final String selectedHomeTeamName = (String) homeTeamComboBox.getSelectedItem();
     return teams.getTeamWithName(selectedHomeTeamName);
   }
 
   private Team getSelectedRoadTeam()
   {
-    final String selectedRoadTeamName =
-          (String) roadTeamComboBox.getSelectedItem();
+    final String selectedRoadTeamName = (String) roadTeamComboBox.getSelectedItem();
     return teams.getTeamWithName(selectedRoadTeamName);
   }
 

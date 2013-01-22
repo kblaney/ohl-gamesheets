@@ -10,14 +10,12 @@ import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-final class PlayerGameByGameFilePathToGameByGameRowNodeListFunction
-      implements Function<String, NodeList>
+final class PlayerGameByGameFilePathToGameByGameRowNodeListFunction implements Function<String, NodeList>
 {
   private final UrlToDomDocumentFunction urlToDomDocumentFunction;
 
   @Inject
-  public PlayerGameByGameFilePathToGameByGameRowNodeListFunction(
-        final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  public PlayerGameByGameFilePathToGameByGameRowNodeListFunction(final UrlToDomDocumentFunction urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -25,16 +23,14 @@ final class PlayerGameByGameFilePathToGameByGameRowNodeListFunction
   public NodeList apply(final String gameByGameFilePath)
   {
     final Document document = getDocument(gameByGameFilePath);
-    final String xpath =
-          "//div[@id='gamebygameBlock']/table[@class='statsTable']/tr[td[a]]";
+    final String xpath = "//div[@id='gamebygameBlock']/table[@class='statsTable']/tr[td[a]]";
     try
     {
       return XPathAPI.selectNodeList(document.getDocumentElement(), xpath);
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException(
-            "Invalid xpath for game-by-game document: " + xpath, e);
+      throw new IllegalStateException("Invalid xpath for game-by-game document: " + xpath, e);
     }
   }
 

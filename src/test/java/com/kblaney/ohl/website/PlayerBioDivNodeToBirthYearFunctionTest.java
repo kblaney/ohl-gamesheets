@@ -25,11 +25,9 @@ public final class PlayerBioDivNodeToBirthYearFunctionTest
     assertEquals(StringUtils.EMPTY, function.apply(element));
   }
 
-  private Element getElementWithBirthdate(final String birthdate)
-        throws Exception
+  private Element getElementWithBirthdate(final String birthdate) throws Exception
   {
-    return new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Birthdate</td><td>" + birthdate +
+    return new XmlToDomElementFunction().apply("<div><table><tr><td>Birthdate</td><td>" + birthdate +
           "</td></tr></table></div>");
   }
 

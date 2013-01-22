@@ -10,14 +10,15 @@ import com.kblaney.ohl.website.GuiceWebsiteModule;
  */
 public final class EntryPoint
 {
-  private EntryPoint() {}
+  private EntryPoint()
+  {
+  }
 
   public static void main(final String[] args) throws Exception
   {
-    final Injector injector = Guice.createInjector(new GuiceWebsiteModule(),
-          new GuiceGamesheetsModule(), new GuiceHtmlGamesheetsModule());
-    final CreateGamesheetsFrame frame =
-          injector.getInstance(CreateGamesheetsFrame.class);
+    final Injector injector = Guice.createInjector(new GuiceWebsiteModule(), new GuiceGamesheetsModule(),
+          new GuiceHtmlGamesheetsModule());
+    final CreateGamesheetsFrame frame = injector.getInstance(CreateGamesheetsFrame.class);
     frame.setVisible(true);
   }
 }

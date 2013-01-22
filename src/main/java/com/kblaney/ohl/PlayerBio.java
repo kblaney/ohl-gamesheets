@@ -5,10 +5,10 @@ import org.apache.commons.lang.StringUtils;
 
 /**
  * The biographical information of one player.
- *
+ * 
  * <p>
- * Note that this class does not have a public constructor.  Rather, instances
- * are created using the PlayerBio.Builder class.
+ * Note that this class does not have a public constructor. Rather, instances are created using the PlayerBio.Builder
+ * class.
  * </p>
  */
 public final class PlayerBio
@@ -78,12 +78,37 @@ public final class PlayerBio
   private String hometown;
   private String gameByGameFilePath;
 
-  private PlayerBio() {}
+  private PlayerBio()
+  {
+  }
 
-  public String getBirthYear() { return birthYear; }
-  public String getPosition() { return position; }
-  public String getHeight() { return height; }
-  public String getWeight() { return weight; }
-  public String getHometown() { return hometown; }
-  public String getGameByGameFilePath() { return gameByGameFilePath; }
+  public String getBirthYear()
+  {
+    return birthYear;
+  }
+
+  public String getPosition()
+  {
+    return position;
+  }
+
+  public String getHeight()
+  {
+    return height;
+  }
+
+  public String getWeight()
+  {
+    return weight;
+  }
+
+  public String getHometown()
+  {
+    return hometown;
+  }
+
+  public String getGameByGameFilePath()
+  {
+    return gameByGameFilePath;
+  }
 }

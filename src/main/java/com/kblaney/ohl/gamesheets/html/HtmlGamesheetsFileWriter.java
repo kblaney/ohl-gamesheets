@@ -22,10 +22,8 @@ public final class HtmlGamesheetsFileWriter implements GamesheetsWriter
   {
     final File homeTeamGamesheetFile = new File(directory, "home.html");
     final File roadTeamGamesheetFile = new File(directory, "road.html");
-    stringWriterToFile.write(gamesheets.getHomeTeamGamesheet(),
-          homeTeamGamesheetFile);
-    stringWriterToFile.write(gamesheets.getRoadTeamGamesheet(),
-          roadTeamGamesheetFile);
+    stringWriterToFile.write(gamesheets.getHomeTeamGamesheet(), homeTeamGamesheetFile);
+    stringWriterToFile.write(gamesheets.getRoadTeamGamesheet(), roadTeamGamesheetFile);
   }
 
   public String getDescription()

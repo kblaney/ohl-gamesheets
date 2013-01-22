@@ -15,8 +15,15 @@ public final class Goalie
     this.stats = ArgAssert.assertNotNull(stats, "stats");
   }
 
-  public String getName() { return name; }
-  public GoalieStats getStats() { return stats; }
+  public String getName()
+  {
+    return name;
+  }
+
+  public GoalieStats getStats()
+  {
+    return stats;
+  }
 
   @Override
   public boolean equals(final Object thatObject)
@@ -28,8 +35,7 @@ public final class Goalie
     if (thatObject.getClass().equals(getClass()))
     {
       final Goalie that = (Goalie) thatObject;
-      return ((ObjectUtils.equals(name, that.name)) &&
-            (ObjectUtils.equals(stats, that.stats)));
+      return ((ObjectUtils.equals(name, that.name)) && (ObjectUtils.equals(stats, that.stats)));
     }
     return false;
   }

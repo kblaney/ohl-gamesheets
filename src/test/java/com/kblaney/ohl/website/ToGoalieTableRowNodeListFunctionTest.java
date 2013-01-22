@@ -27,8 +27,7 @@ public final class ToGoalieTableRowNodeListFunctionTest
   public void apply_noTableNode() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<a>" + getTableHeaderRow() + getGoalieTableRow() + "</a>"));
+          new XmlToDomDocumentFunction().apply("<a>" + getTableHeaderRow() + getGoalieTableRow() + "</a>"));
     function.apply(teamNum).getLength();
   }
 
@@ -46,8 +45,7 @@ public final class ToGoalieTableRowNodeListFunctionTest
   public void apply_zeroGoalies() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<table>" + getTableHeaderRow() + "</table>"));
+          new XmlToDomDocumentFunction().apply("<table>" + getTableHeaderRow() + "</table>"));
     assertEquals(0, function.apply(teamNum).getLength());
   }
 
@@ -55,10 +53,8 @@ public final class ToGoalieTableRowNodeListFunctionTest
   public void apply_twoGoalies() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<table>" + getTableHeaderRow() +
-          getGoalieTableRow() + getGoalieTableRow() +
-          "</table>"));
+          new XmlToDomDocumentFunction().apply("<table>" + getTableHeaderRow() + getGoalieTableRow() +
+                getGoalieTableRow() + "</table>"));
     assertEquals(2, function.apply(teamNum).getLength());
   }
 }

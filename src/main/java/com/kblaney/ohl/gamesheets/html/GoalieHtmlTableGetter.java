@@ -62,13 +62,9 @@ final class GoalieHtmlTableGetter implements Function<List<Goalie>, String>
     s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumSaves()));
     s.append(HtmlUtil.getRightAlignedTdElement(g.getStats().getNumGoalsAgainst()));
     final DecimalFormat gaaDecimalFormat = new DecimalFormat("0.00");
-    s.append(HtmlUtil.getRightAlignedTdElement(gaaDecimalFormat.format(
-          g.getStats().getGoalsAgainstAverage())));
-    final DecimalFormat savePercentageDecimalFormat =
-          new DecimalFormat("0.000");
-    s.append(HtmlUtil.getRightAlignedTdElement(
-          savePercentageDecimalFormat.format(g.getStats().
-          getSavePercentage())));
+    s.append(HtmlUtil.getRightAlignedTdElement(gaaDecimalFormat.format(g.getStats().getGoalsAgainstAverage())));
+    final DecimalFormat savePercentageDecimalFormat = new DecimalFormat("0.000");
+    s.append(HtmlUtil.getRightAlignedTdElement(savePercentageDecimalFormat.format(g.getStats().getSavePercentage())));
     s.append(HtmlUtil.TABLE_ROW_END);
     return s.toString();
   }

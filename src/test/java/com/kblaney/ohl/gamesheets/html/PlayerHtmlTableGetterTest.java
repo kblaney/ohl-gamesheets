@@ -1,7 +1,6 @@
 package com.kblaney.ohl.gamesheets.html;
 
 import static org.junit.Assert.*;
-
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
@@ -29,7 +28,7 @@ public final class PlayerHtmlTableGetterTest
   @Test
   public void apply_zeroPlayers()
   {
-    final String table = tableGetter.apply(Collections.<Player>emptyList());
+    final String table = tableGetter.apply(Collections.<Player> emptyList());
     assertNumPlayersInTable(table, 0);
   }
 
@@ -38,15 +37,14 @@ public final class PlayerHtmlTableGetterTest
     final int numHeaderRows = 1;
     final int expectedNumTableRows = expectedNumPlayers + numHeaderRows;
     assertEquals(expectedNumTableRows, StringUtils.countMatches(table, "<tr>"));
-    assertEquals(expectedNumTableRows, StringUtils.countMatches(table,
-          "</tr>"));
+    assertEquals(expectedNumTableRows, StringUtils.countMatches(table, "</tr>"));
   }
 
   @Test
   public void apply_oneVeteranPlayerWithKnownSweaterNum()
   {
     final Optional<Integer> sweaterNum = Optional.of(19);
-    final Player player = getPlayer(PlayerType.VETERAN, sweaterNum); 
+    final Player player = getPlayer(PlayerType.VETERAN, sweaterNum);
     final String table = tableGetter.apply(Lists.newArrayList(player));
 
     assertOnePlayerInTable(table);
@@ -57,12 +55,9 @@ public final class PlayerHtmlTableGetterTest
 
   private Player getPlayer(final PlayerType playerType, final Optional<Integer> sweaterNum)
   {
-    return new Player("Wayne Gretzky", playerType, sweaterNum,
-          new PlayerStats.Builder().build(),
-          new PlayerBio.Builder().setBirthYear("1994").
-          setHometown("Belleville, ON").setHeight("6.02").setPosition("LW").
-          setWeight("195").build(),
-          new PlayerStreaks.Builder().build());
+    return new Player("Wayne Gretzky", playerType, sweaterNum, new PlayerStats.Builder().build(),
+          new PlayerBio.Builder().setBirthYear("1994").setHometown("Belleville, ON").setHeight("6.02")
+                .setPosition("LW").setWeight("195").build(), new PlayerStreaks.Builder().build());
   }
 
   private void assertOnePlayerInTable(final String table)
@@ -91,7 +86,7 @@ public final class PlayerHtmlTableGetterTest
   public void apply_oneVeteranPlayerWithUnknownSweaterNum()
   {
     final Optional<Integer> sweaterNum = Optional.absent();
-    final Player player = getPlayer(PlayerType.VETERAN, sweaterNum); 
+    final Player player = getPlayer(PlayerType.VETERAN, sweaterNum);
     final String table = tableGetter.apply(Lists.newArrayList(player));
 
     assertOnePlayerInTable(table);
@@ -110,7 +105,7 @@ public final class PlayerHtmlTableGetterTest
   public void apply_oneRookieWithKnownSweaterNum()
   {
     final Optional<Integer> sweaterNum = Optional.of(12);
-    final Player player = getPlayer(PlayerType.ROOKIE, sweaterNum); 
+    final Player player = getPlayer(PlayerType.ROOKIE, sweaterNum);
     final String table = tableGetter.apply(Lists.newArrayList(player));
 
     assertOnePlayerInTable(table);
@@ -128,7 +123,7 @@ public final class PlayerHtmlTableGetterTest
   public void apply_oneRookieWithUnknownSweaterNum()
   {
     final Optional<Integer> sweaterNum = Optional.absent();
-    final Player player = getPlayer(PlayerType.ROOKIE, sweaterNum); 
+    final Player player = getPlayer(PlayerType.ROOKIE, sweaterNum);
     final String table = tableGetter.apply(Lists.newArrayList(player));
 
     assertOnePlayerInTable(table);
@@ -146,11 +141,9 @@ public final class PlayerHtmlTableGetterTest
   @Test
   public void apply_fourPlayers()
   {
-    final List<Player> players = Lists.newArrayList(
-          getPlayer(PlayerType.ROOKIE, Optional.of(9)),
-          getPlayer(PlayerType.ROOKIE, Optional.<Integer>absent()),
-          getPlayer(PlayerType.VETERAN, Optional.of(10)),
-          getPlayer(PlayerType.VETERAN, Optional.<Integer>absent()));
+    final List<Player> players = Lists.newArrayList(getPlayer(PlayerType.ROOKIE, Optional.of(9)),
+          getPlayer(PlayerType.ROOKIE, Optional.<Integer> absent()), getPlayer(PlayerType.VETERAN, Optional.of(10)),
+          getPlayer(PlayerType.VETERAN, Optional.<Integer> absent()));
     final String table = tableGetter.apply(players);
 
     final int expectedNumPlayers = 4;

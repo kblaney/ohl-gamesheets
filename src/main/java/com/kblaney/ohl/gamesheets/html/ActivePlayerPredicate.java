@@ -9,7 +9,6 @@ final class ActivePlayerPredicate implements Predicate<Player>
   @Override
   public boolean apply(final Player player)
   {
-    return ((player.getType() != PlayerType.NOT_ACTIVE) &&
-          (player.getStats().getNumGamesPlayed() != 0));
+    return ((player.getType() != PlayerType.NOT_ACTIVE) && (player.getStats().getNumGamesPlayed() != 0));
   }
 }

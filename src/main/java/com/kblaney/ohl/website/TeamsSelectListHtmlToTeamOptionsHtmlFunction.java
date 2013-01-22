@@ -5,8 +5,7 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.regex.Matcher;
 
-final class TeamsSelectListHtmlToTeamOptionsHtmlFunction
-      implements Function<String, List<String>>
+final class TeamsSelectListHtmlToTeamOptionsHtmlFunction implements Function<String, List<String>>
 {
   public List<String> apply(final String teamsSelectListHtml)
   {

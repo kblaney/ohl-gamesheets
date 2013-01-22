@@ -4,8 +4,7 @@ import com.google.common.base.Function;
 import com.kblaney.ohl.PlayerType;
 import org.w3c.dom.Node;
 
-final class PlayerTableRowNodeToPlayerTypeFunction
-      implements Function<Node, PlayerType>
+final class PlayerTableRowNodeToPlayerTypeFunction implements Function<Node, PlayerType>
 {
   public PlayerType apply(final Node tableRowNode)
   {

@@ -13,8 +13,7 @@ final class PlayerIdToBioFunction implements Function<String, PlayerBio>
   private final Function<Document, String> bioDocumentToGameByGameFilePathFunction;
 
   @Inject
-  public PlayerIdToBioFunction(
-        final Function<String, Document> toBioDocumentFunction,
+  public PlayerIdToBioFunction(final Function<String, Document> toBioDocumentFunction,
         final Function<Document, Node> bioDocumentToBioDivNodeFunction,
         final Function<Document, String> bioDocumentToGameByGameFilePathFunction)
   {
@@ -30,12 +29,9 @@ final class PlayerIdToBioFunction implements Function<String, PlayerBio>
       final Document bioDocument = toBioDocumentFunction.apply(playerId);
       final Node bioDivNode = bioDocumentToBioDivNodeFunction.apply(bioDocument);
       final String gameByGameFilePath = bioDocumentToGameByGameFilePathFunction.apply(bioDocument);
-      return new PlayerBio.Builder().setBirthYear(getBirthYear(bioDivNode)).
-            setPosition(getPosition(bioDivNode)).
-            setHeight(getHeight(bioDivNode)).
-            setWeight(getWeight(bioDivNode)).
-            setHometown(getHometown(bioDivNode)).
-            setGameByGameFilePath(gameByGameFilePath).build();
+      return new PlayerBio.Builder().setBirthYear(getBirthYear(bioDivNode)).setPosition(getPosition(bioDivNode))
+            .setHeight(getHeight(bioDivNode)).setWeight(getWeight(bioDivNode)).setHometown(getHometown(bioDivNode))
+            .setGameByGameFilePath(gameByGameFilePath).build();
     }
     catch (final IllegalStateException e)
     {

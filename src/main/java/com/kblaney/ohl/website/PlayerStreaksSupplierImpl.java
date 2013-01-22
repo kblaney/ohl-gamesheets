@@ -12,8 +12,7 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
   private final Function<String, NodeList> toGameRowNodeListFunction;
 
   @Inject
-  public PlayerStreaksSupplierImpl(
-        final Function<String, NodeList> toGameRowNodeListFunction)
+  public PlayerStreaksSupplierImpl(final Function<String, NodeList> toGameRowNodeListFunction)
   {
     this.toGameRowNodeListFunction = toGameRowNodeListFunction;
   }
@@ -32,8 +31,7 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
 
   private PlayerStreaks getSkaterStreaks(final String gameByGameFilePath)
   {
-    final NodeList gameRowNodeList =
-          toGameRowNodeListFunction.apply(gameByGameFilePath);
+    final NodeList gameRowNodeList = toGameRowNodeListFunction.apply(gameByGameFilePath);
 
     int goalStreak = 0;
     int assistStreak = 0;
@@ -70,9 +68,8 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
       i--;
     }
 
-    return new PlayerStreaks.Builder().setGoalStreak(goalStreak).
-          setAssistStreak(assistStreak).
-          setPointStreak(pointStreak).build();
+    return new PlayerStreaks.Builder().setGoalStreak(goalStreak).setAssistStreak(assistStreak)
+          .setPointStreak(pointStreak).build();
   }
 
   private PlayerStreaks getGoalieStreaks()

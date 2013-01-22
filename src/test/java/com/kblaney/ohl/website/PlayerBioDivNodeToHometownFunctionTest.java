@@ -21,8 +21,8 @@ public final class PlayerBioDivNodeToHometownFunctionTest
   @Test
   public void apply_noHometown() throws Exception
   {
-    final Element element = new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Hometown</td><td/></tr></table></div>");
+    final Element element = new XmlToDomElementFunction()
+          .apply("<div><table><tr><td>Hometown</td><td/></tr></table></div>");
     assertEquals(StringUtils.EMPTY, function.apply(element));
   }
 
@@ -40,11 +40,9 @@ public final class PlayerBioDivNodeToHometownFunctionTest
     assertEquals("Belleville, ON", function.apply(element));
   }
 
-  private Element getElementWithHometown(final String hometown)
-        throws Exception
+  private Element getElementWithHometown(final String hometown) throws Exception
   {
-    return new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Hometown</td><td>" + hometown +
+    return new XmlToDomElementFunction().apply("<div><table><tr><td>Hometown</td><td>" + hometown +
           "</td></tr></table></div>");
   }
 

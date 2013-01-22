@@ -24,14 +24,12 @@ final class PlayerSupplierImpl implements PlayerSupplier
   private final PlayerStreaksSupplier streaksSupplier;
 
   @Inject
-  public PlayerSupplierImpl(
-        @Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
+  public PlayerSupplierImpl(@Named("ToNameFunction") final Function<Node, String> tableRowNodeToNameFunction,
         @Named("ToIdFunction") final Function<Node, String> tableRowNodeToIdFunction,
         final Function<Node, PlayerType> tableRowNodeToPlayerTypeFunction,
         final Function<Node, Optional<Integer>> tableRowNodeToSweaterNumFunction,
         final Function<Node, PlayerStats> tableRowNodeToStatsFunction,
-        final Function<String, PlayerBio> playerIdToBioFunction,
-        final PlayerStreaksSupplier streaksSupplier)
+        final Function<String, PlayerBio> playerIdToBioFunction, final PlayerStreaksSupplier streaksSupplier)
   {
     this.tableRowNodeToNameFunction = tableRowNodeToNameFunction;
     this.tableRowNodeToIdFunction = tableRowNodeToIdFunction;
@@ -42,8 +40,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
     this.streaksSupplier = streaksSupplier;
   }
 
-  public Player getPlayer(final Node tableRowNode,
-        final ProgressIndicator progressIndicator) throws IOException
+  public Player getPlayer(final Node tableRowNode, final ProgressIndicator progressIndicator) throws IOException
   {
     final String playerId = getPlayerId(tableRowNode);
     final String playerName = getPlayerName(tableRowNode);
@@ -54,10 +51,8 @@ final class PlayerSupplierImpl implements PlayerSupplier
     final Optional<Integer> sweaterNum = getSweaterNum(tableRowNode);
     final PlayerStats playerStats = getPlayerStats(tableRowNode);
     final PlayerBio playerBio = getPlayerBio(playerId);
-    final PlayerStreaks playerStreaks = getPlayerStreaks(
-          playerBio.getGameByGameFilePath(), playerBio.getPosition());
-    return new Player(playerName, playerType, sweaterNum, playerStats,
-          playerBio, playerStreaks);
+    final PlayerStreaks playerStreaks = getPlayerStreaks(playerBio.getGameByGameFilePath(), playerBio.getPosition());
+    return new Player(playerName, playerType, sweaterNum, playerStats, playerBio, playerStreaks);
   }
 
   private String getPlayerId(final Node tableRowNode)
@@ -90,8 +85,7 @@ final class PlayerSupplierImpl implements PlayerSupplier
     return playerIdToBioFunction.apply(playerId);
   }
 
-  private PlayerStreaks getPlayerStreaks(final String gameByGameFilePath,
-        final String position)
+  private PlayerStreaks getPlayerStreaks(final String gameByGameFilePath, final String position)
   {
     return streaksSupplier.get(gameByGameFilePath, position);
   }

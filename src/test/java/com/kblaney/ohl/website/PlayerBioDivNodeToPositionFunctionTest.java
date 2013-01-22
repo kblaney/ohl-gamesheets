@@ -21,11 +21,9 @@ public final class PlayerBioDivNodeToPositionFunctionTest
     assertEquals("D", function.apply(getElementWithPosition(" Defenceman ")));
   }
 
-  private Element getElementWithPosition(final String birthdate)
-        throws Exception
+  private Element getElementWithPosition(final String birthdate) throws Exception
   {
-    return new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Position</td><td>" + birthdate +
+    return new XmlToDomElementFunction().apply("<div><table><tr><td>Position</td><td>" + birthdate +
           "</td></tr></table></div>");
   }
 

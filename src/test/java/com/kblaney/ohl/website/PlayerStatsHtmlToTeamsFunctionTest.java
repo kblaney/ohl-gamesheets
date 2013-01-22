@@ -27,20 +27,17 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
     playerStatsHtml = "PLAYER_STATS_HTML";
     teamsSelectListHtml = "TEAMS_SELECT_LIST_HTML";
     toTeamsSelectListHtmlFunction = mock(Function.class);
-    when(toTeamsSelectListHtmlFunction.apply(playerStatsHtml)).
-            thenReturn(teamsSelectListHtml);
+    when(toTeamsSelectListHtmlFunction.apply(playerStatsHtml)).thenReturn(teamsSelectListHtml);
     toTeamOptionsHtmlFunction = mock(Function.class);
     toTeamFunction = mock(Function.class);
-    toTeamsFunction = new PlayerStatsHtmlToTeamsFunction(
-            toTeamsSelectListHtmlFunction, toTeamOptionsHtmlFunction,
-            toTeamFunction);
+    toTeamsFunction = new PlayerStatsHtmlToTeamsFunction(toTeamsSelectListHtmlFunction, toTeamOptionsHtmlFunction,
+          toTeamFunction);
   }
 
   @Test
   public void apply_zeroTeams()
   {
-    when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).
-            thenReturn(Collections.<String>emptyList());
+    when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).thenReturn(Collections.<String> emptyList());
     assertTrue(toTeamsFunction.apply(playerStatsHtml).isEmpty());
   }
 
@@ -48,9 +45,8 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
   public void apply_oneTeam()
   {
     final String teamOptionHtml = "TEAM_OPTION_HTML";
-    when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).
-            thenReturn(Lists.newArrayList(teamOptionHtml));
-    final NumberedTeam team = new NumberedTeam("Boston Bruins", /*teamNum=*/2);
+    when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).thenReturn(Lists.newArrayList(teamOptionHtml));
+    final NumberedTeam team = new NumberedTeam("Boston Bruins", /* teamNum= */2);
     when(toTeamFunction.apply(teamOptionHtml)).thenReturn(team);
     assertEquals(Sets.newHashSet(team), toTeamsFunction.apply(playerStatsHtml));
   }
@@ -61,21 +57,16 @@ public final class PlayerStatsHtmlToTeamsFunctionTest
     final String firstTeamOptionHtml = "FIRST_TEAM_OPTION_HTML";
     final String secondTeamOptionHtml = "SECOND_TEAM_OPTION_HTML";
     final String thirdTeamOptionHtml = "THIRD_TEAM_OPTION_HTML";
-    when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).
-            thenReturn(Lists.newArrayList(firstTeamOptionHtml,
-            secondTeamOptionHtml, thirdTeamOptionHtml));
+    when(toTeamOptionsHtmlFunction.apply(teamsSelectListHtml)).thenReturn(
+          Lists.newArrayList(firstTeamOptionHtml, secondTeamOptionHtml, thirdTeamOptionHtml));
 
-    final NumberedTeam firstTeam =
-          new NumberedTeam("Buffalo Sabres", /*teamNum=*/3);
-    final NumberedTeam secondTeam =
-          new NumberedTeam("New York Rangers", /*teamNum=*/14);
-    final NumberedTeam thirdTeam =
-          new NumberedTeam("Vancouver Canucks", /*teamNum=*/28);
+    final NumberedTeam firstTeam = new NumberedTeam("Buffalo Sabres", /* teamNum= */3);
+    final NumberedTeam secondTeam = new NumberedTeam("New York Rangers", /* teamNum= */14);
+    final NumberedTeam thirdTeam = new NumberedTeam("Vancouver Canucks", /* teamNum= */28);
     when(toTeamFunction.apply(firstTeamOptionHtml)).thenReturn(firstTeam);
     when(toTeamFunction.apply(secondTeamOptionHtml)).thenReturn(secondTeam);
     when(toTeamFunction.apply(thirdTeamOptionHtml)).thenReturn(thirdTeam);
 
-    assertEquals(Sets.newHashSet(firstTeam, secondTeam, thirdTeam),
-            toTeamsFunction.apply(playerStatsHtml));
+    assertEquals(Sets.newHashSet(firstTeam, secondTeam, thirdTeam), toTeamsFunction.apply(playerStatsHtml));
   }
 }

@@ -7,6 +7,5 @@ import org.w3c.dom.Node;
 
 interface PlayerSupplier
 {
-  Player getPlayer(Node tableRowNode, ProgressIndicator progressIndicator)
-        throws IOException;
+  Player getPlayer(Node tableRowNode, ProgressIndicator progressIndicator) throws IOException;
 }

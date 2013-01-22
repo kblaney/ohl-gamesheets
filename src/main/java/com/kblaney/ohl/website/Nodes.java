@@ -4,10 +4,11 @@ import org.w3c.dom.Node;
 
 final class Nodes
 {
-  private Nodes() {}
+  private Nodes()
+  {
+  }
 
-  public static String getChildNodeValue(final Node node,
-        final int childNodeIndex)
+  public static String getChildNodeValue(final Node node, final int childNodeIndex)
   {
     final Node childNode = node.getChildNodes().item(childNodeIndex);
     if (childNode.getFirstChild() == null)

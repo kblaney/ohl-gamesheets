@@ -5,7 +5,9 @@ final class PhpUtil
   public static final String FILE_PAIRS_SEPARATOR = "?";
   public static final String PAIR_SEPARATOR = "&";
 
-  private PhpUtil() {}
+  private PhpUtil()
+  {
+  }
 
   public static String getPair(final String key, final String value)
   {

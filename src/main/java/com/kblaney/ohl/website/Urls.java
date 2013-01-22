@@ -8,13 +8,14 @@ final class Urls
   private static final String SKATERS_TYPE = "skaters";
   private static final String TYPE_KEY = "type";
 
-  private Urls() {}
+  private Urls()
+  {
+  }
 
   public static URL getPlayerStatsUrl()
   {
-    final String file = getTeamStatsPhpFile() + PhpUtil.FILE_PAIRS_SEPARATOR +
-        PhpUtil.getPair(TYPE_KEY, SKATERS_TYPE) +
-        PhpUtil.PAIR_SEPARATOR + getSeasonPair();
+    final String file = getTeamStatsPhpFile() + PhpUtil.FILE_PAIRS_SEPARATOR + PhpUtil.getPair(TYPE_KEY, SKATERS_TYPE) +
+          PhpUtil.PAIR_SEPARATOR + getSeasonPair();
     return getUrl(file);
   }
 
@@ -51,23 +52,21 @@ final class Urls
 
   public static URL getSkaterStatsUrl(final int teamNum)
   {
-    return getStatsUrl(teamNum, /*isForSkaters=*/true);
+    return getStatsUrl(teamNum, /* isForSkaters= */true);
   }
 
   private static URL getStatsUrl(final int teamNum, final boolean isForSkaters)
   {
     final String teamNumKey = "team_id";
     final String file = getTeamStatsPhpFile() + PhpUtil.FILE_PAIRS_SEPARATOR +
-          PhpUtil.getPair(TYPE_KEY, getType(isForSkaters)) +
-          PhpUtil.PAIR_SEPARATOR +
-          PhpUtil.getPair(teamNumKey, Integer.toString(teamNum)) +
-          PhpUtil.PAIR_SEPARATOR + getSeasonPair();
+          PhpUtil.getPair(TYPE_KEY, getType(isForSkaters)) + PhpUtil.PAIR_SEPARATOR +
+          PhpUtil.getPair(teamNumKey, Integer.toString(teamNum)) + PhpUtil.PAIR_SEPARATOR + getSeasonPair();
     return getUrl(file);
   }
 
   public static URL getGoalieStatsUrl(final int teamNum)
   {
-    return getStatsUrl(teamNum, /*isForSkaters=*/false);
+    return getStatsUrl(teamNum, /* isForSkaters= */false);
   }
 
   private static String getType(final boolean isForSkaters)

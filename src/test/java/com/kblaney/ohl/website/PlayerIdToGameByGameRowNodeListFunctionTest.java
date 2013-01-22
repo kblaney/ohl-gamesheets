@@ -21,8 +21,7 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   public void setUp()
   {
     urlToDomDocumentFunction = mock(UrlToDomDocumentFunction.class);
-    function = new PlayerGameByGameFilePathToGameByGameRowNodeListFunction(
-          urlToDomDocumentFunction);
+    function = new PlayerGameByGameFilePathToGameByGameRowNodeListFunction(urlToDomDocumentFunction);
     playerId = "PLAYER_ID";
     url = Urls.getPlayerGameByGameUrl(playerId);
   }
@@ -47,8 +46,7 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   @Test
   public void apply_noGamesPlayed() throws Exception
   {
-    when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply("<a/>"));
+    when(urlToDomDocumentFunction.apply(url)).thenReturn(new XmlToDomDocumentFunction().apply("<a/>"));
     assertEquals(0, function.apply(playerId).getLength());
   }
 
@@ -56,10 +54,8 @@ public final class PlayerIdToGameByGameRowNodeListFunctionTest
   public void apply_twoGamesPlayed() throws Exception
   {
     when(urlToDomDocumentFunction.apply(url)).thenReturn(
-          new XmlToDomDocumentFunction().apply(
-          "<a><div id=\"gamebygameBlock\"><table class=\"statsTable\">" +
-          getOneGameTableRow() + getOneGameTableRow() +
-          "</table></div></a>"));
+          new XmlToDomDocumentFunction().apply("<a><div id=\"gamebygameBlock\"><table class=\"statsTable\">" +
+                getOneGameTableRow() + getOneGameTableRow() + "</table></div></a>"));
     assertEquals(2, function.apply(playerId).getLength());
   }
 

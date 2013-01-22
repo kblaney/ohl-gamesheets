@@ -46,8 +46,7 @@ public final class PlayerStreaksSupplierTest
   @Test
   public void apply_notEnoughTableCellsInOnlyGameRow() throws Exception
   {
-    final NodeList nodeList = new XmlToDomElementFunction().apply(
-          "<tbody><tr><td/></tr></tbody>").getChildNodes();
+    final NodeList nodeList = new XmlToDomElementFunction().apply("<tbody><tr><td/></tr></tbody>").getChildNodes();
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
     assertEquals(notOnAStreak, streaksSupplier.get(playerId, position));
   }
@@ -56,8 +55,7 @@ public final class PlayerStreaksSupplierTest
   public void apply_noPointsInOnlyGameEmptyTableCells() throws Exception
   {
     final NodeList nodeList = new XmlToDomElementFunction().apply(
-          "<tbody><tr><td/><td/><td/><td/><td/><td/><td/></tr></tbody>").
-          getChildNodes();
+          "<tbody><tr><td/><td/><td/><td/><td/><td/><td/></tr></tbody>").getChildNodes();
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
     assertEquals(notOnAStreak, streaksSupplier.get(playerId, position));
   }
@@ -65,56 +63,49 @@ public final class PlayerStreaksSupplierTest
   @Test
   public void apply_noPointsInOnlyGame() throws Exception
   {
-    final NodeList nodeList = getNodeListForOneGame(/*numGoalsInGame=*/0,
-          /*numAssistsInGame=*/0);
+    final NodeList nodeList = getNodeListForOneGame(/* numGoalsInGame= */0,
+    /* numAssistsInGame= */0);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
     assertEquals(notOnAStreak, streaksSupplier.get(playerId, position));
   }
 
-  private NodeList getNodeListForOneGame(final int numGoalsInGame,
-        final int numAssistsInGame) throws Exception
+  private NodeList getNodeListForOneGame(final int numGoalsInGame, final int numAssistsInGame) throws Exception
   {
     return getNodeList(getGameTableRow(numGoalsInGame, numAssistsInGame));
   }
 
   private NodeList getNodeList(final String... gameTableRows) throws Exception
   {
-    final String gameTableRowsXml = "<tbody>" +
-          StringUtils.join(gameTableRows) + "</tbody>";
+    final String gameTableRowsXml = "<tbody>" + StringUtils.join(gameTableRows) + "</tbody>";
     return new XmlToDomElementFunction().apply(gameTableRowsXml).getChildNodes();
   }
 
-  private String getGameTableRow(final int numGoalsInGame,
-        final int numAssistsInGame)
+  private String getGameTableRow(final int numGoalsInGame, final int numAssistsInGame)
   {
     final String numGoals = Integer.toString(numGoalsInGame);
     final String numAssists = Integer.toString(numAssistsInGame);
-    final String numPoints = Integer.toString(
-          numGoalsInGame + numAssistsInGame);
-    return "<tr><td/><td/><td/><td/>" +
-          "<td>" + numGoals + "</td>" +
-          "<td>" + numAssists + "</td>" +
-          "<td>" + numPoints + "</td></tr>";
+    final String numPoints = Integer.toString(numGoalsInGame + numAssistsInGame);
+    return "<tr><td/><td/><td/><td/>" + "<td>" + numGoals + "</td>" + "<td>" + numAssists + "</td>" + "<td>" +
+          numPoints + "</td></tr>";
   }
 
   @Test
   public void apply_oneGoalInOnlyGame() throws Exception
   {
-    final NodeList nodeList = getNodeListForOneGame(/*numGoalsInGame=*/1,
-          /*numAssistsInGame=*/0);
+    final NodeList nodeList = getNodeListForOneGame(/* numGoalsInGame= */1,
+    /* numAssistsInGame= */0);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
-    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).setPointStreak(1).
-          build(), streaksSupplier.get(playerId, position));
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).setPointStreak(1).build(),
+          streaksSupplier.get(playerId, position));
   }
 
   @Test
   public void apply_goalAndAssistInOnlyGame() throws Exception
   {
-    final NodeList nodeList = getNodeListForOneGame(/*numGoalsInGame=*/1,
-          /*numAssistsInGame=*/1);
+    final NodeList nodeList = getNodeListForOneGame(/* numGoalsInGame= */1,
+    /* numAssistsInGame= */1);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
-    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).
-          setAssistStreak(1).setPointStreak(1).build(),
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).setAssistStreak(1).setPointStreak(1).build(),
           streaksSupplier.get(playerId, position));
   }
 
@@ -122,16 +113,15 @@ public final class PlayerStreaksSupplierTest
   public void apply_twoGameGoalStreakOneGameAssistStreak() throws Exception
   {
     final String thirdMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/0);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */0);
     final String secondMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/1, /*numAssistsInGame=*/0);
+    /* numGoalsInGame= */1, /* numAssistsInGame= */0);
     final String mostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/2, /*numAssistsInGame=*/2);
-    final NodeList nodeList = getNodeList(thirdMostRecentGameTableRow,
-          secondMostRecentGameTableRow, mostRecentGameTableRow);
+    /* numGoalsInGame= */2, /* numAssistsInGame= */2);
+    final NodeList nodeList = getNodeList(thirdMostRecentGameTableRow, secondMostRecentGameTableRow,
+          mostRecentGameTableRow);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
-    assertEquals(new PlayerStreaks.Builder().setGoalStreak(2).
-          setAssistStreak(1).setPointStreak(2).build(),
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(2).setAssistStreak(1).setPointStreak(2).build(),
           streaksSupplier.get(playerId, position));
   }
 
@@ -139,35 +129,33 @@ public final class PlayerStreaksSupplierTest
   public void apply_oneGameGoalStreakTwoGamePointStreak() throws Exception
   {
     final String thirdMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/0);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */0);
     final String secondMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/2);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */2);
     final String mostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/3, /*numAssistsInGame=*/0);
-    final NodeList nodeList = getNodeList(thirdMostRecentGameTableRow,
-          secondMostRecentGameTableRow, mostRecentGameTableRow);
+    /* numGoalsInGame= */3, /* numAssistsInGame= */0);
+    final NodeList nodeList = getNodeList(thirdMostRecentGameTableRow, secondMostRecentGameTableRow,
+          mostRecentGameTableRow);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
-    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).
-          setPointStreak(2).build(), streaksSupplier.get(playerId, position));
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).setPointStreak(2).build(),
+          streaksSupplier.get(playerId, position));
   }
 
   @Test
   public void apply_zeroGameGoalStreakThreeGamePointStreak() throws Exception
   {
     final String fourthMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/0);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */0);
     final String thirdMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/1, /*numAssistsInGame=*/1);
+    /* numGoalsInGame= */1, /* numAssistsInGame= */1);
     final String secondMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/1, /*numAssistsInGame=*/0);
+    /* numGoalsInGame= */1, /* numAssistsInGame= */0);
     final String mostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/1);
-    final NodeList nodeList = getNodeList(fourthMostRecentGameTableRow,
-          thirdMostRecentGameTableRow, secondMostRecentGameTableRow,
-          mostRecentGameTableRow);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */1);
+    final NodeList nodeList = getNodeList(fourthMostRecentGameTableRow, thirdMostRecentGameTableRow,
+          secondMostRecentGameTableRow, mostRecentGameTableRow);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
-    assertEquals(new PlayerStreaks.Builder().setGoalStreak(0).
-          setAssistStreak(1).setPointStreak(3).build(),
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(0).setAssistStreak(1).setPointStreak(3).build(),
           streaksSupplier.get(playerId, position));
   }
 
@@ -175,19 +163,17 @@ public final class PlayerStreaksSupplierTest
   public void apply_zeroGameAssistStreakThreeGamePointStreak() throws Exception
   {
     final String fourthMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/0);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */0);
     final String thirdMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/1, /*numAssistsInGame=*/1);
+    /* numGoalsInGame= */1, /* numAssistsInGame= */1);
     final String secondMostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/0, /*numAssistsInGame=*/1);
+    /* numGoalsInGame= */0, /* numAssistsInGame= */1);
     final String mostRecentGameTableRow = getGameTableRow(
-          /*numGoalsInGame=*/1, /*numAssistsInGame=*/0);
-    final NodeList nodeList = getNodeList(fourthMostRecentGameTableRow,
-          thirdMostRecentGameTableRow, secondMostRecentGameTableRow,
-          mostRecentGameTableRow);
+    /* numGoalsInGame= */1, /* numAssistsInGame= */0);
+    final NodeList nodeList = getNodeList(fourthMostRecentGameTableRow, thirdMostRecentGameTableRow,
+          secondMostRecentGameTableRow, mostRecentGameTableRow);
     when(toGameRowNodeListFunction.apply(playerId)).thenReturn(nodeList);
-    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).
-          setAssistStreak(0).setPointStreak(3).build(),
+    assertEquals(new PlayerStreaks.Builder().setGoalStreak(1).setAssistStreak(0).setPointStreak(3).build(),
           streaksSupplier.get(playerId, position));
   }
 }

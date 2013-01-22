@@ -29,14 +29,10 @@ public final class Website implements StatsProvider
   private Set<NumberedTeam> numberedTeams;
 
   @Inject
-  Website(final UrlContentsGetter urlContentsGetter,
-        final Function<String, Set<NumberedTeam>> toTeamsFunction,
-        final PlayerSupplier playerSupplier,
-        final GoalieSupplier goalieSupplier,
-        @Named("Players")
-        final TeamNumToNodeListFunction playerTableRowNodeListSupplier,
-        @Named("Goalies")
-        final TeamNumToNodeListFunction goalieTableRowNodeListSupplier)
+  Website(final UrlContentsGetter urlContentsGetter, final Function<String, Set<NumberedTeam>> toTeamsFunction,
+        final PlayerSupplier playerSupplier, final GoalieSupplier goalieSupplier,
+        @Named("Players") final TeamNumToNodeListFunction playerTableRowNodeListSupplier,
+        @Named("Goalies") final TeamNumToNodeListFunction goalieTableRowNodeListSupplier)
   {
     this.urlContentsGetter = urlContentsGetter;
     this.toTeamsFunction = toTeamsFunction;
@@ -56,22 +52,19 @@ public final class Website implements StatsProvider
   {
     if (numberedTeams == null)
     {
-      final String playerStatsHtml =
-            urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
+      final String playerStatsHtml = urlContentsGetter.getContentsOf(Urls.getPlayerStatsUrl());
       numberedTeams = toTeamsFunction.apply(playerStatsHtml);
     }
     return numberedTeams;
   }
 
   /** {@inheritDoc} */
-  public List<Player> getPlayers(final Team team,
-        final ProgressIndicator progressIndicator) throws IOException
+  public List<Player> getPlayers(final Team team, final ProgressIndicator progressIndicator) throws IOException
   {
     ArgAssert.assertNotNull(team, "team");
     ArgAssert.assertNotNull(progressIndicator, "progressIndicator");
 
-    final NodeList tableRowNodeList = playerTableRowNodeListSupplier.apply(
-          getTeamNum(team));
+    final NodeList tableRowNodeList = playerTableRowNodeListSupplier.apply(getTeamNum(team));
 
     final List<Player> players = Lists.newArrayList();
     for (int i = 0; i < tableRowNodeList.getLength(); i++)
@@ -94,20 +87,17 @@ public final class Website implements StatsProvider
     throw new IllegalArgumentException("Team not found: " + team);
   }
 
-  private Player getPlayer(final Node tableRowNode,
-        final ProgressIndicator progressIndicator) throws IOException
+  private Player getPlayer(final Node tableRowNode, final ProgressIndicator progressIndicator) throws IOException
   {
     return playerSupplier.getPlayer(tableRowNode, progressIndicator);
   }
 
   /** {@inheritDoc} */
-  public List<Goalie> getGoalies(final Team team,
-        final ProgressIndicator progressIndicator) throws IOException
+  public List<Goalie> getGoalies(final Team team, final ProgressIndicator progressIndicator) throws IOException
   {
     ArgAssert.assertNotNull(team, "team");
 
-    final NodeList tableRowNodeList = goalieTableRowNodeListSupplier.apply(
-          getTeamNum(team));
+    final NodeList tableRowNodeList = goalieTableRowNodeListSupplier.apply(getTeamNum(team));
 
     final List<Goalie> goalies = Lists.newArrayList();
     for (int i = 0; i < tableRowNodeList.getLength(); i++)
@@ -119,8 +109,7 @@ public final class Website implements StatsProvider
     return goalies;
   }
 
-  private Goalie getGoalie(final Node tableRowNode,
-        final ProgressIndicator progressIndicator) throws IOException
+  private Goalie getGoalie(final Node tableRowNode, final ProgressIndicator progressIndicator) throws IOException
   {
     return goalieSupplier.get(tableRowNode, progressIndicator);
   }

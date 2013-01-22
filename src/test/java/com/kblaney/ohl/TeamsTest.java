@@ -18,7 +18,7 @@ public final class TeamsTest
   {
     teamName = "Belleville Bulls";
     team = getTeamWithName(teamName);
-    emptyTeams = new Teams(Sets.<Team>newHashSet());
+    emptyTeams = new Teams(Sets.<Team> newHashSet());
     singletonTeams = new Teams(Sets.newHashSet(team));
   }
 
@@ -43,12 +43,9 @@ public final class TeamsTest
   @Test
   public void getSortedTeamNames()
   {
-    final Teams teams = new Teams(Sets.newHashSet(
-          getTeamWithName("Belleville Bulls"),
-          getTeamWithName("Barrie Colts"),
+    final Teams teams = new Teams(Sets.newHashSet(getTeamWithName("Belleville Bulls"), getTeamWithName("Barrie Colts"),
           getTeamWithName("Erie Otters")));
-    assertEquals(Lists.newArrayList("Barrie Colts", "Belleville Bulls",
-          "Erie Otters"), teams.getSortedTeamNames());
+    assertEquals(Lists.newArrayList("Barrie Colts", "Belleville Bulls", "Erie Otters"), teams.getSortedTeamNames());
   }
 
   @Test
@@ -69,8 +66,8 @@ public final class TeamsTest
   @Test
   public void getTeamWithName_teamWithName()
   {
-    final Teams teams = new Teams(Sets.newHashSet(team,
-          getTeamWithName("Barrie Colts"), getTeamWithName("Erie Otters")));
+    final Teams teams = new Teams(
+          Sets.newHashSet(team, getTeamWithName("Barrie Colts"), getTeamWithName("Erie Otters")));
     assertEquals(team, teams.getTeamWithName(teamName));
   }
 
@@ -113,9 +110,7 @@ public final class TeamsTest
   @Test
   public void testToString()
   {
-    assertNotNull(new Teams(Sets.newHashSet(
-          getTeamWithName("Belleville Bulls"),
-          getTeamWithName("Barrie Colts"),
+    assertNotNull(new Teams(Sets.newHashSet(getTeamWithName("Belleville Bulls"), getTeamWithName("Barrie Colts"),
           getTeamWithName("Erie Otters"))).toString());
   }
 }

@@ -24,9 +24,8 @@ public final class PlayerBioTest
     weight = "198";
     hometown = "Belleville, ON";
     gameByGameFilePath = "roster/show/id/6640";
-    bio = new PlayerBio.Builder().setBirthYear(birthYear).
-          setPosition(position).setHeight(height).setWeight(weight).
-          setHometown(hometown).setGameByGameFilePath(gameByGameFilePath).build();
+    bio = new PlayerBio.Builder().setBirthYear(birthYear).setPosition(position).setHeight(height).setWeight(weight)
+          .setHometown(hometown).setGameByGameFilePath(gameByGameFilePath).build();
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -37,35 +37,29 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
     this.goaliesToHtmlTableFunction = goaliesToHtmlTableFunction;
   }
 
-  public Gamesheets getGamesheets(final Team homeTeam, final Team roadTeam,
-          final Calendar gameDate, final ProgressIndicator progressIndicator)
-          throws IOException
+  public Gamesheets getGamesheets(final Team homeTeam, final Team roadTeam, final Calendar gameDate,
+        final ProgressIndicator progressIndicator) throws IOException
   {
-    final String roadTeamGamesheet = getRoadTeamGamesheet(roadTeam,
-          progressIndicator);
+    final String roadTeamGamesheet = getRoadTeamGamesheet(roadTeam, progressIndicator);
     progressIndicator.setPlayerInProgress("Done road team");
-    final String homeTeamGamesheet = getHomeTeamGamesheet(homeTeam, roadTeam,
-            gameDate, progressIndicator);
+    final String homeTeamGamesheet = getHomeTeamGamesheet(homeTeam, roadTeam, gameDate, progressIndicator);
     progressIndicator.setPlayerInProgress("Done");
 
     return new Gamesheets(homeTeamGamesheet, roadTeamGamesheet);
   }
 
-  private String getRoadTeamGamesheet(final Team roadTeam,
-        final ProgressIndicator progressIndicator) throws IOException
+  private String getRoadTeamGamesheet(final Team roadTeam, final ProgressIndicator progressIndicator)
+        throws IOException
   {
     return getGamesheet(roadTeam, progressIndicator);
   }
 
-  private String getGamesheet(final Team team,
-        final ProgressIndicator progressIndicator) throws IOException
+  private String getGamesheet(final Team team, final ProgressIndicator progressIndicator) throws IOException
   {
-    final List<Player> players = statsProvider.getPlayers(team,
-          progressIndicator);
+    final List<Player> players = statsProvider.getPlayers(team, progressIndicator);
     final List<Player> activePlayers = removeInactivePlayers(players);
     Collections.sort(activePlayers, new PlayerPointsComparator());
-    final List<Goalie> goalies = statsProvider.getGoalies(team,
-          progressIndicator);
+    final List<Goalie> goalies = statsProvider.getGoalies(team, progressIndicator);
 
     final StringBuilder s = new StringBuilder(getTeamHeading(team));
     s.append(SystemUtil.LINE_SEPARATOR);
@@ -79,8 +73,7 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
 
   private List<Player> removeInactivePlayers(final List<Player> players)
   {
-    return Lists.newArrayList(Collections2.filter(players,
-          new ActivePlayerPredicate()));
+    return Lists.newArrayList(Collections2.filter(players, new ActivePlayerPredicate()));
   }
 
   private String getTeamHeading(final Team team)
@@ -88,29 +81,23 @@ public final class HtmlGamesheetsGetter implements GamesheetsGetter
     return HtmlUtil.getH3Heading(team.getName());
   }
 
-  private String getHomeTeamGamesheet(final Team homeTeam, final Team roadTeam,
-        final Calendar gameDate, final ProgressIndicator progressIndicator)
-        throws IOException
+  private String getHomeTeamGamesheet(final Team homeTeam, final Team roadTeam, final Calendar gameDate,
+        final ProgressIndicator progressIndicator) throws IOException
   {
-    final StringBuilder s = new StringBuilder(
-          getGameHeading(homeTeam, roadTeam, gameDate));
+    final StringBuilder s = new StringBuilder(getGameHeading(homeTeam, roadTeam, gameDate));
     s.append(SystemUtil.LINE_SEPARATOR);
     s.append(getGamesheet(homeTeam, progressIndicator));
 
     return s.toString();
   }
 
-  private String getGameHeading(final Team homeTeam, final Team roadTeam,
-        final Calendar gameDate)
+  private String getGameHeading(final Team homeTeam, final Team roadTeam, final Calendar gameDate)
   {
-    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(
-          "EEE., MMM. d, yyyy");
+    final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE., MMM. d, yyyy");
     final FieldPosition fieldPosition = new FieldPosition(0);
     final StringBuffer bufferToAppendTo = new StringBuffer();
-    final StringBuffer formattedGameDate = simpleDateFormat.format(
-          gameDate.getTime(), bufferToAppendTo, fieldPosition);
+    final StringBuffer formattedGameDate = simpleDateFormat.format(gameDate.getTime(), bufferToAppendTo, fieldPosition);
 
-    return HtmlUtil.getH3Heading(roadTeam.getName() + " @ " +
-          homeTeam.getName() + " - " + formattedGameDate);
+    return HtmlUtil.getH3Heading(roadTeam.getName() + " @ " + homeTeam.getName() + " - " + formattedGameDate);
   }
 }

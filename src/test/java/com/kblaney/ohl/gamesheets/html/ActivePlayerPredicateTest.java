@@ -30,56 +30,51 @@ public final class ActivePlayerPredicateTest
     bio = new PlayerBio.Builder().build();
     streaks = new PlayerStreaks.Builder().build();
     statsWithZeroGamesPlayed = new PlayerStats.Builder().build();
-    statsWithSomeGamesPlayed = new PlayerStats.Builder().setNumGamesPlayed(8).
-          build();
+    statsWithSomeGamesPlayed = new PlayerStats.Builder().setNumGamesPlayed(8).build();
     predicate = new ActivePlayerPredicate();
   }
 
   @Test
   public void apply_veteranWithSomeGamesPlayed()
   {
-    final Player player = new Player(playerName, PlayerType.VETERAN, sweaterNum,
-          statsWithSomeGamesPlayed, bio, streaks);
+    final Player player = new Player(playerName, PlayerType.VETERAN, sweaterNum, statsWithSomeGamesPlayed, bio, streaks);
     assertTrue(predicate.apply(player));
   }
 
   @Test
   public void apply_rookieWithSomeGamesPlayed()
   {
-    final Player player = new Player(playerName, PlayerType.ROOKIE, sweaterNum,
-          statsWithSomeGamesPlayed, bio, streaks);
+    final Player player = new Player(playerName, PlayerType.ROOKIE, sweaterNum, statsWithSomeGamesPlayed, bio, streaks);
     assertTrue(predicate.apply(player));
   }
 
   @Test
   public void apply_inactivePlayerWithSomeGamesPlayed()
   {
-    final Player player = new Player(playerName, PlayerType.NOT_ACTIVE,
-          sweaterNum, statsWithSomeGamesPlayed, bio, streaks);
+    final Player player = new Player(playerName, PlayerType.NOT_ACTIVE, sweaterNum, statsWithSomeGamesPlayed, bio,
+          streaks);
     assertFalse(predicate.apply(player));
   }
 
   @Test
   public void apply_veteranWithZeroGamesPlayed()
   {
-    final Player player = new Player(playerName, PlayerType.VETERAN, sweaterNum,
-          statsWithZeroGamesPlayed, bio, streaks);
+    final Player player = new Player(playerName, PlayerType.VETERAN, sweaterNum, statsWithZeroGamesPlayed, bio, streaks);
     assertFalse(predicate.apply(player));
   }
 
   @Test
   public void apply_rookieWithZeroGamesPlayed()
   {
-    final Player player = new Player(playerName, PlayerType.ROOKIE, sweaterNum,
-          statsWithZeroGamesPlayed, bio, streaks);
+    final Player player = new Player(playerName, PlayerType.ROOKIE, sweaterNum, statsWithZeroGamesPlayed, bio, streaks);
     assertFalse(predicate.apply(player));
   }
 
   @Test
   public void apply_inactivePlayerWithZeroGamesPlayed()
   {
-    final Player player = new Player(playerName, PlayerType.NOT_ACTIVE,
-          sweaterNum, statsWithZeroGamesPlayed, bio, streaks);
+    final Player player = new Player(playerName, PlayerType.NOT_ACTIVE, sweaterNum, statsWithZeroGamesPlayed, bio,
+          streaks);
     assertFalse(predicate.apply(player));
   }
 }

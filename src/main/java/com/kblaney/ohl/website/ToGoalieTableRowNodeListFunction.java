@@ -10,14 +10,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-final class ToGoalieTableRowNodeListFunction
-      implements TeamNumToNodeListFunction
+final class ToGoalieTableRowNodeListFunction implements TeamNumToNodeListFunction
 {
   private final UrlToDomDocumentFunction urlToDomDocumentFunction;
 
   @Inject
-  public ToGoalieTableRowNodeListFunction(
-        final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  public ToGoalieTableRowNodeListFunction(final UrlToDomDocumentFunction urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -29,7 +27,7 @@ final class ToGoalieTableRowNodeListFunction
     return getNodeList(tableNode);
   }
 
-  private Document getDocument(final int teamNum)throws IOException
+  private Document getDocument(final int teamNum) throws IOException
   {
     final URL url = Urls.getGoalieStatsUrl(teamNum);
     return urlToDomDocumentFunction.apply(url);
@@ -40,12 +38,10 @@ final class ToGoalieTableRowNodeListFunction
     final String xpath = "//table[tr[th='SVS']]";
     try
     {
-      final Node tableNode = XPathAPI.selectSingleNode(
-            document.getDocumentElement(), xpath);
+      final Node tableNode = XPathAPI.selectSingleNode(document.getDocumentElement(), xpath);
       if (tableNode == null)
       {
-        throw new IllegalStateException(
-              "Can't find goalies table using xpath: " + xpath);
+        throw new IllegalStateException("Can't find goalies table using xpath: " + xpath);
       }
       else
       {
@@ -54,8 +50,7 @@ final class ToGoalieTableRowNodeListFunction
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException(
-            "Invalid goalies table xpath: " + xpath, e);
+      throw new IllegalStateException("Invalid goalies table xpath: " + xpath, e);
     }
   }
 
@@ -68,8 +63,7 @@ final class ToGoalieTableRowNodeListFunction
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException(
-            "Can't get goalie node list using xpath: " + xpath, e);
+      throw new IllegalStateException("Can't get goalie node list using xpath: " + xpath, e);
     }
   }
 }

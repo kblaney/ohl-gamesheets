@@ -4,8 +4,7 @@ import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import org.w3c.dom.Node;
 
-final class PlayerTableRowNodeToSweaterNumFunction
-      implements Function<Node, Optional<Integer>>
+final class PlayerTableRowNodeToSweaterNumFunction implements Function<Node, Optional<Integer>>
 {
   public Optional<Integer> apply(final Node tableRowNode)
   {

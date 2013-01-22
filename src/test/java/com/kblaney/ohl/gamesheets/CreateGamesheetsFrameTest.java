@@ -35,8 +35,8 @@ public final class CreateGamesheetsFrameTest
     roadTeamName = "Kingston Frontenacs";
     homeTeam = getTeamWithName(homeTeamName);
     roadTeam = getTeamWithName(roadTeamName);
-    final Set<Team> teams = Sets.newHashSet(homeTeam, roadTeam,
-          getTeamWithName("Barrie Colts"), getTeamWithName("Erie Otters"));
+    final Set<Team> teams = Sets.newHashSet(homeTeam, roadTeam, getTeamWithName("Barrie Colts"),
+          getTeamWithName("Erie Otters"));
 
     UISpec4J.init();
     final StatsProvider statsProvider = mock(StatsProvider.class);
@@ -45,14 +45,12 @@ public final class CreateGamesheetsFrameTest
     final String homeTeamGamesheet = "HOME_TEAM_GAMESHEET";
     final String roadTeamGamesheet = "ROAD_TEAM_GAMESHEET";
     htmlGamesheets = new Gamesheets(homeTeamGamesheet, roadTeamGamesheet);
-    final GamesheetsGetter htmlGamesheetsGetter =
-          mock(GamesheetsGetter.class);
-    when(htmlGamesheetsGetter.getGamesheets(eq(homeTeam), eq(roadTeam),
-          any(Calendar.class), any(ProgressIndicator.class))).
-          thenReturn(htmlGamesheets);
+    final GamesheetsGetter htmlGamesheetsGetter = mock(GamesheetsGetter.class);
+    when(
+          htmlGamesheetsGetter.getGamesheets(eq(homeTeam), eq(roadTeam), any(Calendar.class),
+                any(ProgressIndicator.class))).thenReturn(htmlGamesheets);
     htmlGamesheetsWriter = mock(GamesheetsWriter.class);
-    frame = new CreateGamesheetsFrame(statsProvider, htmlGamesheetsGetter,
-          htmlGamesheetsWriter);
+    frame = new CreateGamesheetsFrame(statsProvider, htmlGamesheetsGetter, htmlGamesheetsWriter);
     window = new Window(frame);
   }
 
@@ -82,11 +80,9 @@ public final class CreateGamesheetsFrameTest
   @Test
   public void createGamesheets() throws Exception
   {
-    final ComboBox homeTeamComboBox = window.getComboBox(
-          CreateGamesheetsFrame.HOME_TEAM_COMBO_BOX_NAME);
+    final ComboBox homeTeamComboBox = window.getComboBox(CreateGamesheetsFrame.HOME_TEAM_COMBO_BOX_NAME);
     homeTeamComboBox.select(homeTeamName);
-    final ComboBox roadTeamComboBox = window.getComboBox(
-          CreateGamesheetsFrame.ROAD_TEAM_COMBO_BOX_NAME);
+    final ComboBox roadTeamComboBox = window.getComboBox(CreateGamesheetsFrame.ROAD_TEAM_COMBO_BOX_NAME);
     roadTeamComboBox.select(roadTeamName);
     final Button button = window.getButton("Create gamesheets!");
     button.click();

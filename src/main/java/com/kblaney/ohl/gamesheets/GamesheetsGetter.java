@@ -6,7 +6,6 @@ import java.util.Calendar;
 
 public interface GamesheetsGetter
 {
-  Gamesheets getGamesheets(Team homeTeam, Team roadTeam,
-        Calendar gameDate, ProgressIndicator progressIndicator)
+  Gamesheets getGamesheets(Team homeTeam, Team roadTeam, Calendar gameDate, ProgressIndicator progressIndicator)
         throws IOException;
 }

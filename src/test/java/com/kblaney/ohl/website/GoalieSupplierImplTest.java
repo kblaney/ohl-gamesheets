@@ -24,10 +24,9 @@ public final class GoalieSupplierImplTest
   public void setUp()
   {
     final String name = "GOALIE_NAME";
-    final GoalieStats stats = new GoalieStats.Builder().setNumGamesPlayed(3).
-          setNumWins(1).setNumRegulationLosses(2).setNumGoalsAgainst(10).
-          setNumSaves(90).setNumShotsAgainst(100).setNumMinutesPlayed(179).
-          setGoalsAgainstAverage(3.33).setSavePercentage(0.9).build();
+    final GoalieStats stats = new GoalieStats.Builder().setNumGamesPlayed(3).setNumWins(1).setNumRegulationLosses(2)
+          .setNumGoalsAgainst(10).setNumSaves(90).setNumShotsAgainst(100).setNumMinutesPlayed(179)
+          .setGoalsAgainstAverage(3.33).setSavePercentage(0.9).build();
     goalie = new Goalie(name, stats);
 
     tableRowNode = mock(Node.class);
@@ -39,8 +38,7 @@ public final class GoalieSupplierImplTest
     tableRowNodeToStatsFunction = mock(Function.class);
     when(tableRowNodeToStatsFunction.apply(tableRowNode)).thenReturn(stats);
 
-    supplier = new GoalieSupplierImpl(tableRowNodeToNameFunction,
-          tableRowNodeToStatsFunction);
+    supplier = new GoalieSupplierImpl(tableRowNodeToNameFunction, tableRowNodeToStatsFunction);
   }
 
   @Test

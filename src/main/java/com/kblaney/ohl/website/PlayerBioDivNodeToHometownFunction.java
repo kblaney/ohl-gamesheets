@@ -8,20 +8,17 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 
-final class PlayerBioDivNodeToHometownFunction
-      implements Function<Node, String>
+final class PlayerBioDivNodeToHometownFunction implements Function<Node, String>
 {
   public String apply(final Node bioDivNode)
   {
     try
     {
-      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode,
-            "//tr[td='Hometown']");
+      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode, "//tr[td='Hometown']");
 
       if (rowNode.getLastChild().hasChildNodes())
       {
-        final String nodeValue = rowNode.getLastChild().
-              getFirstChild().getNodeValue();
+        final String nodeValue = rowNode.getLastChild().getFirstChild().getNodeValue();
         final Pattern p = Pattern.compile("^[^,]+, [^,]+");
         final Matcher m = p.matcher(nodeValue);
         if (m.find())

@@ -38,30 +38,16 @@ public final class GoalieStatsTest
     numSaves = 180;
     savePercentage = 0.945;
     builder = new GoalieStats.Builder();
-    stats = builder.setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setNumShutouts(numShutouts).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).
-          setSavePercentage(savePercentage).build();
-    equalStats = builder.setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setNumShutouts(numShutouts).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).
-          setSavePercentage(savePercentage).build();
+    stats = builder.setNumGamesPlayed(numGamesPlayed).setNumMinutesPlayed(numMinutesPlayed)
+          .setNumGoalsAgainst(numGoalsAgainst).setNumShutouts(numShutouts).setGoalsAgainstAverage(goalsAgainstAverage)
+          .setNumWins(numWins).setNumRegulationLosses(numRegulationLosses).setNumOvertimeLosses(numOvertimeLosses)
+          .setNumShootoutLosses(numShootoutLosses).setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves)
+          .setSavePercentage(savePercentage).build();
+    equalStats = builder.setNumGamesPlayed(numGamesPlayed).setNumMinutesPlayed(numMinutesPlayed)
+          .setNumGoalsAgainst(numGoalsAgainst).setNumShutouts(numShutouts).setGoalsAgainstAverage(goalsAgainstAverage)
+          .setNumWins(numWins).setNumRegulationLosses(numRegulationLosses).setNumOvertimeLosses(numOvertimeLosses)
+          .setNumShootoutLosses(numShootoutLosses).setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves)
+          .setSavePercentage(savePercentage).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -231,192 +217,135 @@ public final class GoalieStatsTest
   @Test
   public void equals_unequalNumGamesPlayed()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed + 1).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).
-          setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed + 1)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumMinutesPlayed()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed + 1).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).
-          setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed + 1).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumWins()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins + 1).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).
-          setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins + 1).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumRegulationLosses()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses + 1).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).
-          setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses + 1)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumOvertimeLosses()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses + 1).
-          setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).
-          setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses + 1).setNumShootoutLosses(numShootoutLosses)
+          .setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves)
+          .setNumGoalsAgainst(numGoalsAgainst).setGoalsAgainstAverage(goalsAgainstAverage)
+          .setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumShootoutLosses()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses + 1).
-          setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses + 1)
+          .setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves)
+          .setNumGoalsAgainst(numGoalsAgainst).setGoalsAgainstAverage(goalsAgainstAverage)
+          .setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumShutouts()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShutouts(numShutouts + 1).setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses)
+          .setNumShutouts(numShutouts + 1).setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves)
+          .setNumGoalsAgainst(numGoalsAgainst).setGoalsAgainstAverage(goalsAgainstAverage)
+          .setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumShotsAgainst()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst + 1).
-          setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst + 1).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumSaves()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves + 1).setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves + 1).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalNumGoalsAgainst()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst + 1).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst + 1)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalGoalsAgainstAverage()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage / 2).
-          setSavePercentage(savePercentage).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage / 2).setSavePercentage(savePercentage).build();
     assertFalse(stats.equals(unequalStats));
   }
 
   @Test
   public void equals_unequalSavePercentage()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).
-          setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst).
-          setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage / 2).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed)
+          .setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).setNumRegulationLosses(numRegulationLosses)
+          .setNumOvertimeLosses(numOvertimeLosses).setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts)
+          .setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst)
+          .setGoalsAgainstAverage(goalsAgainstAverage).setSavePercentage(savePercentage / 2).build();
     assertFalse(stats.equals(unequalStats));
   }
 
@@ -447,16 +376,11 @@ public final class GoalieStatsTest
     numGoalsAgainst = 47;
     goalsAgainstAverage = 2.35;
     savePercentage = 0.898;
-    stats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed).
-          setNumMinutesPlayed(numMinutesPlayed).setNumWins(numWins).
-          setNumRegulationLosses(numRegulationLosses).
-          setNumOvertimeLosses(numOvertimeLosses).
-          setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).
-          setNumShotsAgainst(numShotsAgainst).setNumSaves(numSaves).
-          setNumGoalsAgainst(numGoalsAgainst).
-          setGoalsAgainstAverage(goalsAgainstAverage).
-          setSavePercentage(savePercentage).build();
-    assertEquals("GP:21;MIN:1199;W:8;RL:5;OTL:2;SOL:3;SO:1;SA:459;S:412;GA:47;GAA:2.35;SP:0.898",
-          stats.toString());
+    stats = new GoalieStats.Builder().setNumGamesPlayed(numGamesPlayed).setNumMinutesPlayed(numMinutesPlayed)
+          .setNumWins(numWins).setNumRegulationLosses(numRegulationLosses).setNumOvertimeLosses(numOvertimeLosses)
+          .setNumShootoutLosses(numShootoutLosses).setNumShutouts(numShutouts).setNumShotsAgainst(numShotsAgainst)
+          .setNumSaves(numSaves).setNumGoalsAgainst(numGoalsAgainst).setGoalsAgainstAverage(goalsAgainstAverage)
+          .setSavePercentage(savePercentage).build();
+    assertEquals("GP:21;MIN:1199;W:8;RL:5;OTL:2;SOL:3;SO:1;SA:459;S:412;GA:47;GAA:2.35;SP:0.898", stats.toString());
   }
 }

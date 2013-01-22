@@ -14,7 +14,6 @@ final class PlayerTableRowNodeToIdFunction implements Function<Node, String>
   private String getHrefAttrValue(final Node node)
   {
     final Node playerLinkNode = node.getChildNodes().item(2);
-    return playerLinkNode.getFirstChild().getAttributes().getNamedItem(
-          "href").getNodeValue();
+    return playerLinkNode.getFirstChild().getAttributes().getNamedItem("href").getNodeValue();
   }
 }

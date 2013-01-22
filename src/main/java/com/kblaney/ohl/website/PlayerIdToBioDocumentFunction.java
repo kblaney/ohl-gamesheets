@@ -12,8 +12,7 @@ final class PlayerIdToBioDocumentFunction implements Function<String, Document>
   private final UrlToDomDocumentFunction urlToDomDocumentFunction;
 
   @Inject
-  public PlayerIdToBioDocumentFunction(
-        final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  public PlayerIdToBioDocumentFunction(final UrlToDomDocumentFunction urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -27,8 +26,7 @@ final class PlayerIdToBioDocumentFunction implements Function<String, Document>
     }
     catch (final IOException e)
     {
-      throw new IllegalStateException(
-            "Can't get player bio from url: " + url, e);
+      throw new IllegalStateException("Can't get player bio from url: " + url, e);
     }
   }
 }

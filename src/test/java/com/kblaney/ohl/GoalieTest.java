@@ -66,8 +66,7 @@ public final class GoalieTest
   @Test
   public void equals_unequalStats()
   {
-    final GoalieStats unequalStats = new GoalieStats.Builder().
-          setNumGamesPlayed(1).build();
+    final GoalieStats unequalStats = new GoalieStats.Builder().setNumGamesPlayed(1).build();
     final Goalie unequalGoalie = new Goalie(name, unequalStats);
     assertFalse(goalie.equals(unequalGoalie));
   }

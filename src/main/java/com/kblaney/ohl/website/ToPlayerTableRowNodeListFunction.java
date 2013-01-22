@@ -10,14 +10,12 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-final class ToPlayerTableRowNodeListFunction
-      implements TeamNumToNodeListFunction
+final class ToPlayerTableRowNodeListFunction implements TeamNumToNodeListFunction
 {
   private final UrlToDomDocumentFunction urlToDomDocumentFunction;
 
   @Inject
-  public ToPlayerTableRowNodeListFunction(
-        final UrlToDomDocumentFunction urlToDomDocumentFunction)
+  public ToPlayerTableRowNodeListFunction(final UrlToDomDocumentFunction urlToDomDocumentFunction)
   {
     this.urlToDomDocumentFunction = urlToDomDocumentFunction;
   }
@@ -40,12 +38,10 @@ final class ToPlayerTableRowNodeListFunction
     final String xpath = "//table[tr[th='PIMPG']]";
     try
     {
-      final Node tableNode = XPathAPI.selectSingleNode(
-            document.getDocumentElement(), xpath);
+      final Node tableNode = XPathAPI.selectSingleNode(document.getDocumentElement(), xpath);
       if (tableNode == null)
       {
-        throw new IllegalStateException(
-              "Can't find players scoring table using xpath: " + xpath);
+        throw new IllegalStateException("Can't find players scoring table using xpath: " + xpath);
       }
       else
       {
@@ -54,8 +50,7 @@ final class ToPlayerTableRowNodeListFunction
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException(
-            "Invalid players table xpath: " + xpath, e);
+      throw new IllegalStateException("Invalid players table xpath: " + xpath, e);
     }
   }
 
@@ -68,8 +63,7 @@ final class ToPlayerTableRowNodeListFunction
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException(
-            "Can't get player node list using xpath: " + xpath, e);
+      throw new IllegalStateException("Can't get player node list using xpath: " + xpath, e);
     }
   }
 }

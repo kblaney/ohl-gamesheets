@@ -54,9 +54,8 @@ public final class WebsiteTest
     goalieSupplier = mock(GoalieSupplier.class);
     playerTableRowNodeListSupplier = mock(TeamNumToNodeListFunction.class);
     goalieTableRowNodeListSupplier = mock(TeamNumToNodeListFunction.class);
-    website = new Website(urlContentsGetter, toTeamsFunction, playerSupplier,
-          goalieSupplier, playerTableRowNodeListSupplier,
-          goalieTableRowNodeListSupplier);
+    website = new Website(urlContentsGetter, toTeamsFunction, playerSupplier, goalieSupplier,
+          playerTableRowNodeListSupplier, goalieTableRowNodeListSupplier);
     team = mock(Team.class);
     progressIndicator = mock(ProgressIndicator.class);
     node = mock(Node.class);
@@ -65,22 +64,17 @@ public final class WebsiteTest
   @Test
   public void getTeams_oneTeamTwoInvocations() throws Exception
   {
-    when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam("TEAM_1", 1)));
-    assertEquals(Lists.newArrayList("TEAM_1"),
-          website.getTeams().getSortedTeamNames());
-    assertEquals(Lists.newArrayList("TEAM_1"),
-          website.getTeams().getSortedTeamNames());
+    when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(Sets.newHashSet(new NumberedTeam("TEAM_1", 1)));
+    assertEquals(Lists.newArrayList("TEAM_1"), website.getTeams().getSortedTeamNames());
+    assertEquals(Lists.newArrayList("TEAM_1"), website.getTeams().getSortedTeamNames());
   }
 
   @Test
   public void getTeams_threeTeamsOneInvocation() throws Exception
   {
     when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam("TEAM_B", 1),
-          new NumberedTeam("TEAM_C", 2), new NumberedTeam("TEAM_A", 3)));
-    assertEquals(Lists.newArrayList("TEAM_A", "TEAM_B", "TEAM_C"),
-          website.getTeams().getSortedTeamNames());
+          Sets.newHashSet(new NumberedTeam("TEAM_B", 1), new NumberedTeam("TEAM_C", 2), new NumberedTeam("TEAM_A", 3)));
+    assertEquals(Lists.newArrayList("TEAM_A", "TEAM_B", "TEAM_C"), website.getTeams().getSortedTeamNames());
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -99,8 +93,7 @@ public final class WebsiteTest
   public void getPlayers_threeTeamsTeamNotFound() throws Exception
   {
     when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam("TEAM_B", 1),
-          new NumberedTeam("TEAM_C", 2), new NumberedTeam("TEAM_A", 3)));
+          Sets.newHashSet(new NumberedTeam("TEAM_B", 1), new NumberedTeam("TEAM_C", 2), new NumberedTeam("TEAM_A", 3)));
     website.getPlayers(team, progressIndicator);
   }
 
@@ -110,14 +103,12 @@ public final class WebsiteTest
     final String teamName = "TEAM_A";
     final int teamNum = 1;
     when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam(teamName, teamNum),
-          new NumberedTeam("TEAM_B", 2), new NumberedTeam("TEAM_C", 3)));
+          Sets.newHashSet(new NumberedTeam(teamName, teamNum), new NumberedTeam("TEAM_B", 2), new NumberedTeam(
+                "TEAM_C", 3)));
     final NodeList emptyNodeList = getEmptyNodeList();
-    when(playerTableRowNodeListSupplier.apply(teamNum)).
-          thenReturn(emptyNodeList);
+    when(playerTableRowNodeListSupplier.apply(teamNum)).thenReturn(emptyNodeList);
     when(team.getName()).thenReturn(teamName);
-    assertEquals(Lists.newArrayList(),
-          website.getPlayers(team, progressIndicator));
+    assertEquals(Lists.newArrayList(), website.getPlayers(team, progressIndicator));
     verifyNoMoreInteractions(progressIndicator);
   }
 
@@ -134,8 +125,7 @@ public final class WebsiteTest
     final String teamName = "TEAM_A";
     final int teamNum = 1;
     when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam(teamName, teamNum),
-          new NumberedTeam("TEAM_B", 2)));
+          Sets.newHashSet(new NumberedTeam(teamName, teamNum), new NumberedTeam("TEAM_B", 2)));
     final NodeList nodeList = getNodeListOfLength(1);
     when(playerTableRowNodeListSupplier.apply(teamNum)).thenReturn(nodeList);
     final String playerName = "PLAYER_NAME";
@@ -159,9 +149,8 @@ public final class WebsiteTest
   private Player getPlayer(final String playerName, final PlayerType playerType)
   {
     final Optional<Integer> sweaterNum = Optional.of(19);
-    return new Player(playerName, playerType, sweaterNum,
-          new PlayerStats.Builder().build(), new PlayerBio.Builder().build(),
-          new PlayerStreaks.Builder().build());
+    return new Player(playerName, playerType, sweaterNum, new PlayerStats.Builder().build(),
+          new PlayerBio.Builder().build(), new PlayerStreaks.Builder().build());
   }
 
   @Test
@@ -170,8 +159,7 @@ public final class WebsiteTest
     final String teamName = "TEAM_A";
     final int teamNum = 1;
     when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam(teamName, teamNum),
-          new NumberedTeam("TEAM_B", 2)));
+          Sets.newHashSet(new NumberedTeam(teamName, teamNum), new NumberedTeam("TEAM_B", 2)));
     final NodeList nodeList = getNodeListOfLength(1);
     when(playerTableRowNodeListSupplier.apply(teamNum)).thenReturn(nodeList);
     final String playerName = "PLAYER_NAME";
@@ -187,13 +175,11 @@ public final class WebsiteTest
     final String teamName = "TEAM_A";
     final int teamNum = 1;
     when(toTeamsFunction.apply(playerStatsHtml)).thenReturn(
-          Sets.newHashSet(new NumberedTeam(teamName, teamNum),
-          new NumberedTeam("TEAM_B", 2)));
+          Sets.newHashSet(new NumberedTeam(teamName, teamNum), new NumberedTeam("TEAM_B", 2)));
     final NodeList nodeList = getNodeListOfLength(1);
     when(goalieTableRowNodeListSupplier.apply(teamNum)).thenReturn(nodeList);
     final String goalieName = "GOALIE_NAME";
-    final Goalie goalie = new Goalie(goalieName,
-          new GoalieStats.Builder().build());
+    final Goalie goalie = new Goalie(goalieName, new GoalieStats.Builder().build());
     when(goalieSupplier.get(node, progressIndicator)).thenReturn(goalie);
     when(team.getName()).thenReturn(teamName);
     assertEquals(1, website.getGoalies(team, progressIndicator).size());

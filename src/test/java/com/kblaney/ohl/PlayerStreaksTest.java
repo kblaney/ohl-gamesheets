@@ -18,10 +18,10 @@ public final class PlayerStreaksTest
     goalStreak = 2;
     assistStreak = 3;
     pointStreak = 4;
-    streaks = new PlayerStreaks.Builder().setGoalStreak(goalStreak).
-          setAssistStreak(assistStreak).setPointStreak(pointStreak).build();
-    equalStreaks = new PlayerStreaks.Builder().setGoalStreak(goalStreak).
-          setAssistStreak(assistStreak).setPointStreak(pointStreak).build();
+    streaks = new PlayerStreaks.Builder().setGoalStreak(goalStreak).setAssistStreak(assistStreak)
+          .setPointStreak(pointStreak).build();
+    equalStreaks = new PlayerStreaks.Builder().setGoalStreak(goalStreak).setAssistStreak(assistStreak)
+          .setPointStreak(pointStreak).build();
   }
 
   @Test(expected = IllegalArgumentException.class)
@@ -75,30 +75,27 @@ public final class PlayerStreaksTest
   @Test
   public void equals_unequalGoalStreak()
   {
-    streaks = new PlayerStreaks.Builder().setGoalStreak(3).
-          setAssistStreak(2).setPointStreak(4).build();
-    final PlayerStreaks unequalStreaks = new PlayerStreaks.Builder().
-          setGoalStreak(2).setAssistStreak(2).setPointStreak(4).build();
+    streaks = new PlayerStreaks.Builder().setGoalStreak(3).setAssistStreak(2).setPointStreak(4).build();
+    final PlayerStreaks unequalStreaks = new PlayerStreaks.Builder().setGoalStreak(2).setAssistStreak(2)
+          .setPointStreak(4).build();
     assertFalse(streaks.equals(unequalStreaks));
   }
 
   @Test
   public void equals_unequalAssistStreak()
   {
-    streaks = new PlayerStreaks.Builder().setGoalStreak(1).
-          setAssistStreak(2).setPointStreak(3).build();
-    final PlayerStreaks unequalStreaks = new PlayerStreaks.Builder().
-          setGoalStreak(1).setAssistStreak(3).setPointStreak(3).build();
+    streaks = new PlayerStreaks.Builder().setGoalStreak(1).setAssistStreak(2).setPointStreak(3).build();
+    final PlayerStreaks unequalStreaks = new PlayerStreaks.Builder().setGoalStreak(1).setAssistStreak(3)
+          .setPointStreak(3).build();
     assertFalse(streaks.equals(unequalStreaks));
   }
 
   @Test
   public void equals_unequalPointStreak()
   {
-    streaks = new PlayerStreaks.Builder().setGoalStreak(0).
-          setAssistStreak(4).setPointStreak(4).build();
-    final PlayerStreaks unequalStreaks = new PlayerStreaks.Builder().
-          setGoalStreak(0).setAssistStreak(4).setPointStreak(5).build();
+    streaks = new PlayerStreaks.Builder().setGoalStreak(0).setAssistStreak(4).setPointStreak(4).build();
+    final PlayerStreaks unequalStreaks = new PlayerStreaks.Builder().setGoalStreak(0).setAssistStreak(4)
+          .setPointStreak(5).build();
     assertFalse(streaks.equals(unequalStreaks));
   }
 
@@ -123,8 +120,7 @@ public final class PlayerStreaksTest
   @Test
   public void testToString()
   {
-    streaks = new PlayerStreaks.Builder().setGoalStreak(1).
-          setAssistStreak(2).setPointStreak(3).build();
+    streaks = new PlayerStreaks.Builder().setGoalStreak(1).setAssistStreak(2).setPointStreak(3).build();
     assertEquals("1G:2A:3P", streaks.toString());
   }
 }

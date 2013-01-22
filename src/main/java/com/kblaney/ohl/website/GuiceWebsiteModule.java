@@ -25,39 +25,49 @@ public final class GuiceWebsiteModule extends AbstractModule
   protected void configure()
   {
     bind(UrlContentsGetter.class).to(UsAsciiUrlContentsGetter.class);
-    bind(new TypeLiteral<Function<String, Set<NumberedTeam>>>() {}).
-          to(PlayerStatsHtmlToTeamsFunction.class);
+    bind(new TypeLiteral<Function<String, Set<NumberedTeam>>>()
+    {
+    }).to(PlayerStatsHtmlToTeamsFunction.class);
     bind(PlayerSupplier.class).to(PlayerSupplierImpl.class);
     bind(GoalieSupplier.class).to(GoalieSupplierImpl.class);
-    bind(new TypeLiteral<Function<Node, GoalieStats>>() {}).
-          to(GoalieTableRowNodeToStatsFunction.class);
-    bind(new TypeLiteral<Function<Node, PlayerType>>() {}).
-          to(PlayerTableRowNodeToPlayerTypeFunction.class);
-    bind(new TypeLiteral<Function<Node, Optional<Integer>>>() {}).
-          to(PlayerTableRowNodeToSweaterNumFunction.class);
-    bind(new TypeLiteral<Function<Node, PlayerStats>>() {}).
-          to(PlayerTableRowNodeToStatsFunction.class);
-    bind(new TypeLiteral<Function<String, PlayerBio>>() {}).
-          to(PlayerIdToBioFunction.class);
-    bind(new TypeLiteral<Function<String, Document>>() {}).
-          to(PlayerIdToBioDocumentFunction.class);
-    bind(new TypeLiteral<Function<Document, Node>>() {}).
-          to(PlayerBioDocumentToBioDivNodeFunction.class);
-    bind(new TypeLiteral<Function<Document, String>>() {}).
-          to(PlayerBioDocumentToGameByGameFilePath.class);
+    bind(new TypeLiteral<Function<Node, GoalieStats>>()
+    {
+    }).to(GoalieTableRowNodeToStatsFunction.class);
+    bind(new TypeLiteral<Function<Node, PlayerType>>()
+    {
+    }).to(PlayerTableRowNodeToPlayerTypeFunction.class);
+    bind(new TypeLiteral<Function<Node, Optional<Integer>>>()
+    {
+    }).to(PlayerTableRowNodeToSweaterNumFunction.class);
+    bind(new TypeLiteral<Function<Node, PlayerStats>>()
+    {
+    }).to(PlayerTableRowNodeToStatsFunction.class);
+    bind(new TypeLiteral<Function<String, PlayerBio>>()
+    {
+    }).to(PlayerIdToBioFunction.class);
+    bind(new TypeLiteral<Function<String, Document>>()
+    {
+    }).to(PlayerIdToBioDocumentFunction.class);
+    bind(new TypeLiteral<Function<Document, Node>>()
+    {
+    }).to(PlayerBioDocumentToBioDivNodeFunction.class);
+    bind(new TypeLiteral<Function<Document, String>>()
+    {
+    }).to(PlayerBioDocumentToGameByGameFilePath.class);
     bind(PlayerStreaksSupplier.class).to(PlayerStreaksSupplierImpl.class);
-    bind(new TypeLiteral<Function<String, NodeList>>() {}).
-          to(PlayerGameByGameFilePathToGameByGameRowNodeListFunction.class);
-    bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Players")).
-          to(ToPlayerTableRowNodeListFunction.class);
-    bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Goalies")).
-          to(ToGoalieTableRowNodeListFunction.class);
-    bind(new TypeLiteral<Function<Node, String>>() {}).
-          annotatedWith(Names.named("ToNameFunction")).
-          to(PlayerTableRowNodeToNameFunction.class);
-    bind(new TypeLiteral<Function<Node, String>>() {}).
-          annotatedWith(Names.named("ToIdFunction")).
-          to(PlayerTableRowNodeToIdFunction.class);
+    bind(new TypeLiteral<Function<String, NodeList>>()
+    {
+    }).to(PlayerGameByGameFilePathToGameByGameRowNodeListFunction.class);
+    bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Players")).to(
+          ToPlayerTableRowNodeListFunction.class);
+    bind(TeamNumToNodeListFunction.class).annotatedWith(Names.named("Goalies")).to(
+          ToGoalieTableRowNodeListFunction.class);
+    bind(new TypeLiteral<Function<Node, String>>()
+    {
+    }).annotatedWith(Names.named("ToNameFunction")).to(PlayerTableRowNodeToNameFunction.class);
+    bind(new TypeLiteral<Function<Node, String>>()
+    {
+    }).annotatedWith(Names.named("ToIdFunction")).to(PlayerTableRowNodeToIdFunction.class);
   }
 
   @SuppressWarnings("unused")

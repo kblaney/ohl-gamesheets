@@ -5,17 +5,14 @@ import javax.xml.transform.TransformerException;
 import org.apache.xpath.XPathAPI;
 import org.w3c.dom.Node;
 
-final class PlayerBioDivNodeToPositionFunction
-      implements Function<Node, String>
+final class PlayerBioDivNodeToPositionFunction implements Function<Node, String>
 {
   public String apply(final Node bioDivNode)
   {
     try
     {
-      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode,
-            "//tr[td='Position']");
-      final String positionLongForm = Nodes.getFirstChildNodeValueOrEmpty(
-            rowNode.getLastChild());
+      final Node rowNode = XPathAPI.selectSingleNode(bioDivNode, "//tr[td='Position']");
+      final String positionLongForm = Nodes.getFirstChildNodeValueOrEmpty(rowNode.getLastChild());
       if (positionLongForm.contains("Defence"))
       {
         return "D";

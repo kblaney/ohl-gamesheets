@@ -27,12 +27,9 @@ public final class PlayerStatsTest
     numPenaltyMinutes = 13;
     numPowerPlayGoals = 2;
     numShorthandedGoals = 1;
-    stats = new PlayerStats.Builder().setNumGamesPlayed(numGamesPlayed).
-          setNumGoals(numGoals).setNumAssists(numAssists).
-          setNumPoints(numPoints).setPlusMinus(plusMinus).
-          setNumPenaltyMinutes(numPenaltyMinutes).
-          setNumPowerPlayGoals(numPowerPlayGoals).
-          setNumShorthandedGoals(numShorthandedGoals).build();
+    stats = new PlayerStats.Builder().setNumGamesPlayed(numGamesPlayed).setNumGoals(numGoals).setNumAssists(numAssists)
+          .setNumPoints(numPoints).setPlusMinus(plusMinus).setNumPenaltyMinutes(numPenaltyMinutes)
+          .setNumPowerPlayGoals(numPowerPlayGoals).setNumShorthandedGoals(numShorthandedGoals).build();
   }
 
   @Test(expected = IllegalArgumentException.class)

@@ -21,24 +21,24 @@ public final class PlayerBioDivNodeToWeightFunctionTest
   @Test
   public void apply_noWeightPresent() throws Exception
   {
-    final Element element = new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Weight</td><td/></tr></table></div>");
+    final Element element = new XmlToDomElementFunction()
+          .apply("<div><table><tr><td>Weight</td><td/></tr></table></div>");
     assertEquals(StringUtils.EMPTY, function.apply(element));
   }
 
   @Test
   public void apply_zeroWeight() throws Exception
   {
-    final Element element = new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Weight</td><td>0</td></tr></table></div>");
+    final Element element = new XmlToDomElementFunction()
+          .apply("<div><table><tr><td>Weight</td><td>0</td></tr></table></div>");
     assertEquals(StringUtils.EMPTY, function.apply(element));
   }
 
   @Test
   public void apply_nonZeroWeight() throws Exception
   {
-    final Element element = new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Weight</td><td>218</td></tr></table></div>");
+    final Element element = new XmlToDomElementFunction()
+          .apply("<div><table><tr><td>Weight</td><td>218</td></tr></table></div>");
     assertEquals("218", function.apply(element));
   }
 }

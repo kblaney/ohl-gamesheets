@@ -3,14 +3,12 @@ package com.kblaney.ohl;
 import java.util.Comparator;
 
 /**
- * A comparator that compares players based on their number of points, goals,
- * and games played.
- *
+ * A comparator that compares players based on their number of points, goals, and games played.
+ * 
  * <p>
- * More specifically, a player with more points is considered less than a
- * player with fewer points.  If players have the same number of points, the
- * one with more goals is considered lesser.  If players have the same number
- * of points and goals, the one with fewer games played is considered lesser.
+ * More specifically, a player with more points is considered less than a player with fewer points. If players have the
+ * same number of points, the one with more goals is considered lesser. If players have the same number of points and
+ * goals, the one with fewer games played is considered lesser.
  * </p>
  */
 public final class PlayerPointsComparator implements Comparator<Player>

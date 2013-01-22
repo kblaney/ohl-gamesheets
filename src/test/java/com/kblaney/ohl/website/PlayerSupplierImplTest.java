@@ -42,8 +42,7 @@ public final class PlayerSupplierImplTest
     when(toIdFunction.apply(tableRowNode)).thenReturn(playerId);
 
     playerType = PlayerType.VETERAN;
-    final Function<Node, PlayerType> toPlayerTypeFunction =
-          mock(Function.class);
+    final Function<Node, PlayerType> toPlayerTypeFunction = mock(Function.class);
     when(toPlayerTypeFunction.apply(tableRowNode)).thenReturn(playerType);
 
     sweaterNum = Optional.of(29);
@@ -52,9 +51,8 @@ public final class PlayerSupplierImplTest
 
     final String position = "D";
     final String gameByGameFilePath = "roster/show/id/6640";
-    bio = new PlayerBio.Builder().setBirthYear("1990").
-          setHometown("Kingston, ON").setHeight("5.11").setWeight("188").
-          setPosition(position).setGameByGameFilePath(gameByGameFilePath).build();
+    bio = new PlayerBio.Builder().setBirthYear("1990").setHometown("Kingston, ON").setHeight("5.11").setWeight("188")
+          .setPosition(position).setGameByGameFilePath(gameByGameFilePath).build();
     final Function<String, PlayerBio> toBioFunction = mock(Function.class);
     when(toBioFunction.apply(playerId)).thenReturn(bio);
 
@@ -62,15 +60,12 @@ public final class PlayerSupplierImplTest
     final Function<Node, PlayerStats> toStatsFunction = mock(Function.class);
     when(toStatsFunction.apply(tableRowNode)).thenReturn(stats);
 
-    streaks = new PlayerStreaks.Builder().setGoalStreak(1).setPointStreak(1).
-          build();
-    final PlayerStreaksSupplier streaksSupplier =
-          mock(PlayerStreaksSupplier.class);
+    streaks = new PlayerStreaks.Builder().setGoalStreak(1).setPointStreak(1).build();
+    final PlayerStreaksSupplier streaksSupplier = mock(PlayerStreaksSupplier.class);
     when(streaksSupplier.get(gameByGameFilePath, position)).thenReturn(streaks);
 
-    supplier = new PlayerSupplierImpl(toNameFunction, toIdFunction,
-          toPlayerTypeFunction, toSweaterNumFunction, toStatsFunction,
-          toBioFunction, streaksSupplier);
+    supplier = new PlayerSupplierImpl(toNameFunction, toIdFunction, toPlayerTypeFunction, toSweaterNumFunction,
+          toStatsFunction, toBioFunction, streaksSupplier);
   }
 
   @Test

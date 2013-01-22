@@ -26,8 +26,7 @@ public final class PlayerBioDivNodeToHeightFunctionTest
 
   private Element getElementWithHeight(final String height) throws Exception
   {
-    return new XmlToDomElementFunction().apply(
-          "<div><table><tr><td>Height</td><td>" + height +
+    return new XmlToDomElementFunction().apply("<div><table><tr><td>Height</td><td>" + height +
           "</td></tr></table></div>");
   }
 

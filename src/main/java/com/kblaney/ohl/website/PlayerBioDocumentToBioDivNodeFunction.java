@@ -13,8 +13,7 @@ final class PlayerBioDocumentToBioDivNodeFunction implements Function<Document, 
     final String xpath = "//div[@class='profile']/div[@class='details']/table";
     try
     {
-      final Node bioDivNode = XPathAPI.selectSingleNode(
-            playerBioDocument.getDocumentElement(), xpath);
+      final Node bioDivNode = XPathAPI.selectSingleNode(playerBioDocument.getDocumentElement(), xpath);
       if (bioDivNode == null)
       {
         throw new IllegalStateException("Can't find bio div node");
@@ -26,8 +25,7 @@ final class PlayerBioDocumentToBioDivNodeFunction implements Function<Document, 
     }
     catch (final TransformerException e)
     {
-      throw new IllegalStateException(
-            "Invalid xpath to find bio div node: " + xpath, e);
+      throw new IllegalStateException("Invalid xpath to find bio div node: " + xpath, e);
     }
   }
 }

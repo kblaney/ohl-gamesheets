@@ -26,8 +26,7 @@ public final class HtmlGamesheetsFileWriterTest
   {
     final String homeTeamGamesheet = "HOME_TEAM";
     final String roadTeamGamesheet = "ROAD_TEAM";
-    final Gamesheets htmlGamesheets = new Gamesheets(homeTeamGamesheet,
-          roadTeamGamesheet);
+    final Gamesheets htmlGamesheets = new Gamesheets(homeTeamGamesheet, roadTeamGamesheet);
     gamesheetsWriter.write(htmlGamesheets);
     verify(stringWriterToFile).write(eq(homeTeamGamesheet), any(File.class));
     verify(stringWriterToFile).write(eq(roadTeamGamesheet), any(File.class));
