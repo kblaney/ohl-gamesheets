@@ -8,7 +8,7 @@ final class PlayerTableRowNodeToIdFunction implements Function<Node, String>
   public String apply(final Node node)
   {
     final String hrefAttrValue = getHrefAttrValue(node);
-    return hrefAttrValue.substring(hrefAttrValue.indexOf("?") + 1);
+    return hrefAttrValue.substring(hrefAttrValue.indexOf('?') + 1);
   }
 
   private String getHrefAttrValue(final Node node)
