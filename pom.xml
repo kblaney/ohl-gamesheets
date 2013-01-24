@@ -62,7 +62,7 @@
                </descriptorRefs>
                <archive>
                   <manifest>
-                     <mainClass>com.kblaney.ohl.gamesheets.EntryPoint</mainClass>
+                     <mainClass>com.kblaney.ohl.entrypoint.EntryPoint</mainClass>
                   </manifest>
                </archive>
             </configuration>

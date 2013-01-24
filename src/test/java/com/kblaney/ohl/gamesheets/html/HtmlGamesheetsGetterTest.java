@@ -1,18 +1,19 @@
 package com.kblaney.ohl.gamesheets.html;
 
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 import com.google.common.base.Function;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
+import com.kblaney.ohl.ProgressIndicator;
 import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.GamesheetsGetter;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 
 public final class HtmlGamesheetsGetterTest
 {

@@ -1,14 +1,14 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.ohl.Goalie;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import com.google.common.base.Function;
+import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.GoalieStats;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
+import com.kblaney.ohl.ProgressIndicator;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public final class GoalieSupplierImplTest
 {

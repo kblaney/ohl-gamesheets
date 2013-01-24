@@ -1,5 +1,6 @@
 package com.kblaney.ohl.gamesheets.html;
 
+import com.kblaney.ohl.ProgressIndicator;
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
@@ -11,7 +12,6 @@ import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.gamesheets.Gamesheets;
 import com.kblaney.ohl.gamesheets.GamesheetsGetter;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.text.FieldPosition;
 import java.text.SimpleDateFormat;

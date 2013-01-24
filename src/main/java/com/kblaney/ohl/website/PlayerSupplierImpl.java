@@ -1,5 +1,6 @@
 package com.kblaney.ohl.website;
 
+import com.kblaney.ohl.ProgressIndicator;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.inject.Inject;
@@ -9,7 +10,6 @@ import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import org.w3c.dom.Node;
 

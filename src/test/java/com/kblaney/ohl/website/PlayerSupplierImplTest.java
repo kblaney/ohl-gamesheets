@@ -1,9 +1,7 @@
 package com.kblaney.ohl.website;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.kblaney.ohl.Player;
@@ -11,7 +9,7 @@ import com.kblaney.ohl.PlayerBio;
 import com.kblaney.ohl.PlayerStats;
 import com.kblaney.ohl.PlayerStreaks;
 import com.kblaney.ohl.PlayerType;
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
+import com.kblaney.ohl.ProgressIndicator;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Node;

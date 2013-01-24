@@ -1,4 +1,4 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl;
 
 /**
  * An indicator of progress.

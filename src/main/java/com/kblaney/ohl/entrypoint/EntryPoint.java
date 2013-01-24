@@ -1,7 +1,8 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.entrypoint;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.kblaney.ohl.gamesheets.CreateGamesheetsFrame;
 import com.kblaney.ohl.gamesheets.html.GuiceHtmlGamesheetsModule;
 import com.kblaney.ohl.website.GuiceWebsiteModule;
 

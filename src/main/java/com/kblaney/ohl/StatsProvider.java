@@ -1,6 +1,5 @@
 package com.kblaney.ohl;
 
-import com.kblaney.ohl.gamesheets.ProgressIndicator;
 import java.io.IOException;
 import java.util.List;
 

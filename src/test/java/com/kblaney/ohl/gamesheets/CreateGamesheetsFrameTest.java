@@ -1,21 +1,23 @@
 package com.kblaney.ohl.gamesheets;
 
-import com.kblaney.ohl.StatsProvider;
-import java.util.Set;
-import org.uispec4j.ComboBox;
-import org.uispec4j.Button;
-import org.uispec4j.UISpec4J;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 import com.google.common.collect.Sets;
+import com.kblaney.ohl.ProgressIndicator;
+import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.Teams;
 import java.awt.event.ActionEvent;
 import java.util.Calendar;
+import java.util.Set;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.uispec4j.Button;
+import org.uispec4j.ComboBox;
+import org.uispec4j.UISpec4J;
 import org.uispec4j.Window;
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
 
 public final class CreateGamesheetsFrameTest
 {

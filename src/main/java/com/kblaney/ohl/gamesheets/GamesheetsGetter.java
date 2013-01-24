@@ -1,5 +1,6 @@
 package com.kblaney.ohl.gamesheets;
 
+import com.kblaney.ohl.ProgressIndicator;
 import com.kblaney.ohl.Team;
 import java.io.IOException;
 import java.util.Calendar;

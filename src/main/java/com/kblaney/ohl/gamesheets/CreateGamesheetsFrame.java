@@ -1,7 +1,8 @@
 package com.kblaney.ohl.gamesheets;
 
-import com.kblaney.ohl.StatsProvider;
 import com.google.inject.Inject;
+import com.kblaney.ohl.ProgressIndicator;
+import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.Teams;
 import java.awt.Color;
@@ -28,7 +29,7 @@ import mseries.ui.MDateEntryField;
 import mseries.ui.MSimpleDateFormat;
 
 @SuppressWarnings("serial")
-final class CreateGamesheetsFrame extends JFrame implements ActionListener, ProgressIndicator
+public final class CreateGamesheetsFrame extends JFrame implements ActionListener, ProgressIndicator
 {
   static final String HOME_TEAM_COMBO_BOX_NAME = "HomeTeam";
   static final String ROAD_TEAM_COMBO_BOX_NAME = "RoadTeam";
