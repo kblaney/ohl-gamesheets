@@ -79,7 +79,7 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
 
   private int getNumGoalsInGame(final Node gameRowNode)
   {
-    final int goalIndex = 4;
+    final int goalIndex = 3;
     return NumberUtils.toInt(getGameRowText(gameRowNode, goalIndex), 0);
   }
 
@@ -99,13 +99,13 @@ final class PlayerStreaksSupplierImpl implements PlayerStreaksSupplier
 
   private int getNumAssistsInGame(final Node gameRowNode)
   {
-    final int assistIndex = 5;
+    final int assistIndex = 4;
     return NumberUtils.toInt(getGameRowText(gameRowNode, assistIndex), 0);
   }
 
   private int getNumPointsInGame(final Node gameRowNode)
   {
-    final int pointsIndex = 6;
+    final int pointsIndex = 5;
     return NumberUtils.toInt(getGameRowText(gameRowNode, pointsIndex), 0);
   }
 }

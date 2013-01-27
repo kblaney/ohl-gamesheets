@@ -82,11 +82,9 @@ public final class PlayerStreaksSupplierTest
 
   private String getGameTableRow(final int numGoalsInGame, final int numAssistsInGame)
   {
-    final String numGoals = Integer.toString(numGoalsInGame);
-    final String numAssists = Integer.toString(numAssistsInGame);
-    final String numPoints = Integer.toString(numGoalsInGame + numAssistsInGame);
-    return "<tr><td/><td/><td/><td/>" + "<td>" + numGoals + "</td>" + "<td>" + numAssists + "</td>" + "<td>" +
-          numPoints + "</td></tr>";
+    final int numPointsInGame = numGoalsInGame + numAssistsInGame;
+    return "<tr><td/><td/><td/><td>" + numGoalsInGame + "</td><td>" + numAssistsInGame + "</td><td>" +
+          numPointsInGame + "</td></tr>";
   }
 
   @Test
