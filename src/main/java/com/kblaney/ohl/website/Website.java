@@ -1,6 +1,5 @@
 package com.kblaney.ohl.website;
 
-import com.kblaney.ohl.ProgressIndicator;
 import com.google.common.base.Function;
 import com.google.common.collect.Lists;
 import com.google.inject.Inject;
@@ -8,11 +7,13 @@ import com.google.inject.name.Named;
 import com.kblaney.assertions.ArgAssert;
 import com.kblaney.ohl.Goalie;
 import com.kblaney.ohl.Player;
+import com.kblaney.ohl.ProgressIndicator;
 import com.kblaney.ohl.StatsProvider;
 import com.kblaney.ohl.Team;
 import com.kblaney.ohl.Teams;
 import com.kblaney.url.UrlFunction;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Set;
 import org.w3c.dom.Node;
@@ -52,7 +53,8 @@ public final class Website implements StatsProvider
   {
     if (numberedTeams == null)
     {
-      final String playerStatsHtml = urlToContentFunction.convert(Urls.getPlayerStatsUrl());
+      final URL playerStatsUrl = Urls.getPlayerStatsUrl();
+      final String playerStatsHtml = urlToContentFunction.convert(playerStatsUrl);
       numberedTeams = toTeamsFunction.apply(playerStatsHtml);
     }
     return numberedTeams;
