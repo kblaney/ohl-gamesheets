@@ -1,5 +1,8 @@
-package com.kblaney.ohl.gamesheets;
+package com.kblaney.ohl.gamesheets.ui;
 
+import com.kblaney.ohl.gamesheets.Gamesheets;
+import com.kblaney.ohl.gamesheets.GamesheetsGetter;
+import com.kblaney.ohl.gamesheets.GamesheetsWriter;
 import com.google.inject.Inject;
 import com.kblaney.ohl.ProgressIndicator;
 import com.kblaney.ohl.StatsProvider;
