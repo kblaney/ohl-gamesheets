@@ -5,7 +5,7 @@
    <groupId>com.kblaney</groupId>
    <artifactId>ohl-gamesheets</artifactId>
    <packaging>jar</packaging>
-   <version>2013-Playoffs-1-SNAPSHOT</version>
+   <version>2013-14-RegularSeason-1-SNAPSHOT</version>
    <name>Kyle Blaney's OHL Gamesheets</name>
    <description>Kyle Blaney's OHL Gamesheets</description>
    <url>https://github.com/kblaney/ohl-gamesheets</url>
