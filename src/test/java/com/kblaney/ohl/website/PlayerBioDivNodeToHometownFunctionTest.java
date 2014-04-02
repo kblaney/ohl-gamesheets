@@ -52,4 +52,11 @@ public final class PlayerBioDivNodeToHometownFunctionTest
     final Element element = getElementWithHometown("Belleville, ON, Canada");
     assertEquals("Belleville, ON", function.apply(element));
   }
+
+  @Test
+  public void apply_hometownHasBackToBackCommas() throws Exception
+  {
+    final Element element = getElementWithHometown("Savonlinna, , Finland");
+    assertEquals("Savonlinna, Finland", function.apply(element));
+  }
 }

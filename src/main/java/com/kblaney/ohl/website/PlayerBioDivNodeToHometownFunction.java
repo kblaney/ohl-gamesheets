@@ -19,11 +19,11 @@ final class PlayerBioDivNodeToHometownFunction implements Function<Node, String>
       if (rowNode.getLastChild().hasChildNodes())
       {
         final String nodeValue = rowNode.getLastChild().getFirstChild().getNodeValue();
-        final Pattern p = Pattern.compile("^[^,]+, [^,]+");
+        final Pattern p = Pattern.compile("^([^,]+)[, ]+([^,]+)");
         final Matcher m = p.matcher(nodeValue);
         if (m.find())
         {
-          return m.group();
+          return m.group(1) + ", " + m.group(2);
         }
         else
         {
