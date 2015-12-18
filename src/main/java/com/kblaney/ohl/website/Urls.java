@@ -32,7 +32,7 @@ final class Urls
   private static String getSeasonPair()
   {
     final String key = "season_id";
-    final String seasonValue = "53";
+    final String seasonValue = "54";
     return PhpUtil.getPair(key, seasonValue);
   }
 
